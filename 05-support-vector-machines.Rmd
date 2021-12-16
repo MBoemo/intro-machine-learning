@@ -88,21 +88,14 @@ Load required libraries
 library(caret)
 library(RColorBrewer)
 library(ggplot2)
-library(doMC)
 library(pROC)
 library(e1071)
 ```
-
-Initialize parallel processing
-```{r echo=T}
-registerDoMC(detectCores())
-getDoParWorkers()
-```
-
 ### Partition data
 Load data
 ```{r echo=T}
 moons <- read.csv("data/sim_data_svm/moons.csv", header=F)
+moons$V3=as.factor(moons$V3)
 str(moons)
 ```
 
@@ -120,6 +113,7 @@ summary(moonsTest$V3)
 ```
 
 ### Visualize training data
+
 ```{r svmMoonsTrainSet, fig.cap='Scatterplot of the training data', out.width='50%', fig.asp=1, fig.align='center', echo=T}
 point_shapes <- c(15,17)
 bp <- brewer.pal(3,"Dark2")
@@ -137,9 +131,116 @@ ggplot(moonsTrain, aes(V1,V2)) +
 
 
 ```
+```{r echo=T}
+set.seed(42)
+seeds = vector(mode='list',length=101) #this is #folds+1 so 10+1
+for (i in 1:100) seeds[[i]] = sample.int(1000,100)
+seeds[[101]] = sample.int(1000,1)
 
+trctrl <- trainControl(method = "repeatedcv", 
+                       number = 10, 
+                       repeats = 10,
+                       seeds = seeds,
+                       classProbs=TRUE)
+library(e1071)
+svmTune <- train(x = moonsTrain[,c(1:2)],
+                 y = moonsTrain[,3],
+                 method = "svmRadial",
+                 tuneLength = 9,
+                 preProc = c("center", "scale"),
+                 trControl = trctrl)
+                 
+svmTune
+```
 
-### Define a custom model
+### Prediction performance measures
+SVM accuracy profile
+
+Predictions on test set.
+```{r echo=T}
+svmPred <- predict(svmTune, moonsTest[,c(1:2)])
+confusionMatrix(svmPred, as.factor(moonsTest[,3]))
+```
+
+Get predicted class probabilities so we can build ROC curve.
+```{r echo=T}
+svmProbs <- predict(svmTune, moonsTest[,c(1:2)], type="prob")
+head(svmProbs)
+```
+
+Build a ROC curve.
+```{r echo=T}
+svmROC <- roc(moonsTest[,3], svmProbs[,"A"])
+```
+
+Plot ROC curve.
+```{r svmROCcurveMoons, fig.cap='SVM accuracy profile.', out.width='80%', fig.asp=1, fig.align='center', echo=T}
+plot(svmROC, type = "S")
+```
+**Sensitivity (true positive rate)**
+
+_TPR = TP/P = TP/(TP+FN)_
+
+**Specificity (true negative rate)**
+
+_SPC = TN/N = TN/(TN+FP)_
+
+Calculate area under ROC curve. 
+```{r echo=T}
+auc(svmROC)
+```
+
+### Plot decision boundary
+Create a grid so we can predict across the full range of our variables V1 and V2.
+
+```{r echo=T}
+gridSize <- 150 
+v1limits <- c(min(moons$V1),max(moons$V1))
+tmpV1 <- seq(v1limits[1],v1limits[2],len=gridSize)
+v2limits <- c(min(moons$V2), max(moons$V2))
+tmpV2 <- seq(v2limits[1],v2limits[2],len=gridSize)
+xgrid <- expand.grid(tmpV1,tmpV2)
+names(xgrid) <- names(moons)[1:2]
+```
+
+Predict values of all elements of grid.
+```{r echo=T}
+V3 <- as.numeric(predict(svmTune, xgrid))
+xgrid <- cbind(xgrid, V3)
+
+```
+
+Plot
+```{r simDataBinClassDecisionBoundarySVM, fig.cap='Decision boundary created by radial kernel SVM.', out.width='50%', fig.asp=1, fig.align='center', fig.show='hold', echo=T}
+point_shapes <- c(15,17)
+point_colours <- brewer.pal(3,"Dark2")
+point_size = 2
+
+trainClassNumeric <- ifelse(moonsTrain$V3=="A", 1, 2)
+testClassNumeric <- ifelse(moonsTest$V3=="A", 1, 2)
+
+ggplot(xgrid, aes(V1,V2)) +
+  geom_point(col=point_colours[V3], shape=16, size=0.3) +
+  geom_point(data=moonsTrain, aes(V1,V2), col=point_colours[trainClassNumeric],
+             shape=point_shapes[trainClassNumeric], size=point_size) +
+  geom_contour(data=xgrid, aes(x=V1, y=V2, z=V3), breaks=1.5, col="grey30") +
+  ggtitle("train") +
+  theme_bw() +
+  theme(plot.title = element_text(size=25, face="bold"), axis.text=element_text(size=15),
+        axis.title=element_text(size=20,face="bold"))
+
+ggplot(xgrid, aes(V1,V2)) +
+  geom_point(col=point_colours[V3], shape=16, size=0.3) +
+  geom_point(data=moonsTest, aes(V1,V2), col=point_colours[testClassNumeric],
+             shape=point_shapes[testClassNumeric], size=point_size) +
+  geom_contour(data=xgrid, aes(x=V1, y=V2, z=V3), breaks=1.5, col="grey30") +
+  ggtitle("test") +
+  theme_bw() +
+  theme(plot.title = element_text(size=25, face="bold"), axis.text=element_text(size=15),
+        axis.title=element_text(size=20,face="bold"))
+```
+
+## Defining your own model type to use in caret
 
 Caret has over two hundred built in models, including several support vector machines:
 [https://topepo.github.io/caret/available-models.html](https://topepo.github.io/caret/available-models.html)
@@ -206,22 +307,16 @@ svmRadialE1071 <- list(
 )
 
 ```
+
 Note that the radial SVM model we have defined has only one tuning parameter, cost (_C_). If we do not define the kernel parameter _gamma_, e1071 will automatically calculate it as 1/(data dimension); _i.e._ if we have 58 predictors, _gamma_ will be 1/58 = 0.01724.
 
 ### Model cross-validation and tuning
-Set seeds for reproducibility. We will be trying 9 values of the tuning parameter with 10 repeats of 10 fold cross-validation, so we need the following list of seeds.
-```{r echo=T}
-set.seed(42)
-seeds <- vector(mode = "list", length = 26)
-for(i in 1:25) seeds[[i]] <- sample.int(1000, 9)
-seeds[[26]] <- sample.int(1000,1)
-```
 
 We will pass the twoClassSummary function into model training through trainControl. Additionally we would like the model to predict class probabilities so that we can calculate the ROC curve, so we use the classProbs option.
 ```{r echo=T}
 cvCtrl <- trainControl(method = "repeatedcv", 
-                       repeats = 5,
-                       number = 5,
+                       repeats = 10,
+                       number = 10,
                        summaryFunction = twoClassSummary,
                        classProbs = TRUE,
                        seeds=seeds)
@@ -244,146 +339,159 @@ svmTune
 svmTune$finalModel
 ```
 
+## Iris example
 
+```{r iris}
+library(datasets)
+data(iris) ##loads the dataset, which can be accessed under the variable name iris
+?iris ##opens the documentation for the dataset
+summary(iris) ##presents the 5 figure summary of the dataset
+str(iris) ##presents the structure of the iris dataframe
+```
 
-### Prediction performance measures
+```{r iris split training test}
+set.seed(42)
+trainTestPartition<-createDataPartition(y=iris$Species, #the class label, caret ensures an even split of classes
+                                        p=0.7, #proportion of samples assigned to train
+                                        list=FALSE)
+str(trainTestPartition)
+
+iris.training <- iris[ trainTestPartition,] #take the corresponding rows for training
+iris.testing  <- iris[-trainTestPartition,] #take the corresponding rows for testing by removing training rows
+```
+
+```{r}
+set.seed(42)
+seeds = vector(mode='list',length=101) #you need length #folds*#repeats + 1 so 10*10 + 1 here
+for (i in 1:100) seeds[[i]] = sample.int(1000,10)
+seeds[[101]] = sample.int(1000,1)
+
+train_ctrl_seed_repeated = trainControl(method='repeatedcv',
+                              number=10, #number of folds
+                              repeats=10, #number of times to repeat cross-validation
+                              seeds=seeds)
+iris_svm <- train(
+                  Species ~ .,
+                  data = iris.training,
+                  method = "svmLinear",
+                  parms = list(split = "gini"),
+                  preProc = c("corr","nzv","center", "scale","BoxCox"),
+                  tuneLength=10,
+                  trControl = train_ctrl_seed_repeated
+)
+iris_svm
+iris_information_predict_train=predict(iris_svm,iris.training,type='raw')
+confusionMatrix(iris_information_predict_train,iris.training$Species)
+
+iris_gini_predict=predict(iris_svm,iris.testing,type='raw')
+confusionMatrix(iris_gini_predict,iris.testing$Species)
+```
+
+## Cell segmentation example
+
+Load required libraries
+```{r echo=T}
+library(caret)
+library(pROC)
+library(e1071)
+```
+
+Load data
+```{r echo=T}
+data(segmentationData)
+```
+
+```{r echo=T}
+segClass <- segmentationData$Class
+```
+
+Extract predictors from segmentationData
+```{r echo=T}
+segData <- segmentationData[,4:59]
+```
+
+Partition data
+```{r echo=T}
+set.seed(42)
+trainIndex <- createDataPartition(y=segClass, times=1, p=0.5, list=F)
+segDataTrain <- segData[trainIndex,]
+segDataTest <- segData[-trainIndex,]
+segClassTrain <- segClass[trainIndex]
+segClassTest <- segClass[-trainIndex]
+```
+
+Set seeds for reproducibility (optional). We will be trying 9 values of the tuning parameter with 5 repeats of 10 fold cross-validation, so we need the following list of seeds.
+```{r echo=T}
+set.seed(42)
+seeds <- vector(mode = "list", length = 51)
+for(i in 1:50) seeds[[i]] <- sample.int(1000, 9)
+seeds[[51]] <- sample.int(1000,1)
+```
+
+We will pass the twoClassSummary function into model training through **trainControl**. Additionally we would like the model to predict class probabilities so that we can calculate the ROC curve, so we use the **classProbs** option. 
+```{r echo=T}
+cvCtrl <- trainControl(method = "repeatedcv", 
+                       repeats = 5,
+                       number = 10,
+                       summaryFunction = twoClassSummary,
+                       classProbs = TRUE,
+                       seeds=seeds)
+```
+
+Tune SVM over the cost parameter. The default grid of cost parameters start at 0.25 and double at each iteration. Choosing ```tuneLength = 9``` will give us cost parameters of 0.25, 0.5, 1, 2, 4, 8, 16, 32 and 64. The train function will calculate an appropriate value of sigma (the kernel parameter) from the data.
+```{r echo=T}
+svmTune <- train(x = segDataTrain,
+                 y = segClassTrain,
+                 method = 'svmRadial',
+                 tuneLength = 9,
+                 preProc = c("center", "scale"),
+                 metric = "ROC",
+                 trControl = cvCtrl)
+
+svmTune
+
+```
+
+```{r echo=T}
+svmTune$finalModel
+```
+
 SVM accuracy profile
-```{r svmAccuracyProfileMoons, fig.cap='SVM accuracy profile for moons data set.', out.width='80%', fig.asp=0.7, fig.align='center', echo=T}
+```{r svmAccuracyProfileCellSegment, fig.cap='SVM accuracy profile.', out.width='80%', fig.asp=0.7, fig.align='center', echo=T}
 plot(svmTune, metric = "ROC", scales = list(x = list(log =2)))
 ```
 
-Predictions on test set.
+Test set results
 ```{r echo=T}
-svmPred <- predict(svmTune, moonsTest[,c(1:2)])
-confusionMatrix(svmPred, as.factor(moonsTest[,3]))
+svmPred <- predict(svmTune, segDataTest)
+confusionMatrix(svmPred, segClassTest)
 ```
 
-Get predicted class probabilities so we can build ROC curve.
+Get predicted class probabilities
 ```{r echo=T}
-svmProbs <- predict(svmTune, moonsTest[,c(1:2)], type="prob")
+svmProbs <- predict(svmTune, segDataTest, type="prob")
 head(svmProbs)
 ```
 
-Build a ROC curve.
+Build a ROC curve
 ```{r echo=T}
-svmROC <- roc(moonsTest[,3], svmProbs[,"A"])
+svmROC <- roc(segClassTest, svmProbs[,"PS"])
 auc(svmROC)
 ```
 
 Plot ROC curve.
-```{r svmROCcurveMoons, fig.cap='SVM accuracy profile.', out.width='80%', fig.asp=1, fig.align='center', echo=T}
+```{r svmROCcurveCellSegment, fig.cap='SVM ROC curve for cell segmentation data set.', out.width='80%', fig.asp=1, fig.align='center', echo=T}
 plot(svmROC, type = "S")
 ```
-**Sensitivity (true positive rate)**
 
-_TPR = TP/P = TP/(TP+FN)_
-
-**Specificity (true negative rate)**
-
-_SPC = TN/N = TN/(TN+FP)_
-
-Calculate area under ROC curve. 
+Calculate area under ROC curve
 ```{r echo=T}
 auc(svmROC)
 ```
 
-### Plot decision boundary
-Create a grid so we can predict across the full range of our variables V1 and V2.
-```{r echo=T}
-gridSize <- 150 
-v1limits <- c(min(moons$V1),max(moons$V1))
-tmpV1 <- seq(v1limits[1],v1limits[2],len=gridSize)
-v2limits <- c(min(moons$V2), max(moons$V2))
-tmpV2 <- seq(v2limits[1],v2limits[2],len=gridSize)
-xgrid <- expand.grid(tmpV1,tmpV2)
-names(xgrid) <- names(moons)[1:2]
-```
-
-Predict values of all elements of grid.
-```{r echo=T}
-V3 <- as.numeric(predict(svmTune, xgrid))
-xgrid <- cbind(xgrid, V3)
-
-```
-
-Plot
-```{r simDataBinClassDecisionBoundarySVM, fig.cap='Decision boundary created by radial kernel SVM.', out.width='50%', fig.asp=1, fig.align='center', fig.show='hold', echo=T}
-point_shapes <- c(15,17)
-point_colours <- brewer.pal(3,"Dark2")
-point_size = 2
-
-trainClassNumeric <- ifelse(moonsTrain$V3=="A", 1, 2)
-testClassNumeric <- ifelse(moonsTest$V3=="A", 1, 2)
-
-ggplot(xgrid, aes(V1,V2)) +
-  geom_point(col=point_colours[V3], shape=16, size=0.3) +
-  geom_point(data=moonsTrain, aes(V1,V2), col=point_colours[trainClassNumeric],
-             shape=point_shapes[trainClassNumeric], size=point_size) +
-  geom_contour(data=xgrid, aes(x=V1, y=V2, z=V3), breaks=1.5, col="grey30") +
-  ggtitle("train") +
-  theme_bw() +
-  theme(plot.title = element_text(size=25, face="bold"), axis.text=element_text(size=15),
-        axis.title=element_text(size=20,face="bold"))
-
-ggplot(xgrid, aes(V1,V2)) +
-  geom_point(col=point_colours[V3], shape=16, size=0.3) +
-  geom_point(data=moonsTest, aes(V1,V2), col=point_colours[testClassNumeric],
-             shape=point_shapes[testClassNumeric], size=point_size) +
-  geom_contour(data=xgrid, aes(x=V1, y=V2, z=V3), breaks=1.5, col="grey30") +
-  ggtitle("test") +
-  theme_bw() +
-  theme(plot.title = element_text(size=25, face="bold"), axis.text=element_text(size=15),
-        axis.title=element_text(size=20,face="bold"))
-```
-
-**Iris example**
-
-splitting the data into training set and test set
-```{r echo=T}
-library(e1071)
-library(caTools)
-my.split = sample.split(iris$Species, SplitRatio = .8)
-training_set = subset(iris, my.split == TRUE)
-test_set = subset(iris, my.split == FALSE)
-nrow(training_set)
-```
-
-```{r echo=T}
-training_set[,1:4] = scale(training_set[,1:4])
-test_set[,1:4] = scale(test_set[,1:4])
-classifier1 = svm(formula = Species~., data = training_set, type = 'C-classification', kernel = 'radial')
-classifier2 = svm(formula = Species~ Petal.Width + Petal.Length, data = training_set, type = 'C-classification', kernel = 'radial')
-```
-
-
-```{r echo=T}
-test_pred1 = predict(classifier1, type = 'response', newdata = test_set[-5])
-test_pred2 = predict(classifier2, type = 'response', newdata = test_set[-5])
-# Making Confusion Matrix
-cm1 = table(test_set[,5], test_pred1)
-cm2 = table(test_set[,5], test_pred2)
-cm1 # Confusion Matrix for all parameters
-cm2 # Confusion Matrix for parameters being Petal Length and Petal Width
-```
-
-The accuracy for both model looks solid. Also notice that as we had deduced, only Petal Length and Width is important to make this model accurate and our second classifier proves it!
-
-```{r svm.plots}
-m2 <- svm(Species~., data = iris)
-plot(m2, iris, Petal.Width ~ Petal.Length,
-      slice = list(Sepal.Width = 3, Sepal.Length = 4))
-```
-
-```{r svm.subsets}
-iris.part = subset(iris, Species != 'setosa')
-iris.part$Species = factor(iris.part$Species)
-#iris.part = iris.part[, c(1,2,5)]
-svm.fit = svm(formula=Species~., data=iris.part, type='C-classification', kernel='linear')
-plot(svm.fit, iris.part, Petal.Width ~ Petal.Length, slice = list(Sepal.Width = 3, Sepal.Length = 4))
-```
-
 ## Example - regression
-This example serves to demonstrate the use of SVMs in regression, but perhaps more importantly, it highlights the power and flexibility of the [caret](http://cran.r-project.org/web/packages/caret/index.html) package. Earlier we used _k_-NN for a regression analysis of the **BloodBrain** dataset (see section \@ref(knn-regression)). We will repeat the regression analysis, but this time we will fit a radial kernel SVM. Remarkably, a re-run of this analysis using a completely different type of model, requires changes to only two lines of code.
+
+This example serves to demonstrate the use of SVMs in regression, but perhaps more importantly, it highlights the power and flexibility of the [caret](http://cran.r-project.org/web/packages/caret/index.html) package. Earlier we used _k_-NN for a regression analysis of the **BloodBrain** dataset (see section B2_kNearestNeighbours.Rmd). We will repeat the regression analysis, but this time we will fit a radial kernel SVM. Remarkably, a re-run of this analysis using a completely different type of model, requires changes to only two lines of code.
 
 The pre-processing steps and generation of seeds are identical, therefore if the data were still in memory, we could skip this next block of code:
 ```{r echo=T}
@@ -416,8 +524,7 @@ svmTune2 <- train(descrTrain,
                  trControl = trainControl(method="repeatedcv",
                                           number = 5,
                                           repeats = 5,
-                                          seeds=seeds,
-                                          preProcOptions=list(cutoff=0.75)
+                                          seeds=seeds
                                           )
 )
 
@@ -450,23 +557,3 @@ cor(concRatioTest, test_pred)
 
 ## Further reading
 [An Introduction to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/)
-
-## Exercises
-
-### Exercise 1
-
-In this exercise we will return to the cell segmentation data set that we attempted to classify using _k_-nn in section \@ref(knn-cell-segmentation) of the nearest neighbours chapter.
-```{r echo=T}
-data(segmentationData)
-```
-
-The aim of the exercise is to build a binary classifier to predict the quality of segmentation (poorly segmented or well segmented) based on the various morphological features. 
-
-* Do not worry about feature selection, but you may want to pre-process the data. 
-
-* Use a radial SVM model and tune over the cost function C. 
-
-* Produce a ROC curve to show the performance of the classifier on the test set. 
-
-
-Solutions to exercises can be found in appendix \@ref(solutions-svm)
