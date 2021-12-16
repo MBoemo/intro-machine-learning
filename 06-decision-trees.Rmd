@@ -150,7 +150,7 @@ library(caret)
 library(rpart.plot)
 #download.file(url = "https://archive.ics.uci.edu/ml/machine-learning-databases/car/car.data",
 #              destfile = "data/car.data")
-car.data <- read.csv("data/car.data", sep = ',', header = FALSE)
+car.data <- read.csv("data/Decision_tree_and_RF/car.data", sep = ',', header = FALSE)
 colnames(car.data)=c('buying','maint','doors','persons','lug_boot','safety','class')
 ```
 
@@ -409,7 +409,7 @@ library(randomForest)
 We will again use the car data which we used for the Decision Tree example.
 
 ```{r load car data rf}
-car.data <- read.csv("data/car.data", sep = ',', header = FALSE)
+car.data <- read.csv("data/Decision_tree_and_RF/car.data", sep = ',', header = FALSE)
 colnames(car.data)=c('buying','maint','doors','persons','lug_boot','safety','class')
 set.seed(42)
 trainTestPartition <- createDataPartition(y = car.data$class, p= 0.7, list = FALSE)
