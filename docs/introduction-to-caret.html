@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Introduction to CARET | An Introduction to Machine Learning</title>
+  <meta name="description" content="Course materials for An Introduction to Machine Learning" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Introduction to CARET | An Introduction to Machine Learning" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/figures/cover_image.png" />
+  <meta property="og:description" content="Course materials for An Introduction to Machine Learning" />
+  <meta name="github-repo" content="bioinformatics-training/intro-machine-learning-2019" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Introduction to CARET | An Introduction to Machine Learning" />
+  
+  <meta name="twitter:description" content="Course materials for An Introduction to Machine Learning" />
+  <meta name="twitter:image" content="/figures/cover_image.png" />
+
+<meta name="author" content="Sudhakaran Prabakaran, Matt Wayland and Chris Penfold" />
+
+
+<meta name="date" content="2020-10-07" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intro.html"/>
+<link rel="next" href="dimensionality-reduction.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About the course</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#overview"><i class="fa fa-check"></i><b>1.1</b> Overview</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#registration"><i class="fa fa-check"></i><b>1.2</b> Registration</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i><b>1.3</b> Prerequisites</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#github"><i class="fa fa-check"></i><b>1.4</b> Github</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i><b>1.5</b> License</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#contact"><i class="fa fa-check"></i><b>1.6</b> Contact</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#colophon"><i class="fa fa-check"></i><b>1.7</b> Colophon</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-machine-learning"><i class="fa fa-check"></i><b>2.1</b> What is machine learning?</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#aspects-of-ml"><i class="fa fa-check"></i><b>2.2</b> Aspects of ML</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#what-actually-happened-under-the-hood"><i class="fa fa-check"></i><b>2.3</b> What actually happened under the hood</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introduction-to-caret.html"><a href="introduction-to-caret.html"><i class="fa fa-check"></i><b>3</b> Introduction to CARET</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introduction-to-caret.html"><a href="introduction-to-caret.html#preprocessing-with-the-iris-dataset"><i class="fa fa-check"></i><b>3.1</b> Preprocessing with the Iris dataset</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="introduction-to-caret.html"><a href="introduction-to-caret.html#applying-preprocessing-functions-separately"><i class="fa fa-check"></i><b>3.1.1</b> Applying preprocessing functions separately</a></li>
+<li class="chapter" data-level="3.1.2" data-path="introduction-to-caret.html"><a href="introduction-to-caret.html#using-preprocess-function"><i class="fa fa-check"></i><b>3.1.2</b> Using preProcess function</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-caret.html"><a href="introduction-to-caret.html#training-different-types-of-models"><i class="fa fa-check"></i><b>3.2</b> Training different types of models</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="introduction-to-caret.html"><a href="introduction-to-caret.html#adding-preprocessing-within-training"><i class="fa fa-check"></i><b>3.2.1</b> Adding preprocessing within training</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-caret.html"><a href="introduction-to-caret.html#cross-validation"><i class="fa fa-check"></i><b>3.3</b> Cross-validation</a></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-caret.html"><a href="introduction-to-caret.html#optimising-hyperparameters"><i class="fa fa-check"></i><b>3.4</b> Optimising hyperparameters</a></li>
+<li class="chapter" data-level="3.5" data-path="introduction-to-caret.html"><a href="introduction-to-caret.html#using-dummy-variables-with-the-sacramento-dataset"><i class="fa fa-check"></i><b>3.5</b> Using dummy variables with the Sacramento dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html"><i class="fa fa-check"></i><b>4</b> Dimensionality reduction</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#linear-dimensionality-reduction"><i class="fa fa-check"></i><b>4.1</b> Linear Dimensionality Reduction</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#interpreting-the-principle-component-axes"><i class="fa fa-check"></i><b>4.1.1</b> Interpreting the Principle Component Axes</a></li>
+<li class="chapter" data-level="4.1.2" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#horseshoe-effect"><i class="fa fa-check"></i><b>4.1.2</b> Horseshoe effect</a></li>
+<li class="chapter" data-level="4.1.3" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#pca-analysis-of-mammalian-development"><i class="fa fa-check"></i><b>4.1.3</b> PCA analysis of mammalian development</a></li>
+<li class="chapter" data-level="4.1.4" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#biological-interpretation"><i class="fa fa-check"></i><b>4.1.4</b> Biological interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#nonlinear-dimensionality-reduction"><i class="fa fa-check"></i><b>4.2</b> Nonlinear Dimensionality Reduction</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#nonlinear-warping"><i class="fa fa-check"></i><b>4.2.1</b> Nonlinear warping</a></li>
+<li class="chapter" data-level="4.2.2" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#stochasticity"><i class="fa fa-check"></i><b>4.2.2</b> Stochasticity</a></li>
+<li class="chapter" data-level="4.2.3" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#analysis-of-mammalian-development"><i class="fa fa-check"></i><b>4.2.3</b> Analysis of mammalian development</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#other-dimensionality-reduction-techniques"><i class="fa fa-check"></i><b>4.3</b> Other dimensionality reduction techniques</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>5</b> Clustering</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="clustering.html"><a href="clustering.html#introduction"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="clustering.html"><a href="clustering.html#registered-s3-method-overwritten-by-ggally"><i class="fa fa-check"></i><b>5.2</b> Registered S3 method overwritten by ‘GGally’:</a></li>
+<li class="chapter" data-level="5.3" data-path="clustering.html"><a href="clustering.html#method-from"><i class="fa fa-check"></i><b>5.3</b> method from</a></li>
+<li class="chapter" data-level="5.4" data-path="clustering.html"><a href="clustering.html#gg-ggplot2"><i class="fa fa-check"></i><b>5.4</b> +.gg ggplot2</a></li>
+<li class="chapter" data-level="5.5" data-path="clustering.html"><a href="clustering.html#distance-metrics"><i class="fa fa-check"></i><b>5.5</b> Distance metrics</a></li>
+<li class="chapter" data-level="5.6" data-path="clustering.html"><a href="clustering.html#hierarchic-agglomerative"><i class="fa fa-check"></i><b>5.6</b> Hierarchic agglomerative</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="clustering.html"><a href="clustering.html#linkage-algorithms"><i class="fa fa-check"></i><b>5.6.1</b> Linkage algorithms</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="clustering.html"><a href="clustering.html#k-means"><i class="fa fa-check"></i><b>5.7</b> K-means</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="clustering.html"><a href="clustering.html#algorithm"><i class="fa fa-check"></i><b>5.7.1</b> Algorithm</a></li>
+<li class="chapter" data-level="5.7.2" data-path="clustering.html"><a href="clustering.html#choosing-initial-cluster-centres"><i class="fa fa-check"></i><b>5.7.2</b> Choosing initial cluster centres</a></li>
+<li class="chapter" data-level="5.7.3" data-path="clustering.html"><a href="clustering.html#choosingK"><i class="fa fa-check"></i><b>5.7.3</b> Choosing k</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="clustering.html"><a href="clustering.html#dbscan"><i class="fa fa-check"></i><b>5.8</b> DBSCAN</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="clustering.html"><a href="clustering.html#algorithm-1"><i class="fa fa-check"></i><b>5.8.1</b> Algorithm</a></li>
+<li class="chapter" data-level="5.8.2" data-path="clustering.html"><a href="clustering.html#implementation-in-r"><i class="fa fa-check"></i><b>5.8.2</b> Implementation in R</a></li>
+<li class="chapter" data-level="5.8.3" data-path="clustering.html"><a href="clustering.html#choosing-parameters"><i class="fa fa-check"></i><b>5.8.3</b> Choosing parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="clustering.html"><a href="clustering.html#section"><i class="fa fa-check"></i><b>5.9</b> </a></li>
+<li class="chapter" data-level="5.10" data-path="clustering.html"><a href="clustering.html#section-1"><i class="fa fa-check"></i><b>5.10</b> 0 1 2 3</a></li>
+<li class="chapter" data-level="5.11" data-path="clustering.html"><a href="clustering.html#section-2"><i class="fa fa-check"></i><b>5.11</b> 43 484 486 487</a></li>
+<li class="chapter" data-level="5.12" data-path="clustering.html"><a href="clustering.html#example-clustering-synthetic-data-sets"><i class="fa fa-check"></i><b>5.12</b> Example: clustering synthetic data sets</a>
+<ul>
+<li class="chapter" data-level="5.12.1" data-path="clustering.html"><a href="clustering.html#hierarchic-agglomerative-1"><i class="fa fa-check"></i><b>5.12.1</b> Hierarchic agglomerative</a></li>
+</ul></li>
+<li class="chapter" data-level="5.13" data-path="clustering.html"><a href="clustering.html#section-3"><i class="fa fa-check"></i><b>5.13</b> </a></li>
+<li class="chapter" data-level="5.14" data-path="clustering.html"><a href="clustering.html#section-4"><i class="fa fa-check"></i><b>5.14</b> ———————</a></li>
+<li class="chapter" data-level="5.15" data-path="clustering.html"><a href="clustering.html#welcome-to-dendextend-version-1.15.2"><i class="fa fa-check"></i><b>5.15</b> Welcome to dendextend version 1.15.2</a></li>
+<li class="chapter" data-level="5.16" data-path="clustering.html"><a href="clustering.html#type-citationdendextend-for-how-to-cite-the-package."><i class="fa fa-check"></i><b>5.16</b> Type citation(‘dendextend’) for how to cite the package.</a></li>
+<li class="chapter" data-level="5.17" data-path="clustering.html"><a href="clustering.html#section-5"><i class="fa fa-check"></i><b>5.17</b> </a></li>
+<li class="chapter" data-level="5.18" data-path="clustering.html"><a href="clustering.html#type-browsevignettespackage-dendextend-for-the-package-vignette."><i class="fa fa-check"></i><b>5.18</b> Type browseVignettes(package = ‘dendextend’) for the package vignette.</a></li>
+<li class="chapter" data-level="5.19" data-path="clustering.html"><a href="clustering.html#the-github-page-is-httpsgithub.comtalgalilidendextend"><i class="fa fa-check"></i><b>5.19</b> The github page is: <span>https://github.com/talgalili/dendextend/</span></a></li>
+<li class="chapter" data-level="5.20" data-path="clustering.html"><a href="clustering.html#section-6"><i class="fa fa-check"></i><b>5.20</b> </a></li>
+<li class="chapter" data-level="5.21" data-path="clustering.html"><a href="clustering.html#suggestions-and-bug-reports-can-be-submitted-at-httpsgithub.comtalgalilidendextendissues"><i class="fa fa-check"></i><b>5.21</b> Suggestions and bug-reports can be submitted at: <span>https://github.com/talgalili/dendextend/issues</span></a></li>
+<li class="chapter" data-level="5.22" data-path="clustering.html"><a href="clustering.html#you-may-ask-questions-at-stackoverflow-use-the-r-and-dendextend-tags"><i class="fa fa-check"></i><b>5.22</b> You may ask questions at stackoverflow, use the r and dendextend tags:</a></li>
+<li class="chapter" data-level="5.23" data-path="clustering.html"><a href="clustering.html#httpsstackoverflow.comquestionstaggeddendextend"><i class="fa fa-check"></i><b>5.23</b> <span>https://stackoverflow.com/questions/tagged/dendextend</span></a></li>
+<li class="chapter" data-level="5.24" data-path="clustering.html"><a href="clustering.html#section-7"><i class="fa fa-check"></i><b>5.24</b> </a></li>
+<li class="chapter" data-level="5.25" data-path="clustering.html"><a href="clustering.html#to-suppress-this-message-use-suppresspackagestartupmessageslibrarydendextend"><i class="fa fa-check"></i><b>5.25</b> To suppress this message use: suppressPackageStartupMessages(library(dendextend))</a></li>
+<li class="chapter" data-level="5.26" data-path="clustering.html"><a href="clustering.html#section-8"><i class="fa fa-check"></i><b>5.26</b> ———————</a></li>
+<li class="chapter" data-level="5.27" data-path="clustering.html"><a href="clustering.html#section-9"><i class="fa fa-check"></i><b>5.27</b> </a></li>
+<li class="chapter" data-level="5.28" data-path="clustering.html"><a href="clustering.html#attaching-package-dendextend"><i class="fa fa-check"></i><b>5.28</b> Attaching package: ‘dendextend’</a></li>
+<li class="chapter" data-level="5.29" data-path="clustering.html"><a href="clustering.html#the-following-object-is-masked-from-packageggdendro"><i class="fa fa-check"></i><b>5.29</b> The following object is masked from ‘package:ggdendro’:</a></li>
+<li class="chapter" data-level="5.30" data-path="clustering.html"><a href="clustering.html#section-10"><i class="fa fa-check"></i><b>5.30</b> </a></li>
+<li class="chapter" data-level="5.31" data-path="clustering.html"><a href="clustering.html#theme_dendro"><i class="fa fa-check"></i><b>5.31</b> theme_dendro</a></li>
+<li class="chapter" data-level="5.32" data-path="clustering.html"><a href="clustering.html#the-following-object-is-masked-from-packagestats"><i class="fa fa-check"></i><b>5.32</b> The following object is masked from ‘package:stats’:</a></li>
+<li class="chapter" data-level="5.33" data-path="clustering.html"><a href="clustering.html#section-11"><i class="fa fa-check"></i><b>5.33</b> </a></li>
+<li class="chapter" data-level="5.34" data-path="clustering.html"><a href="clustering.html#cutree"><i class="fa fa-check"></i><b>5.34</b> cutree</a>
+<ul>
+<li class="chapter" data-level="5.34.1" data-path="clustering.html"><a href="clustering.html#k-means-1"><i class="fa fa-check"></i><b>5.34.1</b> K-means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.35" data-path="clustering.html"><a href="clustering.html#warning-did-not-converge-in-10-iterations"><i class="fa fa-check"></i><b>5.35</b> Warning: did not converge in 10 iterations</a></li>
+<li class="chapter" data-level="5.36" data-path="clustering.html"><a href="clustering.html#warning-did-not-converge-in-10-iterations-1"><i class="fa fa-check"></i><b>5.36</b> Warning: did not converge in 10 iterations</a>
+<ul>
+<li class="chapter" data-level="5.36.1" data-path="clustering.html"><a href="clustering.html#dbscan-1"><i class="fa fa-check"></i><b>5.36.1</b> DBSCAN</a></li>
+</ul></li>
+<li class="chapter" data-level="5.37" data-path="clustering.html"><a href="clustering.html#section-12"><i class="fa fa-check"></i><b>5.37</b> </a></li>
+<li class="chapter" data-level="5.38" data-path="clustering.html"><a href="clustering.html#section-13"><i class="fa fa-check"></i><b>5.38</b> 0 1 2 3 4 5 6</a></li>
+<li class="chapter" data-level="5.39" data-path="clustering.html"><a href="clustering.html#section-14"><i class="fa fa-check"></i><b>5.39</b> 2 168 307 105 127 45 34</a></li>
+<li class="chapter" data-level="5.40" data-path="clustering.html"><a href="clustering.html#section-15"><i class="fa fa-check"></i><b>5.40</b> </a></li>
+<li class="chapter" data-level="5.41" data-path="clustering.html"><a href="clustering.html#section-16"><i class="fa fa-check"></i><b>5.41</b> 0 1 2</a></li>
+<li class="chapter" data-level="5.42" data-path="clustering.html"><a href="clustering.html#section-17"><i class="fa fa-check"></i><b>5.42</b> 8 748 744</a></li>
+<li class="chapter" data-level="5.43" data-path="clustering.html"><a href="clustering.html#section-18"><i class="fa fa-check"></i><b>5.43</b> </a></li>
+<li class="chapter" data-level="5.44" data-path="clustering.html"><a href="clustering.html#section-19"><i class="fa fa-check"></i><b>5.44</b> 0 1</a></li>
+<li class="chapter" data-level="5.45" data-path="clustering.html"><a href="clustering.html#section-20"><i class="fa fa-check"></i><b>5.45</b> 40 1460</a></li>
+<li class="chapter" data-level="5.46" data-path="clustering.html"><a href="clustering.html#section-21"><i class="fa fa-check"></i><b>5.46</b> </a></li>
+<li class="chapter" data-level="5.47" data-path="clustering.html"><a href="clustering.html#section-22"><i class="fa fa-check"></i><b>5.47</b> 0 1 2</a></li>
+<li class="chapter" data-level="5.48" data-path="clustering.html"><a href="clustering.html#section-23"><i class="fa fa-check"></i><b>5.48</b> 109 399 992</a></li>
+<li class="chapter" data-level="5.49" data-path="clustering.html"><a href="clustering.html#section-24"><i class="fa fa-check"></i><b>5.49</b> </a></li>
+<li class="chapter" data-level="5.50" data-path="clustering.html"><a href="clustering.html#section-25"><i class="fa fa-check"></i><b>5.50</b> 0 1 2 3</a></li>
+<li class="chapter" data-level="5.51" data-path="clustering.html"><a href="clustering.html#section-26"><i class="fa fa-check"></i><b>5.51</b> 29 489 488 494</a></li>
+<li class="chapter" data-level="5.52" data-path="clustering.html"><a href="clustering.html#section-27"><i class="fa fa-check"></i><b>5.52</b> </a></li>
+<li class="chapter" data-level="5.53" data-path="clustering.html"><a href="clustering.html#section-28"><i class="fa fa-check"></i><b>5.53</b> 1</a></li>
+<li class="chapter" data-level="5.54" data-path="clustering.html"><a href="clustering.html#section-29"><i class="fa fa-check"></i><b>5.54</b> 1500</a></li>
+<li class="chapter" data-level="5.55" data-path="clustering.html"><a href="clustering.html#evaluating-cluster-quality"><i class="fa fa-check"></i><b>5.55</b> Evaluating cluster quality</a>
+<ul>
+<li class="chapter" data-level="5.55.1" data-path="clustering.html"><a href="clustering.html#silhouetteMethod"><i class="fa fa-check"></i><b>5.55.1</b> Silhouette method</a></li>
+<li class="chapter" data-level="5.55.2" data-path="clustering.html"><a href="clustering.html#example---k-means-clustering-of-blobs-data-set"><i class="fa fa-check"></i><b>5.55.2</b> Example - k-means clustering of blobs data set</a></li>
+<li class="chapter" data-level="5.55.3" data-path="clustering.html"><a href="clustering.html#example---dbscan-clustering-of-noisy-moons"><i class="fa fa-check"></i><b>5.55.3</b> Example - DBSCAN clustering of noisy moons</a></li>
+</ul></li>
+<li class="chapter" data-level="5.56" data-path="clustering.html"><a href="clustering.html#example-gene-expression-profiling-of-human-tissues"><i class="fa fa-check"></i><b>5.56</b> Example: gene expression profiling of human tissues</a>
+<ul>
+<li class="chapter" data-level="5.56.1" data-path="clustering.html"><a href="clustering.html#hierarchic-agglomerative-2"><i class="fa fa-check"></i><b>5.56.1</b> Hierarchic agglomerative</a></li>
+</ul></li>
+<li class="chapter" data-level="5.57" data-path="clustering.html"><a href="clustering.html#tissue"><i class="fa fa-check"></i><b>5.57</b> tissue</a></li>
+<li class="chapter" data-level="5.58" data-path="clustering.html"><a href="clustering.html#cerebellum-colon-endometrium-hippocampus-kidney-liver"><i class="fa fa-check"></i><b>5.58</b> cerebellum colon endometrium hippocampus kidney liver</a></li>
+<li class="chapter" data-level="5.59" data-path="clustering.html"><a href="clustering.html#section-30"><i class="fa fa-check"></i><b>5.59</b> 38 34 15 31 39 26</a></li>
+<li class="chapter" data-level="5.60" data-path="clustering.html"><a href="clustering.html#placenta"><i class="fa fa-check"></i><b>5.60</b> placenta</a></li>
+<li class="chapter" data-level="5.61" data-path="clustering.html"><a href="clustering.html#section-31"><i class="fa fa-check"></i><b>5.61</b> 6</a></li>
+<li class="chapter" data-level="5.62" data-path="clustering.html"><a href="clustering.html#section-32"><i class="fa fa-check"></i><b>5.62</b> <span>1</span> 22215 189</a></li>
+<li class="chapter" data-level="5.63" data-path="clustering.html"><a href="clustering.html#cluster"><i class="fa fa-check"></i><b>5.63</b> cluster</a></li>
+<li class="chapter" data-level="5.64" data-path="clustering.html"><a href="clustering.html#tissue-1-2-3-4-5-6"><i class="fa fa-check"></i><b>5.64</b> tissue 1 2 3 4 5 6</a></li>
+<li class="chapter" data-level="5.65" data-path="clustering.html"><a href="clustering.html#cerebellum-0-36-0-0-2-0"><i class="fa fa-check"></i><b>5.65</b> cerebellum 0 36 0 0 2 0</a></li>
+<li class="chapter" data-level="5.66" data-path="clustering.html"><a href="clustering.html#colon-0-0-34-0-0-0"><i class="fa fa-check"></i><b>5.66</b> colon 0 0 34 0 0 0</a></li>
+<li class="chapter" data-level="5.67" data-path="clustering.html"><a href="clustering.html#endometrium-15-0-0-0-0-0"><i class="fa fa-check"></i><b>5.67</b> endometrium 15 0 0 0 0 0</a></li>
+<li class="chapter" data-level="5.68" data-path="clustering.html"><a href="clustering.html#hippocampus-0-31-0-0-0-0"><i class="fa fa-check"></i><b>5.68</b> hippocampus 0 31 0 0 0 0</a></li>
+<li class="chapter" data-level="5.69" data-path="clustering.html"><a href="clustering.html#kidney-37-0-0-0-2-0"><i class="fa fa-check"></i><b>5.69</b> kidney 37 0 0 0 2 0</a></li>
+<li class="chapter" data-level="5.70" data-path="clustering.html"><a href="clustering.html#liver-0-0-0-24-2-0"><i class="fa fa-check"></i><b>5.70</b> liver 0 0 0 24 2 0</a></li>
+<li class="chapter" data-level="5.71" data-path="clustering.html"><a href="clustering.html#placenta-0-0-0-0-0-6"><i class="fa fa-check"></i><b>5.71</b> placenta 0 0 0 0 0 6</a></li>
+<li class="chapter" data-level="5.72" data-path="clustering.html"><a href="clustering.html#cluster-1"><i class="fa fa-check"></i><b>5.72</b> cluster</a></li>
+<li class="chapter" data-level="5.73" data-path="clustering.html"><a href="clustering.html#tissue-1-2-3-4-5-6-7-8"><i class="fa fa-check"></i><b>5.73</b> tissue 1 2 3 4 5 6 7 8</a></li>
+<li class="chapter" data-level="5.74" data-path="clustering.html"><a href="clustering.html#cerebellum-0-31-0-0-2-0-5-0"><i class="fa fa-check"></i><b>5.74</b> cerebellum 0 31 0 0 2 0 5 0</a></li>
+<li class="chapter" data-level="5.75" data-path="clustering.html"><a href="clustering.html#colon-0-0-34-0-0-0-0-0"><i class="fa fa-check"></i><b>5.75</b> colon 0 0 34 0 0 0 0 0</a></li>
+<li class="chapter" data-level="5.76" data-path="clustering.html"><a href="clustering.html#endometrium-0-0-0-0-0-15-0-0"><i class="fa fa-check"></i><b>5.76</b> endometrium 0 0 0 0 0 15 0 0</a></li>
+<li class="chapter" data-level="5.77" data-path="clustering.html"><a href="clustering.html#hippocampus-0-31-0-0-0-0-0-0"><i class="fa fa-check"></i><b>5.77</b> hippocampus 0 31 0 0 0 0 0 0</a></li>
+<li class="chapter" data-level="5.78" data-path="clustering.html"><a href="clustering.html#kidney-37-0-0-0-2-0-0-0"><i class="fa fa-check"></i><b>5.78</b> kidney 37 0 0 0 2 0 0 0</a></li>
+<li class="chapter" data-level="5.79" data-path="clustering.html"><a href="clustering.html#liver-0-0-0-24-2-0-0-0"><i class="fa fa-check"></i><b>5.79</b> liver 0 0 0 24 2 0 0 0</a></li>
+<li class="chapter" data-level="5.80" data-path="clustering.html"><a href="clustering.html#placenta-0-0-0-0-0-0-0-6"><i class="fa fa-check"></i><b>5.80</b> placenta 0 0 0 0 0 0 0 6</a></li>
+<li class="chapter" data-level="5.81" data-path="clustering.html"><a href="clustering.html#section-33"><i class="fa fa-check"></i><b>5.81</b> </a></li>
+<li class="chapter" data-level="5.82" data-path="clustering.html"><a href="clustering.html#attaching-package-gplots"><i class="fa fa-check"></i><b>5.82</b> Attaching package: ‘gplots’</a></li>
+<li class="chapter" data-level="5.83" data-path="clustering.html"><a href="clustering.html#the-following-object-is-masked-from-packagestats-1"><i class="fa fa-check"></i><b>5.83</b> The following object is masked from ‘package:stats’:</a></li>
+<li class="chapter" data-level="5.84" data-path="clustering.html"><a href="clustering.html#section-34"><i class="fa fa-check"></i><b>5.84</b> </a></li>
+<li class="chapter" data-level="5.85" data-path="clustering.html"><a href="clustering.html#lowess"><i class="fa fa-check"></i><b>5.85</b> lowess</a>
+<ul>
+<li class="chapter" data-level="5.85.1" data-path="clustering.html"><a href="clustering.html#k-means-2"><i class="fa fa-check"></i><b>5.85.1</b> K-means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.86" data-path="clustering.html"><a href="clustering.html#tissue-1"><i class="fa fa-check"></i><b>5.86</b> tissue</a></li>
+<li class="chapter" data-level="5.87" data-path="clustering.html"><a href="clustering.html#cerebellum-colon-endometrium-hippocampus-kidney-liver-1"><i class="fa fa-check"></i><b>5.87</b> cerebellum colon endometrium hippocampus kidney liver</a></li>
+<li class="chapter" data-level="5.88" data-path="clustering.html"><a href="clustering.html#section-35"><i class="fa fa-check"></i><b>5.88</b> 38 34 15 31 39 26</a></li>
+<li class="chapter" data-level="5.89" data-path="clustering.html"><a href="clustering.html#placenta-1"><i class="fa fa-check"></i><b>5.89</b> placenta</a></li>
+<li class="chapter" data-level="5.90" data-path="clustering.html"><a href="clustering.html#section-36"><i class="fa fa-check"></i><b>5.90</b> 6</a></li>
+<li class="chapter" data-level="5.91" data-path="clustering.html"><a href="clustering.html#section-37"><i class="fa fa-check"></i><b>5.91</b> <span>1</span> 22215 189</a></li>
+<li class="chapter" data-level="5.92" data-path="clustering.html"><a href="clustering.html#loading-required-package-foreach"><i class="fa fa-check"></i><b>5.92</b> Loading required package: foreach</a></li>
+<li class="chapter" data-level="5.93" data-path="clustering.html"><a href="clustering.html#loading-required-package-iterators"><i class="fa fa-check"></i><b>5.93</b> Loading required package: iterators</a></li>
+<li class="chapter" data-level="5.94" data-path="clustering.html"><a href="clustering.html#loading-required-package-parallel"><i class="fa fa-check"></i><b>5.94</b> Loading required package: parallel</a></li>
+<li class="chapter" data-level="5.95" data-path="clustering.html"><a href="clustering.html#section-38"><i class="fa fa-check"></i><b>5.95</b> <span>1</span> 8</a></li>
+<li class="chapter" data-level="5.96" data-path="clustering.html"><a href="clustering.html#section-39"><i class="fa fa-check"></i><b>5.96</b> </a></li>
+<li class="chapter" data-level="5.97" data-path="clustering.html"><a href="clustering.html#tissue-1-2-3-4-5-6-7"><i class="fa fa-check"></i><b>5.97</b> tissue 1 2 3 4 5 6 7</a></li>
+<li class="chapter" data-level="5.98" data-path="clustering.html"><a href="clustering.html#cerebellum-33-5-0-0-0-0-0"><i class="fa fa-check"></i><b>5.98</b> cerebellum 33 5 0 0 0 0 0</a></li>
+<li class="chapter" data-level="5.99" data-path="clustering.html"><a href="clustering.html#colon-0-0-0-0-0-34-0"><i class="fa fa-check"></i><b>5.99</b> colon 0 0 0 0 0 34 0</a></li>
+<li class="chapter" data-level="5.100" data-path="clustering.html"><a href="clustering.html#endometrium-0-0-15-0-0-0-0"><i class="fa fa-check"></i><b>5.100</b> endometrium 0 0 15 0 0 0 0</a></li>
+<li class="chapter" data-level="5.101" data-path="clustering.html"><a href="clustering.html#hippocampus-0-31-0-0-0-0-0"><i class="fa fa-check"></i><b>5.101</b> hippocampus 0 31 0 0 0 0 0</a></li>
+<li class="chapter" data-level="5.102" data-path="clustering.html"><a href="clustering.html#kidney-0-0-0-39-0-0-0"><i class="fa fa-check"></i><b>5.102</b> kidney 0 0 0 39 0 0 0</a></li>
+<li class="chapter" data-level="5.103" data-path="clustering.html"><a href="clustering.html#liver-0-0-0-0-26-0-0"><i class="fa fa-check"></i><b>5.103</b> liver 0 0 0 0 26 0 0</a></li>
+<li class="chapter" data-level="5.104" data-path="clustering.html"><a href="clustering.html#placenta-0-0-0-0-0-0-6"><i class="fa fa-check"></i><b>5.104</b> placenta 0 0 0 0 0 0 6</a></li>
+<li class="chapter" data-level="5.105" data-path="clustering.html"><a href="clustering.html#section-40"><i class="fa fa-check"></i><b>5.105</b> </a></li>
+<li class="chapter" data-level="5.106" data-path="clustering.html"><a href="clustering.html#tissue-1-2-3-4-5-6-7-1"><i class="fa fa-check"></i><b>5.106</b> tissue 1 2 3 4 5 6 7</a></li>
+<li class="chapter" data-level="5.107" data-path="clustering.html"><a href="clustering.html#cerebellum-33-5-0-0-0-0-0-1"><i class="fa fa-check"></i><b>5.107</b> cerebellum 33 5 0 0 0 0 0</a></li>
+<li class="chapter" data-level="5.108" data-path="clustering.html"><a href="clustering.html#colon-0-0-0-0-0-34-0-1"><i class="fa fa-check"></i><b>5.108</b> colon 0 0 0 0 0 34 0</a></li>
+<li class="chapter" data-level="5.109" data-path="clustering.html"><a href="clustering.html#endometrium-0-0-15-0-0-0-0-1"><i class="fa fa-check"></i><b>5.109</b> endometrium 0 0 15 0 0 0 0</a></li>
+<li class="chapter" data-level="5.110" data-path="clustering.html"><a href="clustering.html#hippocampus-0-31-0-0-0-0-0-1"><i class="fa fa-check"></i><b>5.110</b> hippocampus 0 31 0 0 0 0 0</a></li>
+<li class="chapter" data-level="5.111" data-path="clustering.html"><a href="clustering.html#kidney-0-0-0-39-0-0-0-1"><i class="fa fa-check"></i><b>5.111</b> kidney 0 0 0 39 0 0 0</a></li>
+<li class="chapter" data-level="5.112" data-path="clustering.html"><a href="clustering.html#liver-0-0-0-0-26-0-0-1"><i class="fa fa-check"></i><b>5.112</b> liver 0 0 0 0 26 0 0</a></li>
+<li class="chapter" data-level="5.113" data-path="clustering.html"><a href="clustering.html#placenta-0-0-0-0-0-0-6-1"><i class="fa fa-check"></i><b>5.113</b> placenta 0 0 0 0 0 0 6</a>
+<ul>
+<li class="chapter" data-level="5.113.1" data-path="clustering.html"><a href="clustering.html#dbscan-2"><i class="fa fa-check"></i><b>5.113.1</b> DBSCAN</a></li>
+</ul></li>
+<li class="chapter" data-level="5.114" data-path="clustering.html"><a href="clustering.html#tissue-2"><i class="fa fa-check"></i><b>5.114</b> tissue</a></li>
+<li class="chapter" data-level="5.115" data-path="clustering.html"><a href="clustering.html#cerebellum-colon-endometrium-hippocampus-kidney-liver-2"><i class="fa fa-check"></i><b>5.115</b> cerebellum colon endometrium hippocampus kidney liver</a></li>
+<li class="chapter" data-level="5.116" data-path="clustering.html"><a href="clustering.html#section-41"><i class="fa fa-check"></i><b>5.116</b> 38 34 15 31 39 26</a></li>
+<li class="chapter" data-level="5.117" data-path="clustering.html"><a href="clustering.html#placenta-2"><i class="fa fa-check"></i><b>5.117</b> placenta</a></li>
+<li class="chapter" data-level="5.118" data-path="clustering.html"><a href="clustering.html#section-42"><i class="fa fa-check"></i><b>5.118</b> 6</a></li>
+<li class="chapter" data-level="5.119" data-path="clustering.html"><a href="clustering.html#section-43"><i class="fa fa-check"></i><b>5.119</b> </a></li>
+<li class="chapter" data-level="5.120" data-path="clustering.html"><a href="clustering.html#section-44"><i class="fa fa-check"></i><b>5.120</b> 0 1 2 3 4 5 6</a></li>
+<li class="chapter" data-level="5.121" data-path="clustering.html"><a href="clustering.html#section-45"><i class="fa fa-check"></i><b>5.121</b> 12 37 62 34 24 15 5</a></li>
+<li class="chapter" data-level="5.122" data-path="clustering.html"><a href="clustering.html#section-46"><i class="fa fa-check"></i><b>5.122</b> </a></li>
+<li class="chapter" data-level="5.123" data-path="clustering.html"><a href="clustering.html#tissue-0-1-2-3-4-5-6"><i class="fa fa-check"></i><b>5.123</b> tissue 0 1 2 3 4 5 6</a></li>
+<li class="chapter" data-level="5.124" data-path="clustering.html"><a href="clustering.html#cerebellum-2-0-31-0-0-0-5"><i class="fa fa-check"></i><b>5.124</b> cerebellum 2 0 31 0 0 0 5</a></li>
+<li class="chapter" data-level="5.125" data-path="clustering.html"><a href="clustering.html#colon-0-0-0-34-0-0-0"><i class="fa fa-check"></i><b>5.125</b> colon 0 0 0 34 0 0 0</a></li>
+<li class="chapter" data-level="5.126" data-path="clustering.html"><a href="clustering.html#endometrium-0-0-0-0-0-15-0"><i class="fa fa-check"></i><b>5.126</b> endometrium 0 0 0 0 0 15 0</a></li>
+<li class="chapter" data-level="5.127" data-path="clustering.html"><a href="clustering.html#hippocampus-0-0-31-0-0-0-0"><i class="fa fa-check"></i><b>5.127</b> hippocampus 0 0 31 0 0 0 0</a></li>
+<li class="chapter" data-level="5.128" data-path="clustering.html"><a href="clustering.html#kidney-2-37-0-0-0-0-0"><i class="fa fa-check"></i><b>5.128</b> kidney 2 37 0 0 0 0 0</a></li>
+<li class="chapter" data-level="5.129" data-path="clustering.html"><a href="clustering.html#liver-2-0-0-0-24-0-0"><i class="fa fa-check"></i><b>5.129</b> liver 2 0 0 0 24 0 0</a></li>
+<li class="chapter" data-level="5.130" data-path="clustering.html"><a href="clustering.html#placenta-6-0-0-0-0-0-0"><i class="fa fa-check"></i><b>5.130</b> placenta 6 0 0 0 0 0 0</a></li>
+<li class="chapter" data-level="5.131" data-path="clustering.html"><a href="clustering.html#exercises"><i class="fa fa-check"></i><b>5.131</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="5.131.1" data-path="clustering.html"><a href="clustering.html#clusteringEx1"><i class="fa fa-check"></i><b>5.131.1</b> Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="5.132" data-path="clustering.html"><a href="clustering.html#section-47"><i class="fa fa-check"></i><b>5.132</b> </a></li>
+<li class="chapter" data-level="5.133" data-path="clustering.html"><a href="clustering.html#attaching-package-ebimage"><i class="fa fa-check"></i><b>5.133</b> Attaching package: ‘EBImage’</a></li>
+<li class="chapter" data-level="5.134" data-path="clustering.html"><a href="clustering.html#the-following-object-is-masked-from-packagedendextend"><i class="fa fa-check"></i><b>5.134</b> The following object is masked from ‘package:dendextend’:</a></li>
+<li class="chapter" data-level="5.135" data-path="clustering.html"><a href="clustering.html#section-48"><i class="fa fa-check"></i><b>5.135</b> </a></li>
+<li class="chapter" data-level="5.136" data-path="clustering.html"><a href="clustering.html#rotate"><i class="fa fa-check"></i><b>5.136</b> rotate</a></li>
+<li class="chapter" data-level="5.137" data-path="clustering.html"><a href="clustering.html#section-49"><i class="fa fa-check"></i><b>5.137</b> <span>1</span> 528 393 3</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html"><i class="fa fa-check"></i><b>6</b> Nearest neighbours</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#introduction-1"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#classification-simulated-data"><i class="fa fa-check"></i><b>6.2</b> Classification: simulated data</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#knn-function"><i class="fa fa-check"></i><b>6.2.1</b> knn function</a></li>
+<li class="chapter" data-level="6.2.2" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#plotting-decision-boundaries"><i class="fa fa-check"></i><b>6.2.2</b> Plotting decision boundaries</a></li>
+<li class="chapter" data-level="6.2.3" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#bias-variance-tradeoff"><i class="fa fa-check"></i><b>6.2.3</b> Bias-variance tradeoff</a></li>
+<li class="chapter" data-level="6.2.4" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#choosing-k"><i class="fa fa-check"></i><b>6.2.4</b> Choosing <em>k</em></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#example-on-the-iris-dataset"><i class="fa fa-check"></i><b>6.3</b> Example on the Iris dataset</a></li>
+<li class="chapter" data-level="6.4" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#knn-cell-segmentation"><i class="fa fa-check"></i><b>6.4</b> Classification: cell segmentation</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#cell-segmentation-data-set"><i class="fa fa-check"></i><b>6.4.1</b> Cell segmentation data set</a></li>
+<li class="chapter" data-level="6.4.2" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#data-splitting"><i class="fa fa-check"></i><b>6.4.2</b> Data splitting</a></li>
+<li class="chapter" data-level="6.4.3" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#identification-of-data-quality-issues"><i class="fa fa-check"></i><b>6.4.3</b> Identification of data quality issues</a></li>
+<li class="chapter" data-level="6.4.4" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#fit-model"><i class="fa fa-check"></i><b>6.4.4</b> Fit model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#knn-regression"><i class="fa fa-check"></i><b>6.5</b> Regression</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#partition-data"><i class="fa fa-check"></i><b>6.5.1</b> Partition data</a></li>
+<li class="chapter" data-level="6.5.2" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#data-pre-processing"><i class="fa fa-check"></i><b>6.5.2</b> Data pre-processing</a></li>
+<li class="chapter" data-level="6.5.3" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#search-for-optimum-k"><i class="fa fa-check"></i><b>6.5.3</b> Search for optimum <em>k</em></a></li>
+<li class="chapter" data-level="6.5.4" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#use-model-to-make-predictions"><i class="fa fa-check"></i><b>6.5.4</b> Use model to make predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#exercises-1"><i class="fa fa-check"></i><b>6.6</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#knnEx1"><i class="fa fa-check"></i><b>6.6.1</b> Exercise 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="svm.html"><a href="svm.html"><i class="fa fa-check"></i><b>7</b> Support vector machines</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="svm.html"><a href="svm.html#introduction-2"><i class="fa fa-check"></i><b>7.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="svm.html"><a href="svm.html#maximum-margin-classifier"><i class="fa fa-check"></i><b>7.1.1</b> Maximum margin classifier</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="svm.html"><a href="svm.html#support-vector-classifier"><i class="fa fa-check"></i><b>7.2</b> Support vector classifier</a></li>
+<li class="chapter" data-level="7.3" data-path="svm.html"><a href="svm.html#support-vector-machine"><i class="fa fa-check"></i><b>7.3</b> Support Vector Machine</a></li>
+<li class="chapter" data-level="7.4" data-path="svm.html"><a href="svm.html#example---training-a-classifier"><i class="fa fa-check"></i><b>7.4</b> Example - training a classifier</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="svm.html"><a href="svm.html#setup-environment"><i class="fa fa-check"></i><b>7.4.1</b> Setup environment</a></li>
+<li class="chapter" data-level="7.4.2" data-path="svm.html"><a href="svm.html#partition-data-1"><i class="fa fa-check"></i><b>7.4.2</b> Partition data</a></li>
+<li class="chapter" data-level="7.4.3" data-path="svm.html"><a href="svm.html#visualize-training-data"><i class="fa fa-check"></i><b>7.4.3</b> Visualize training data</a></li>
+<li class="chapter" data-level="7.4.4" data-path="svm.html"><a href="svm.html#define-a-custom-model"><i class="fa fa-check"></i><b>7.4.4</b> Define a custom model</a></li>
+<li class="chapter" data-level="7.4.5" data-path="svm.html"><a href="svm.html#model-cross-validation-and-tuning"><i class="fa fa-check"></i><b>7.4.5</b> Model cross-validation and tuning</a></li>
+<li class="chapter" data-level="7.4.6" data-path="svm.html"><a href="svm.html#prediction-performance-measures"><i class="fa fa-check"></i><b>7.4.6</b> Prediction performance measures</a></li>
+<li class="chapter" data-level="7.4.7" data-path="svm.html"><a href="svm.html#plot-decision-boundary"><i class="fa fa-check"></i><b>7.4.7</b> Plot decision boundary</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="svm.html"><a href="svm.html#example---regression"><i class="fa fa-check"></i><b>7.5</b> Example - regression</a></li>
+<li class="chapter" data-level="7.6" data-path="svm.html"><a href="svm.html#further-reading"><i class="fa fa-check"></i><b>7.6</b> Further reading</a></li>
+<li class="chapter" data-level="7.7" data-path="svm.html"><a href="svm.html#exercises-2"><i class="fa fa-check"></i><b>7.7</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="svm.html"><a href="svm.html#exercise-1"><i class="fa fa-check"></i><b>7.7.1</b> Exercise 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="decision-trees.html"><a href="decision-trees.html"><i class="fa fa-check"></i><b>8</b> Decision trees and random forests</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="decision-trees.html"><a href="decision-trees.html#decision-trees-1"><i class="fa fa-check"></i><b>8.1</b> Decision Trees</a></li>
+<li class="chapter" data-level="8.2" data-path="decision-trees.html"><a href="decision-trees.html#example-code-with-categorical-data"><i class="fa fa-check"></i><b>8.2</b> Example code with categorical data</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="decision-trees.html"><a href="decision-trees.html#loading-packages-and-data"><i class="fa fa-check"></i><b>8.2.1</b> Loading packages and data</a></li>
+<li class="chapter" data-level="8.2.2" data-path="decision-trees.html"><a href="decision-trees.html#data-slicing"><i class="fa fa-check"></i><b>8.2.2</b> Data Slicing</a></li>
+<li class="chapter" data-level="8.2.3" data-path="decision-trees.html"><a href="decision-trees.html#data-preprocessing"><i class="fa fa-check"></i><b>8.2.3</b> Data Preprocessing</a></li>
+<li class="chapter" data-level="8.2.4" data-path="decision-trees.html"><a href="decision-trees.html#training-decisions-trees"><i class="fa fa-check"></i><b>8.2.4</b> Training Decisions Trees</a></li>
+<li class="chapter" data-level="8.2.5" data-path="decision-trees.html"><a href="decision-trees.html#plotting-the-decision-trees"><i class="fa fa-check"></i><b>8.2.5</b> Plotting the decision trees</a></li>
+<li class="chapter" data-level="8.2.6" data-path="decision-trees.html"><a href="decision-trees.html#prediction"><i class="fa fa-check"></i><b>8.2.6</b> Prediction</a></li>
+<li class="chapter" data-level="8.2.7" data-path="decision-trees.html"><a href="decision-trees.html#implementing-decision-trees-directly"><i class="fa fa-check"></i><b>8.2.7</b> Implementing Decision Trees directly</a></li>
+<li class="chapter" data-level="8.2.8" data-path="decision-trees.html"><a href="decision-trees.html#iris-example-for-decision-trees"><i class="fa fa-check"></i><b>8.2.8</b> Iris example for Decision Trees</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="decision-trees.html"><a href="decision-trees.html#random-forest"><i class="fa fa-check"></i><b>8.3</b> Random Forest</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="decision-trees.html"><a href="decision-trees.html#iris-example-for-random-forests"><i class="fa fa-check"></i><b>8.3.1</b> Iris example for Random Forests</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="decision-trees.html"><a href="decision-trees.html#cell-segmentation-examples"><i class="fa fa-check"></i><b>8.4</b> Cell segmentation examples</a></li>
+<li class="chapter" data-level="8.5" data-path="decision-trees.html"><a href="decision-trees.html#exercises-3"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="use-case-1.html"><a href="use-case-1.html"><i class="fa fa-check"></i><b>9</b> Use case 1</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="use-case-1.html"><a href="use-case-1.html#introduction-3"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="use-case-1.html"><a href="use-case-1.html#problem-automated-detection-of-malaria"><i class="fa fa-check"></i><b>9.2</b> Problem: automated detection of malaria</a></li>
+<li class="chapter" data-level="9.3" data-path="use-case-1.html"><a href="use-case-1.html#challenges"><i class="fa fa-check"></i><b>9.3</b> Challenges</a></li>
+<li class="chapter" data-level="9.4" data-path="use-case-1.html"><a href="use-case-1.html#getting-started"><i class="fa fa-check"></i><b>9.4</b> Getting started</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="use-case-1.html"><a href="use-case-1.html#load-data"><i class="fa fa-check"></i><b>9.4.1</b> Load data</a></li>
+<li class="chapter" data-level="9.4.2" data-path="use-case-1.html"><a href="use-case-1.html#model-comparison"><i class="fa fa-check"></i><b>9.4.2</b> Model comparison</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="use-case-1.html"><a href="use-case-1.html#solutions"><i class="fa fa-check"></i><b>9.5</b> Solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="linear-models.html"><a href="linear-models.html"><i class="fa fa-check"></i><b>10</b> Linear models and matrix algebra</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="linear-models.html"><a href="linear-models.html#linear-models-1"><i class="fa fa-check"></i><b>10.1</b> Linear models</a></li>
+<li class="chapter" data-level="10.2" data-path="linear-models.html"><a href="linear-models.html#matrix-algebra"><i class="fa fa-check"></i><b>10.2</b> Matrix algebra</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>11</b> Linear regression and logistic regression</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="logistic-regression.html"><a href="logistic-regression.html#regression"><i class="fa fa-check"></i><b>11.1</b> Regression</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="logistic-regression.html"><a href="logistic-regression.html#linear-regression"><i class="fa fa-check"></i><b>11.1.1</b> Linear regression</a></li>
+<li class="chapter" data-level="11.1.2" data-path="logistic-regression.html"><a href="logistic-regression.html#polynomial-regression"><i class="fa fa-check"></i><b>11.1.2</b> Polynomial regression</a></li>
+<li class="chapter" data-level="11.1.3" data-path="logistic-regression.html"><a href="logistic-regression.html#distributions-of-fits"><i class="fa fa-check"></i><b>11.1.3</b> Distributions of fits</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="logistic-regression.html"><a href="logistic-regression.html#classification"><i class="fa fa-check"></i><b>11.2</b> Classification</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="logistic-regression.html"><a href="logistic-regression.html#logistic-regression"><i class="fa fa-check"></i><b>11.2.1</b> Logistic regression</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="logistic-regression.html"><a href="logistic-regression.html#resources"><i class="fa fa-check"></i><b>11.3</b> Resources</a></li>
+<li class="chapter" data-level="11.4" data-path="logistic-regression.html"><a href="logistic-regression.html#exercises-4"><i class="fa fa-check"></i><b>11.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ann.html"><a href="ann.html"><i class="fa fa-check"></i><b>12</b> Artificial neural networks</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ann.html"><a href="ann.html#neural-networks"><i class="fa fa-check"></i><b>12.1</b> Neural Networks</a></li>
+<li class="chapter" data-level="12.2" data-path="ann.html"><a href="ann.html#exercises-5"><i class="fa fa-check"></i><b>12.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="use-case-2.html"><a href="use-case-2.html"><i class="fa fa-check"></i><b>13</b> Use case 2</a></li>
+<li class="chapter" data-level="14" data-path="mlnn.html"><a href="mlnn.html"><i class="fa fa-check"></i><b>14</b> Deep Learning</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="mlnn.html"><a href="mlnn.html#multilayer-neural-networks"><i class="fa fa-check"></i><b>14.1</b> Multilayer Neural Networks</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="mlnn.html"><a href="mlnn.html#reading-in-images"><i class="fa fa-check"></i><b>14.1.1</b> Reading in images</a></li>
+<li class="chapter" data-level="14.1.2" data-path="mlnn.html"><a href="mlnn.html#constructing-layers-in-kerasr"><i class="fa fa-check"></i><b>14.1.2</b> Constructing layers in kerasR</a></li>
+<li class="chapter" data-level="14.1.3" data-path="mlnn.html"><a href="mlnn.html#rick-and-morty-classifier-using-deep-learning"><i class="fa fa-check"></i><b>14.1.3</b> Rick and Morty classifier using Deep Learning</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="mlnn.html"><a href="mlnn.html#convolutional-neural-networks"><i class="fa fa-check"></i><b>14.2</b> Convolutional neural networks</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="mlnn.html"><a href="mlnn.html#checking-the-models"><i class="fa fa-check"></i><b>14.2.1</b> Checking the models</a></li>
+<li class="chapter" data-level="14.2.2" data-path="mlnn.html"><a href="mlnn.html#data-augmentation"><i class="fa fa-check"></i><b>14.2.2</b> Data augmentation</a></li>
+<li class="chapter" data-level="14.2.3" data-path="mlnn.html"><a href="mlnn.html#asking-more-precise-questions"><i class="fa fa-check"></i><b>14.2.3</b> Asking more precise questions</a></li>
+<li class="chapter" data-level="14.2.4" data-path="mlnn.html"><a href="mlnn.html#more-complex-networks"><i class="fa fa-check"></i><b>14.2.4</b> More complex networks</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="mlnn.html"><a href="mlnn.html#further-reading-1"><i class="fa fa-check"></i><b>14.3</b> Further reading</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="logistic-regression.html"><a href="logistic-regression.html#resources"><i class="fa fa-check"></i><b>A</b> Resources</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>A.1</b> Python</a></li>
+<li class="chapter" data-level="A.2" data-path="resources.html"><a href="resources.html#machine-learning-data-set-repositories"><i class="fa fa-check"></i><b>A.2</b> Machine learning data set repositories</a>
+<ul>
+<li class="chapter" data-level="A.2.1" data-path="resources.html"><a href="resources.html#mldata"><i class="fa fa-check"></i><b>A.2.1</b> MLDATA</a></li>
+<li class="chapter" data-level="A.2.2" data-path="resources.html"><a href="resources.html#uci-machine-learning-repository"><i class="fa fa-check"></i><b>A.2.2</b> UCI Machine Learning Repository</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="solutions-dimensionality-reduction.html"><a href="solutions-dimensionality-reduction.html"><i class="fa fa-check"></i><b>B</b> Solutions ch. 2 - Dimensionality reduction</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="solutions-dimensionality-reduction.html"><a href="solutions-dimensionality-reduction.html#exercise-2.5."><i class="fa fa-check"></i><b>B.1</b> Exercise 2.5.</a></li>
+<li class="chapter" data-level="B.2" data-path="solutions-dimensionality-reduction.html"><a href="solutions-dimensionality-reduction.html#exercise-2.6."><i class="fa fa-check"></i><b>B.2</b> Exercise 2.6.</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="solutions-clustering.html"><a href="solutions-clustering.html"><i class="fa fa-check"></i><b>C</b> Solutions ch. 4 - Clustering</a>
+<ul>
+<li class="chapter" data-level="C.1" data-path="solutions-clustering.html"><a href="solutions-clustering.html#exercise-1-1"><i class="fa fa-check"></i><b>C.1</b> Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="D" data-path="solutions-nearest-neighbours.html"><a href="solutions-nearest-neighbours.html"><i class="fa fa-check"></i><b>D</b> Solutions ch. 7 - Nearest neighbours</a>
+<ul>
+<li class="chapter" data-level="D.1" data-path="solutions-nearest-neighbours.html"><a href="solutions-nearest-neighbours.html#exercise-1-2"><i class="fa fa-check"></i><b>D.1</b> Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="E" data-path="solutions-svm.html"><a href="solutions-svm.html"><i class="fa fa-check"></i><b>E</b> Solutions ch. 6 - Support vector machines</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="solutions-svm.html"><a href="solutions-svm.html#exercise-1-3"><i class="fa fa-check"></i><b>E.1</b> Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="F" data-path="solutions-decision-trees.html"><a href="solutions-decision-trees.html"><i class="fa fa-check"></i><b>F</b> Solutions ch. 9 - Decision trees and random forests</a>
+<ul>
+<li class="chapter" data-level="F.1" data-path="solutions-decision-trees.html"><a href="solutions-decision-trees.html#exercise-1-4"><i class="fa fa-check"></i><b>F.1</b> Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="G" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html"><i class="fa fa-check"></i><b>G</b> Solutions chapter 8 - use case 1</a>
+<ul>
+<li class="chapter" data-level="G.1" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#preparation"><i class="fa fa-check"></i><b>G.1</b> Preparation</a>
+<ul>
+<li class="chapter" data-level="G.1.1" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#load-required-libraries"><i class="fa fa-check"></i><b>G.1.1</b> Load required libraries</a></li>
+<li class="chapter" data-level="G.1.2" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#define-svm-model"><i class="fa fa-check"></i><b>G.1.2</b> Define SVM model</a></li>
+<li class="chapter" data-level="G.1.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#setup-parallel-processing"><i class="fa fa-check"></i><b>G.1.3</b> Setup parallel processing</a></li>
+<li class="chapter" data-level="G.1.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#load-data-1"><i class="fa fa-check"></i><b>G.1.4</b> Load data</a></li>
+</ul></li>
+<li class="chapter" data-level="G.2" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#assess-data-quality"><i class="fa fa-check"></i><b>G.2</b> Assess data quality</a>
+<ul>
+<li class="chapter" data-level="G.2.1" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#zero-and-near-zero-variance-predictors-1"><i class="fa fa-check"></i><b>G.2.1</b> Zero and near-zero variance predictors</a></li>
+<li class="chapter" data-level="G.2.2" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#are-all-predictors-on-the-same-scale"><i class="fa fa-check"></i><b>G.2.2</b> Are all predictors on the same scale?</a></li>
+<li class="chapter" data-level="G.2.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#redundancy-from-correlated-variables"><i class="fa fa-check"></i><b>G.2.3</b> Redundancy from correlated variables</a></li>
+<li class="chapter" data-level="G.2.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#skewness-1"><i class="fa fa-check"></i><b>G.2.4</b> Skewness</a></li>
+</ul></li>
+<li class="chapter" data-level="G.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#infection-status-two-class-problem"><i class="fa fa-check"></i><b>G.3</b> Infection status (two-class problem)</a>
+<ul>
+<li class="chapter" data-level="G.3.1" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#model-training-and-parameter-tuning"><i class="fa fa-check"></i><b>G.3.1</b> Model training and parameter tuning</a></li>
+<li class="chapter" data-level="G.3.2" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#knn"><i class="fa fa-check"></i><b>G.3.2</b> KNN</a></li>
+<li class="chapter" data-level="G.3.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#svm-1"><i class="fa fa-check"></i><b>G.3.3</b> SVM</a></li>
+<li class="chapter" data-level="G.3.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#decision-tree"><i class="fa fa-check"></i><b>G.3.4</b> Decision tree</a></li>
+<li class="chapter" data-level="G.3.5" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#random-forest-1"><i class="fa fa-check"></i><b>G.3.5</b> Random forest</a></li>
+<li class="chapter" data-level="G.3.6" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#compare-models"><i class="fa fa-check"></i><b>G.3.6</b> Compare models</a></li>
+<li class="chapter" data-level="G.3.7" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#predict-test-set-using-our-best-model"><i class="fa fa-check"></i><b>G.3.7</b> Predict test set using our best model</a></li>
+<li class="chapter" data-level="G.3.8" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#roc-curve"><i class="fa fa-check"></i><b>G.3.8</b> ROC curve</a></li>
+</ul></li>
+<li class="chapter" data-level="G.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#discrimination-of-infective-stages-multi-class-problem"><i class="fa fa-check"></i><b>G.4</b> Discrimination of infective stages (multi-class problem)</a>
+<ul>
+<li class="chapter" data-level="G.4.1" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#define-cross-validation-procedure"><i class="fa fa-check"></i><b>G.4.1</b> Define cross-validation procedure</a></li>
+<li class="chapter" data-level="G.4.2" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#knn-1"><i class="fa fa-check"></i><b>G.4.2</b> KNN</a></li>
+<li class="chapter" data-level="G.4.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#svm-2"><i class="fa fa-check"></i><b>G.4.3</b> SVM</a></li>
+<li class="chapter" data-level="G.4.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#decision-tree-1"><i class="fa fa-check"></i><b>G.4.4</b> Decision tree</a></li>
+<li class="chapter" data-level="G.4.5" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#random-forest-2"><i class="fa fa-check"></i><b>G.4.5</b> Random forest</a></li>
+<li class="chapter" data-level="G.4.6" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#compare-models-1"><i class="fa fa-check"></i><b>G.4.6</b> Compare models</a></li>
+<li class="chapter" data-level="G.4.7" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#predict-test-set-using-our-best-model-1"><i class="fa fa-check"></i><b>G.4.7</b> Predict test set using our best model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="H" data-path="solutions-linear-models.html"><a href="solutions-linear-models.html"><i class="fa fa-check"></i><b>H</b> Solutions ch. 3 - Linear models and matrix algebra</a>
+<ul>
+<li class="chapter" data-level="H.1" data-path="solutions-linear-models.html"><a href="solutions-linear-models.html#example-2"><i class="fa fa-check"></i><b>H.1</b> Example 2</a></li>
+<li class="chapter" data-level="H.2" data-path="solutions-linear-models.html"><a href="solutions-linear-models.html#example-2-1"><i class="fa fa-check"></i><b>H.2</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="I" data-path="solutions-logistic-regression.html"><a href="solutions-logistic-regression.html"><i class="fa fa-check"></i><b>I</b> Solutions ch. 4 - Linear and non-linear (logistic) regression</a></li>
+<li class="chapter" data-level="J" data-path="solutions-ann.html"><a href="solutions-ann.html"><i class="fa fa-check"></i><b>J</b> Solutions ch. 10 - Artificial neural networks</a>
+<ul>
+<li class="chapter" data-level="J.1" data-path="solutions-ann.html"><a href="solutions-ann.html#exercise-1-5"><i class="fa fa-check"></i><b>J.1</b> Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="K" data-path="use-case-2-solutions.html"><a href="use-case-2-solutions.html"><i class="fa fa-check"></i><b>K</b> Solutions for use case 2</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An Introduction to Machine Learning</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-to-caret" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Introduction to CARET<a href="introduction-to-caret.html#introduction-to-caret" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The <strong>caret</strong> package (short for <strong>C</strong>lassification <strong>A</strong>nd <strong>RE</strong>gression <strong>T</strong>raining) contains functions to streamline the model training process for classification and regression tasks.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introduction-to-caret.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span></code></pre></div>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<pre><code>## Loading required package: lattice</code></pre>
+<pre><code>## Warning in system(&quot;timedatectl&quot;, intern = TRUE): running command &#39;timedatectl&#39;
+## had status 1</code></pre>
+<div id="preprocessing-with-the-iris-dataset" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Preprocessing with the Iris dataset<a href="introduction-to-caret.html#preprocessing-with-the-iris-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>From the iris manual page:</p>
+<p>The famous (Fisher’s or Anderson’s) Iris data set, first presented by Fisher in 1936 (<a href="http://archive.ics.uci.edu/ml/datasets/Iris" class="uri">http://archive.ics.uci.edu/ml/datasets/Iris</a>), gives the measurements in centimeters of the variables sepal length and width and petal length and width, respectively, for 50 flowers from each of 3 species of iris. The species are Iris setosa, versicolor, and virginica. One class is linearly separable from the other two; the latter are not linearly separable from each other. The data base contains the following attributes: 1). sepal length in cm 2). sepal width in cm 3). petal length in cm 4). petal width in cm 5). classes: - Iris Setosa - Iris Versicolour - Iris Virginica</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="introduction-to-caret.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datasets)</span>
+<span id="cb5-2"><a href="introduction-to-caret.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris) <span class="do">##loads the dataset, which can be accessed under the variable name iris</span></span>
+<span id="cb5-3"><a href="introduction-to-caret.html#cb5-3" aria-hidden="true" tabindex="-1"></a>?iris <span class="do">##opens the documentation for the dataset</span></span>
+<span id="cb5-4"><a href="introduction-to-caret.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iris) <span class="do">##presents the 5 figure summary of the dataset</span></span></code></pre></div>
+<pre><code>##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+##  Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+##  Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+##        Species  
+##  setosa    :50  
+##  versicolor:50  
+##  virginica :50  
+##                 
+##                 
+## </code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="introduction-to-caret.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris) <span class="do">##presents the structure of the iris dataframe</span></span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+<p>First, we split into training and test datasets, using the proportions 70% training and 30% test. The function createDataPartition ensures that the proportion of each class is the same in training and test.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="introduction-to-caret.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">23</span>)</span>
+<span id="cb9-2"><a href="introduction-to-caret.html#cb9-2" aria-hidden="true" tabindex="-1"></a>trainTestPartition<span class="ot">&lt;-</span><span class="fu">createDataPartition</span>(<span class="at">y=</span>iris<span class="sc">$</span>Species, <span class="co">#the class label, caret ensures an even split of classes</span></span>
+<span id="cb9-3"><a href="introduction-to-caret.html#cb9-3" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">p=</span><span class="fl">0.7</span>, <span class="co">#proportion of samples assigned to train</span></span>
+<span id="cb9-4"><a href="introduction-to-caret.html#cb9-4" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">list=</span><span class="cn">FALSE</span>)</span>
+<span id="cb9-5"><a href="introduction-to-caret.html#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(trainTestPartition)</span></code></pre></div>
+<pre><code>##  int [1:105, 1] 2 4 5 6 7 8 9 10 13 14 ...
+##  - attr(*, &quot;dimnames&quot;)=List of 2
+##   ..$ : NULL
+##   ..$ : chr &quot;Resample1&quot;</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="introduction-to-caret.html#cb11-1" aria-hidden="true" tabindex="-1"></a>training <span class="ot">&lt;-</span> iris[ trainTestPartition,] <span class="co">#take the corresponding rows for training</span></span>
+<span id="cb11-2"><a href="introduction-to-caret.html#cb11-2" aria-hidden="true" tabindex="-1"></a>testing  <span class="ot">&lt;-</span> iris[<span class="sc">-</span>trainTestPartition,] <span class="co">#take the corresponding rows for testing by removing training rows</span></span>
+<span id="cb11-3"><a href="introduction-to-caret.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(training)</span></code></pre></div>
+<pre><code>##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+##  Min.   :4.300   Min.   :2.000   Min.   :1.100   Min.   :0.100  
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+##  Median :5.800   Median :3.000   Median :4.200   Median :1.300  
+##  Mean   :5.839   Mean   :3.056   Mean   :3.747   Mean   :1.197  
+##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+##  Max.   :7.700   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+##        Species  
+##  setosa    :35  
+##  versicolor:35  
+##  virginica :35  
+##                 
+##                 
+## </code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="introduction-to-caret.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(training)</span></code></pre></div>
+<pre><code>## [1] 105</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="introduction-to-caret.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(testing)</span></code></pre></div>
+<pre><code>##   Sepal.Length    Sepal.Width    Petal.Length    Petal.Width          Species  
+##  Min.   :4.500   Min.   :2.30   Min.   :1.000   Min.   :0.100   setosa    :15  
+##  1st Qu.:5.100   1st Qu.:2.80   1st Qu.:1.500   1st Qu.:0.300   versicolor:15  
+##  Median :5.700   Median :3.00   Median :4.500   Median :1.300   virginica :15  
+##  Mean   :5.853   Mean   :3.06   Mean   :3.784   Mean   :1.204                  
+##  3rd Qu.:6.300   3rd Qu.:3.30   3rd Qu.:5.100   3rd Qu.:1.800                  
+##  Max.   :7.900   Max.   :4.10   Max.   :6.700   Max.   :2.400</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="introduction-to-caret.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(testing)</span></code></pre></div>
+<pre><code>## [1] 45</code></pre>
+<p>We usually want to apply some preprocessing to our datasets to bring different predictors in line and make sure we are not introducing any extra bias. In caret, we can apply different preprocessing methods separately, together in the preProcessing function or just within the model training itself.</p>
+<div id="applying-preprocessing-functions-separately" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Applying preprocessing functions separately<a href="introduction-to-caret.html#applying-preprocessing-functions-separately" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="introduction-to-caret.html#cb19-1" aria-hidden="true" tabindex="-1"></a>training.separate <span class="ot">=</span> training</span>
+<span id="cb19-2"><a href="introduction-to-caret.html#cb19-2" aria-hidden="true" tabindex="-1"></a>testing.separate <span class="ot">=</span> testing</span></code></pre></div>
+<p><em>Near-Zero Variance</em></p>
+<p>The function nearZeroVar identifies predictors that have one unique value. It also diagnoses predictors having both of the following characteristics:
+- very few unique values relative to the number of samples
+- the ratio of the frequency of the most common value to the frequency of the 2nd most common value is large.</p>
+<p>Such zero and near zero-variance predictors have a deleterious impact on modelling and may lead to unstable fits.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="introduction-to-caret.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nzv</span>(training.separate)</span></code></pre></div>
+<pre><code>## integer(0)</code></pre>
+<p>In this case, we have no near zero variance predictors but that will not always be the case.</p>
+<p><em>Highly Correlated</em></p>
+<p>Some datasets can have many highly correlated variables. caret has a function findCorrelation to remove highly correlated variables. It considers the absolute values of pair-wise correlations. If two variables are highly correlated, it looks at the mean absolute correlation of each variable and removes the variable with the largest mean absolute correlation. This method is also used in when you specify ‘corr’ in the preProcess function below.</p>
+<p>In the case of data-sets comprised of many highly correlated variables, an alternative to removing correlated predictors is the transformation of the entire data set to a lower dimensional space, using a technique such as principal component analysis (PCA).</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="introduction-to-caret.html#cb22-1" aria-hidden="true" tabindex="-1"></a>calculateCor <span class="ot">&lt;-</span> <span class="fu">cor</span>(training.separate[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]) <span class="co">#calculate correlation matrix on the predictors</span></span>
+<span id="cb22-2"><a href="introduction-to-caret.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(calculateCor[<span class="fu">upper.tri</span>(calculateCor)])</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+## -0.4516 -0.2983  0.3416  0.2851  0.8544  0.9652</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="introduction-to-caret.html#cb24-1" aria-hidden="true" tabindex="-1"></a>highlyCor <span class="ot">&lt;-</span> <span class="fu">findCorrelation</span>(calculateCor) <span class="co">#pick highly correlated ones</span></span>
+<span id="cb24-2"><a href="introduction-to-caret.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(training.separate)[highlyCor]</span></code></pre></div>
+<pre><code>## [1] &quot;Petal.Length&quot;</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="introduction-to-caret.html#cb26-1" aria-hidden="true" tabindex="-1"></a>corrplot<span class="sc">::</span><span class="fu">corrplot</span>(calculateCor,<span class="at">diag=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="01-intro_files/figure-html/high%20correlation-1.png" width="672" /></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="introduction-to-caret.html#cb27-1" aria-hidden="true" tabindex="-1"></a>training.separate.cor<span class="ot">=</span>training.separate[,<span class="sc">-</span>highlyCor] <span class="co">#remove highly correlated predictors from training</span></span>
+<span id="cb27-2"><a href="introduction-to-caret.html#cb27-2" aria-hidden="true" tabindex="-1"></a>testing.separate.cor<span class="ot">=</span>testing.separate[,<span class="sc">-</span>highlyCor] <span class="co">#remove highly correlated predictors from test</span></span></code></pre></div>
+<p>Here, we have one highly correlated variable, Petal Length.</p>
+<p><em>Skewness</em></p>
+<p>caret provides various methods for transforming skewed variables to normality, including the Box-Cox (Box and Cox 1964) and Yeo-Johnson (Yeo and Johnson 2000) transformations. Here we try using the Box-Cox method.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="introduction-to-caret.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#perform boxcox scaling on each predictor</span></span>
+<span id="cb28-2"><a href="introduction-to-caret.html#cb28-2" aria-hidden="true" tabindex="-1"></a>training.separate.boxcox<span class="ot">=</span>training.separate</span>
+<span id="cb28-3"><a href="introduction-to-caret.html#cb28-3" aria-hidden="true" tabindex="-1"></a>training.separate.boxcox<span class="sc">$</span>Sepal.Length<span class="ot">=</span><span class="fu">predict</span>(<span class="fu">BoxCoxTrans</span>(iris<span class="sc">$</span>Sepal.Length),</span>
+<span id="cb28-4"><a href="introduction-to-caret.html#cb28-4" aria-hidden="true" tabindex="-1"></a>                                       training.separate.cor<span class="sc">$</span>Sepal.Length)</span>
+<span id="cb28-5"><a href="introduction-to-caret.html#cb28-5" aria-hidden="true" tabindex="-1"></a>training.separate.boxcox<span class="sc">$</span>Sepal.Width<span class="ot">=</span><span class="fu">predict</span>(<span class="fu">BoxCoxTrans</span>(iris<span class="sc">$</span>Sepal.Width),</span>
+<span id="cb28-6"><a href="introduction-to-caret.html#cb28-6" aria-hidden="true" tabindex="-1"></a>                                      training.separate.cor<span class="sc">$</span>Sepal.Width)</span>
+<span id="cb28-7"><a href="introduction-to-caret.html#cb28-7" aria-hidden="true" tabindex="-1"></a>training.separate.boxcox<span class="sc">$</span>Petal.Width<span class="ot">=</span><span class="fu">predict</span>(<span class="fu">BoxCoxTrans</span>(iris<span class="sc">$</span>Petal.Width),</span>
+<span id="cb28-8"><a href="introduction-to-caret.html#cb28-8" aria-hidden="true" tabindex="-1"></a>                                      training.separate.cor<span class="sc">$</span>Petal.Width)</span>
+<span id="cb28-9"><a href="introduction-to-caret.html#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="introduction-to-caret.html#cb28-10" aria-hidden="true" tabindex="-1"></a>testing.separate.boxcox<span class="ot">=</span>testing.separate</span>
+<span id="cb28-11"><a href="introduction-to-caret.html#cb28-11" aria-hidden="true" tabindex="-1"></a>testing.separate.boxcox<span class="sc">$</span>Sepal.Length<span class="ot">=</span><span class="fu">predict</span>(<span class="fu">BoxCoxTrans</span>(iris<span class="sc">$</span>Sepal.Length),</span>
+<span id="cb28-12"><a href="introduction-to-caret.html#cb28-12" aria-hidden="true" tabindex="-1"></a>                                      testing.separate.cor<span class="sc">$</span>Sepal.Length)</span>
+<span id="cb28-13"><a href="introduction-to-caret.html#cb28-13" aria-hidden="true" tabindex="-1"></a>testing.separate.boxcox<span class="sc">$</span>Sepal.Width<span class="ot">=</span><span class="fu">predict</span>(<span class="fu">BoxCoxTrans</span>(iris<span class="sc">$</span>Sepal.Width),</span>
+<span id="cb28-14"><a href="introduction-to-caret.html#cb28-14" aria-hidden="true" tabindex="-1"></a>                                     testing.separate.cor<span class="sc">$</span>Sepal.Width)</span>
+<span id="cb28-15"><a href="introduction-to-caret.html#cb28-15" aria-hidden="true" tabindex="-1"></a>testing.separate.boxcox<span class="sc">$</span>Petal.Width<span class="ot">=</span><span class="fu">predict</span>(<span class="fu">BoxCoxTrans</span>(iris<span class="sc">$</span>Petal.Width),</span>
+<span id="cb28-16"><a href="introduction-to-caret.html#cb28-16" aria-hidden="true" tabindex="-1"></a>                                     testing.separate.cor<span class="sc">$</span>Petal.Width)</span>
+<span id="cb28-17"><a href="introduction-to-caret.html#cb28-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-18"><a href="introduction-to-caret.html#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(training.separate.boxcox)</span></code></pre></div>
+<pre><code>##   Sepal.Length    Sepal.Width      Petal.Length    Petal.Width      
+##  Min.   :1.459   Min.   :0.7705   Min.   :1.100   Min.   :-1.24802  
+##  1st Qu.:1.629   1st Qu.:1.2064   1st Qu.:1.600   1st Qu.:-0.85734  
+##  Median :1.758   Median :1.3013   Median :4.200   Median : 0.28414  
+##  Mean   :1.755   Mean   :1.3167   Mean   :3.747   Mean   : 0.06693  
+##  3rd Qu.:1.856   3rd Qu.:1.4357   3rd Qu.:5.100   3rd Qu.: 0.70477  
+##  Max.   :2.041   Max.   :1.8656   Max.   :6.900   Max.   : 1.22144  
+##        Species  
+##  setosa    :35  
+##  versicolor:35  
+##  virginica :35  
+##                 
+##                 
+## </code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="introduction-to-caret.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(testing.separate.boxcox)</span></code></pre></div>
+<pre><code>##   Sepal.Length    Sepal.Width      Petal.Length    Petal.Width      
+##  Min.   :1.504   Min.   :0.9462   Min.   :1.000   Min.   :-1.24802  
+##  1st Qu.:1.629   1st Qu.:1.2064   1st Qu.:1.500   1st Qu.:-0.85734  
+##  Median :1.740   Median :1.3013   Median :4.500   Median : 0.28414  
+##  Mean   :1.756   Mean   :1.3206   Mean   :3.784   Mean   : 0.08104  
+##  3rd Qu.:1.841   3rd Qu.:1.4357   3rd Qu.:5.100   3rd Qu.: 0.70477  
+##  Max.   :2.067   Max.   :1.7566   Max.   :6.700   Max.   : 1.15156  
+##        Species  
+##  setosa    :15  
+##  versicolor:15  
+##  virginica :15  
+##                 
+##                 
+## </code></pre>
+<p>In this situation it is also important to centre and scale each predictor. A predictor variable is centered by subtracting the mean of the predictor from each value. To scale a predictor variable, each value is divided by its standard deviation. After centring and scaling the predictor variable has a mean of 0 and a standard deviation of 1.</p>
+</div>
+<div id="using-preprocess-function" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Using preProcess function<a href="introduction-to-caret.html#using-preprocess-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Instead of using separate functions, we can add all the preprocessing into one function call to preProcess.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="introduction-to-caret.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#The options for preprocessing are &quot;BoxCox&quot;, &quot;YeoJohnson&quot;, &quot;expoTrans&quot;, &quot;center&quot;, &quot;scale&quot;, &quot;range&quot;, &quot;knnImpute&quot;, &quot;bagImpute&quot;, &quot;medianImpute&quot;, &quot;pca&quot;, &quot;ica&quot;, &quot;spatialSign&quot;, &quot;corr&quot;, &quot;zv&quot;, &quot;nzv&quot;, and &quot;conditionalX&quot;</span></span>
+<span id="cb32-2"><a href="introduction-to-caret.html#cb32-2" aria-hidden="true" tabindex="-1"></a>calculatePreProcess <span class="ot">&lt;-</span> <span class="fu">preProcess</span>(training,</span>
+<span id="cb32-3"><a href="introduction-to-caret.html#cb32-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">method =</span> <span class="fu">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;scale&quot;</span>,<span class="st">&quot;corr&quot;</span>,<span class="st">&quot;nzv&quot;</span>,<span class="st">&quot;BoxCox&quot;</span>)) <span class="co">#perform preprocessing</span></span>
+<span id="cb32-4"><a href="introduction-to-caret.html#cb32-4" aria-hidden="true" tabindex="-1"></a>calculatePreProcess</span></code></pre></div>
+<pre><code>## Created from 105 samples and 5 variables
+## 
+## Pre-processing:
+##   - Box-Cox transformation (3)
+##   - centered (3)
+##   - ignored (1)
+##   - removed (1)
+##   - scaled (3)
+## 
+## Lambda estimates for Box-Cox transformation:
+## 0.2, 0.5, 0.6</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="introduction-to-caret.html#cb34-1" aria-hidden="true" tabindex="-1"></a>training.preprocess <span class="ot">&lt;-</span> <span class="fu">predict</span>(calculatePreProcess, training) <span class="co">#apply preprocessing to training data</span></span>
+<span id="cb34-2"><a href="introduction-to-caret.html#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(training.preprocess)</span></code></pre></div>
+<pre><code>##   Sepal.Length        Sepal.Width        Petal.Width            Species  
+##  Min.   :-2.073067   Min.   :-2.56222   Min.   :-1.6440   setosa    :35  
+##  1st Qu.:-0.902243   1st Qu.:-0.54615   1st Qu.:-1.1556   versicolor:35  
+##  Median : 0.007114   Median :-0.08917   Median : 0.2716   virginica :35  
+##  Mean   : 0.000000   Mean   : 0.00000   Mean   : 0.0000                  
+##  3rd Qu.: 0.719086   3rd Qu.: 0.56862   3rd Qu.: 0.7974                  
+##  Max.   : 2.095041   Max.   : 2.75526   Max.   : 1.4434</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="introduction-to-caret.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Petal.Length is removed</span></span>
+<span id="cb36-2"><a href="introduction-to-caret.html#cb36-2" aria-hidden="true" tabindex="-1"></a>testing.preprocess <span class="ot">&lt;-</span> <span class="fu">predict</span>(calculatePreProcess, testing) <span class="co">#apply same preprocessing to testing data</span></span>
+<span id="cb36-3"><a href="introduction-to-caret.html#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(testing.preprocess)</span></code></pre></div>
+<pre><code>##   Sepal.Length       Sepal.Width        Petal.Width             Species  
+##  Min.   :-1.76500   Min.   :-1.76576   Min.   :-1.64398   setosa    :15  
+##  1st Qu.:-0.90224   1st Qu.:-0.54615   1st Qu.:-1.15555   versicolor:15  
+##  Median :-0.11722   Median :-0.08917   Median : 0.27156   virginica :15  
+##  Mean   : 0.01216   Mean   : 0.01591   Mean   : 0.01764                  
+##  3rd Qu.: 0.60424   3rd Qu.: 0.56862   3rd Qu.: 0.79745                  
+##  Max.   : 2.28989   Max.   : 2.18903   Max.   : 1.35603</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="introduction-to-caret.html#cb38-1" aria-hidden="true" tabindex="-1"></a>dtreeIris.preprocess <span class="ot">&lt;-</span> <span class="fu">train</span>(</span>
+<span id="cb38-2"><a href="introduction-to-caret.html#cb38-2" aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">~</span> .,</span>
+<span id="cb38-3"><a href="introduction-to-caret.html#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> training.preprocess,</span>
+<span id="cb38-4"><a href="introduction-to-caret.html#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;rpart&quot;</span> <span class="co">#this is a decision tree but we will get to more information about that later</span></span>
+<span id="cb38-5"><a href="introduction-to-caret.html#cb38-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb38-6"><a href="introduction-to-caret.html#cb38-6" aria-hidden="true" tabindex="-1"></a>dtreeIris.preprocess</span></code></pre></div>
+<pre><code>## CART 
+## 
+## 105 samples
+##   3 predictor
+##   3 classes: &#39;setosa&#39;, &#39;versicolor&#39;, &#39;virginica&#39; 
+## 
+## No pre-processing
+## Resampling: Bootstrapped (25 reps) 
+## Summary of sample sizes: 105, 105, 105, 105, 105, 105, ... 
+## Resampling results across tuning parameters:
+## 
+##   cp         Accuracy   Kappa    
+##   0.0000000  0.9292922  0.8922829
+##   0.4142857  0.7305999  0.6121617
+##   0.5000000  0.4787046  0.2760704
+## 
+## Accuracy was used to select the optimal model using the largest value.
+## The final value used for the model was cp = 0.</code></pre>
+</div>
+</div>
+<div id="training-different-types-of-models" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Training different types of models<a href="introduction-to-caret.html#training-different-types-of-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>One of the primary tools in the package is this <em>train</em> function which can be used to evaluate, using resampling, the effect of model tuning parameters on performance, choose the ‘optimal’ model across these parameters and estimate model performance from a training set.</p>
+<p>caret enables the easy use of many different types of models, a few of which we will cover in the course. The full list is here <a href="https://topepo.github.io/caret/available-models.html" class="uri">https://topepo.github.io/caret/available-models.html</a></p>
+<p>We can change the model we use by changing the ‘method’ parameter in the train function. For example:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="introduction-to-caret.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#decision tree</span></span>
+<span id="cb40-2"><a href="introduction-to-caret.html#cb40-2" aria-hidden="true" tabindex="-1"></a>dtreeIris <span class="ot">&lt;-</span> <span class="fu">train</span>(</span>
+<span id="cb40-3"><a href="introduction-to-caret.html#cb40-3" aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">~</span> ., </span>
+<span id="cb40-4"><a href="introduction-to-caret.html#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> training.preprocess, <span class="do">##make sure you use the preprocessed version</span></span>
+<span id="cb40-5"><a href="introduction-to-caret.html#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;rpart&quot;</span> <span class="co">#specifies decision tree</span></span>
+<span id="cb40-6"><a href="introduction-to-caret.html#cb40-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb40-7"><a href="introduction-to-caret.html#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="introduction-to-caret.html#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co">#support vector machine</span></span>
+<span id="cb40-9"><a href="introduction-to-caret.html#cb40-9" aria-hidden="true" tabindex="-1"></a>svmIris <span class="ot">&lt;-</span> <span class="fu">train</span>(</span>
+<span id="cb40-10"><a href="introduction-to-caret.html#cb40-10" aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">~</span> .,</span>
+<span id="cb40-11"><a href="introduction-to-caret.html#cb40-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> training.preprocess, <span class="do">##make sure you use the preprocessed version</span></span>
+<span id="cb40-12"><a href="introduction-to-caret.html#cb40-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;svmLinear&quot;</span> <span class="co">#specifies support vector machine with linear kernel</span></span>
+<span id="cb40-13"><a href="introduction-to-caret.html#cb40-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb40-14"><a href="introduction-to-caret.html#cb40-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-15"><a href="introduction-to-caret.html#cb40-15" aria-hidden="true" tabindex="-1"></a><span class="co">#random forest</span></span>
+<span id="cb40-16"><a href="introduction-to-caret.html#cb40-16" aria-hidden="true" tabindex="-1"></a>randomForestIris <span class="ot">&lt;-</span> <span class="fu">train</span>(</span>
+<span id="cb40-17"><a href="introduction-to-caret.html#cb40-17" aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">~</span> .,</span>
+<span id="cb40-18"><a href="introduction-to-caret.html#cb40-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> training.preprocess, <span class="do">##make sure you use the preprocessed version</span></span>
+<span id="cb40-19"><a href="introduction-to-caret.html#cb40-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;rf&quot;</span> <span class="do">##specifies random forest</span></span>
+<span id="cb40-20"><a href="introduction-to-caret.html#cb40-20" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## note: only 2 unique complexity parameters in default grid. Truncating the grid to 2 .</code></pre>
+<div id="adding-preprocessing-within-training" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Adding preprocessing within training<a href="introduction-to-caret.html#adding-preprocessing-within-training" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can combine the preprocessing step with training the model, using the <em>preProc</em> parameter in caret’s train function.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="introduction-to-caret.html#cb42-1" aria-hidden="true" tabindex="-1"></a>dtreeIris <span class="ot">&lt;-</span> <span class="fu">train</span>(</span>
+<span id="cb42-2"><a href="introduction-to-caret.html#cb42-2" aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">~</span> ., <span class="do">## this means the model should classify Species using the other features</span></span>
+<span id="cb42-3"><a href="introduction-to-caret.html#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> training, <span class="do">## specifies training data (without preprocessing)</span></span>
+<span id="cb42-4"><a href="introduction-to-caret.html#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;rpart&quot;</span>, <span class="do">## uses decision tree</span></span>
+<span id="cb42-5"><a href="introduction-to-caret.html#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">preProc =</span> <span class="fu">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;scale&quot;</span>,<span class="st">&quot;nzv&quot;</span>,<span class="st">&quot;corr&quot;</span>,<span class="st">&quot;BoxCox&quot;</span>) <span class="do">##this performs the preprocessing within model training</span></span>
+<span id="cb42-6"><a href="introduction-to-caret.html#cb42-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb42-7"><a href="introduction-to-caret.html#cb42-7" aria-hidden="true" tabindex="-1"></a>dtreeIris</span></code></pre></div>
+<pre><code>## CART 
+## 
+## 105 samples
+##   4 predictor
+##   3 classes: &#39;setosa&#39;, &#39;versicolor&#39;, &#39;virginica&#39; 
+## 
+## Pre-processing: centered (3), scaled (3), Box-Cox transformation (3), remove (1) 
+## Resampling: Bootstrapped (25 reps) 
+## Summary of sample sizes: 105, 105, 105, 105, 105, 105, ... 
+## Resampling results across tuning parameters:
+## 
+##   cp         Accuracy   Kappa    
+##   0.0000000  0.9191387  0.8770505
+##   0.4285714  0.7166744  0.5883769
+##   0.5000000  0.5276405  0.3239631
+## 
+## Accuracy was used to select the optimal model using the largest value.
+## The final value used for the model was cp = 0.</code></pre>
+</div>
+</div>
+<div id="cross-validation" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Cross-validation<a href="introduction-to-caret.html#cross-validation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As we talked about in the last session, cross-validation is important to ensure the robustness of our models. We can specify how we want to perform cross-validation to caret.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="introduction-to-caret.html#cb44-1" aria-hidden="true" tabindex="-1"></a>train_ctrl <span class="ot">=</span> <span class="fu">trainControl</span>(<span class="at">method=</span><span class="st">&#39;cv&#39;</span>,</span>
+<span id="cb44-2"><a href="introduction-to-caret.html#cb44-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">number=</span><span class="dv">10</span>) <span class="co">#10-fold cross-validation</span></span>
+<span id="cb44-3"><a href="introduction-to-caret.html#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="introduction-to-caret.html#cb44-4" aria-hidden="true" tabindex="-1"></a>dtreeIris<span class="fl">.10</span>fold <span class="ot">&lt;-</span> <span class="fu">train</span>(</span>
+<span id="cb44-5"><a href="introduction-to-caret.html#cb44-5" aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">~</span> .,</span>
+<span id="cb44-6"><a href="introduction-to-caret.html#cb44-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> training,</span>
+<span id="cb44-7"><a href="introduction-to-caret.html#cb44-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;rpart&quot;</span>,</span>
+<span id="cb44-8"><a href="introduction-to-caret.html#cb44-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">preProc =</span> <span class="fu">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;scale&quot;</span>,<span class="st">&quot;nzv&quot;</span>,<span class="st">&quot;corr&quot;</span>,<span class="st">&quot;BoxCox&quot;</span>),</span>
+<span id="cb44-9"><a href="introduction-to-caret.html#cb44-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">trControl =</span> train_ctrl <span class="co">#train decision tree with 10-fold cross-validation</span></span>
+<span id="cb44-10"><a href="introduction-to-caret.html#cb44-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb44-11"><a href="introduction-to-caret.html#cb44-11" aria-hidden="true" tabindex="-1"></a>dtreeIris<span class="fl">.10</span>fold</span></code></pre></div>
+<pre><code>## CART 
+## 
+## 105 samples
+##   4 predictor
+##   3 classes: &#39;setosa&#39;, &#39;versicolor&#39;, &#39;virginica&#39; 
+## 
+## Pre-processing: centered (3), scaled (3), Box-Cox transformation (3), remove (1) 
+## Resampling: Cross-Validated (10 fold) 
+## Summary of sample sizes: 94, 95, 94, 95, 94, 94, ... 
+## Resampling results across tuning parameters:
+## 
+##   cp         Accuracy   Kappa    
+##   0.0000000  0.9336364  0.8997500
+##   0.4285714  0.6563636  0.4960712
+##   0.5000000  0.3763636  0.1285714
+## 
+## Accuracy was used to select the optimal model using the largest value.
+## The final value used for the model was cp = 0.</code></pre>
+<p>You may notice that every time you run the last chunk you get slightly different answers. To make our analysis reproducible, we need to set some seeds. Rather than setting a single seed, we need to set quite a few as caret uses them in different places.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="introduction-to-caret.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb46-2"><a href="introduction-to-caret.html#cb46-2" aria-hidden="true" tabindex="-1"></a>seeds <span class="ot">=</span> <span class="fu">vector</span>(<span class="at">mode=</span><span class="st">&#39;list&#39;</span>,<span class="at">length=</span><span class="dv">11</span>) <span class="co">#this is #folds+1 so 10+1</span></span>
+<span id="cb46-3"><a href="introduction-to-caret.html#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) seeds[[i]] <span class="ot">=</span> <span class="fu">sample.int</span>(<span class="dv">1000</span>,<span class="dv">10</span>)</span>
+<span id="cb46-4"><a href="introduction-to-caret.html#cb46-4" aria-hidden="true" tabindex="-1"></a>seeds[[<span class="dv">11</span>]] <span class="ot">=</span> <span class="fu">sample.int</span>(<span class="dv">1000</span>,<span class="dv">1</span>)</span>
+<span id="cb46-5"><a href="introduction-to-caret.html#cb46-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-6"><a href="introduction-to-caret.html#cb46-6" aria-hidden="true" tabindex="-1"></a>train_ctrl_seed <span class="ot">=</span> <span class="fu">trainControl</span>(<span class="at">method=</span><span class="st">&#39;cv&#39;</span>,</span>
+<span id="cb46-7"><a href="introduction-to-caret.html#cb46-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">number=</span><span class="dv">10</span>,</span>
+<span id="cb46-8"><a href="introduction-to-caret.html#cb46-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">seeds=</span>seeds) <span class="co">#use our seeds in the cross-validation</span></span>
+<span id="cb46-9"><a href="introduction-to-caret.html#cb46-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-10"><a href="introduction-to-caret.html#cb46-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-11"><a href="introduction-to-caret.html#cb46-11" aria-hidden="true" tabindex="-1"></a>dtreeIris<span class="fl">.10</span>fold.seed <span class="ot">&lt;-</span> <span class="fu">train</span>(</span>
+<span id="cb46-12"><a href="introduction-to-caret.html#cb46-12" aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">~</span> .,</span>
+<span id="cb46-13"><a href="introduction-to-caret.html#cb46-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> training,</span>
+<span id="cb46-14"><a href="introduction-to-caret.html#cb46-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;rpart&quot;</span>,</span>
+<span id="cb46-15"><a href="introduction-to-caret.html#cb46-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">preProc =</span> <span class="fu">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;scale&quot;</span>,<span class="st">&quot;nzv&quot;</span>,<span class="st">&quot;corr&quot;</span>,<span class="st">&quot;BoxCox&quot;</span>),</span>
+<span id="cb46-16"><a href="introduction-to-caret.html#cb46-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">trControl =</span> train_ctrl_seed</span>
+<span id="cb46-17"><a href="introduction-to-caret.html#cb46-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb46-18"><a href="introduction-to-caret.html#cb46-18" aria-hidden="true" tabindex="-1"></a>dtreeIris<span class="fl">.10</span>fold.seed</span></code></pre></div>
+<pre><code>## CART 
+## 
+## 105 samples
+##   4 predictor
+##   3 classes: &#39;setosa&#39;, &#39;versicolor&#39;, &#39;virginica&#39; 
+## 
+## Pre-processing: centered (3), scaled (3), Box-Cox transformation (3), remove (1) 
+## Resampling: Cross-Validated (10 fold) 
+## Summary of sample sizes: 94, 94, 95, 95, 94, 95, ... 
+## Resampling results across tuning parameters:
+## 
+##   cp         Accuracy   Kappa    
+##   0.0000000  0.9134848  0.8703217
+##   0.4285714  0.6375758  0.4707576
+##   0.5000000  0.4151515  0.1714286
+## 
+## Accuracy was used to select the optimal model using the largest value.
+## The final value used for the model was cp = 0.</code></pre>
+<p>If you try running this chunk multiple times, you will see the same answer each time</p>
+<p>If you wanted to use repeated cross-validation instead of cross-validation, you can use:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="introduction-to-caret.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb48-2"><a href="introduction-to-caret.html#cb48-2" aria-hidden="true" tabindex="-1"></a>seeds <span class="ot">=</span> <span class="fu">vector</span>(<span class="at">mode=</span><span class="st">&#39;list&#39;</span>,<span class="at">length=</span><span class="dv">101</span>) <span class="co">#you need length #folds*#repeats + 1 so 10*10 + 1 here</span></span>
+<span id="cb48-3"><a href="introduction-to-caret.html#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) seeds[[i]] <span class="ot">=</span> <span class="fu">sample.int</span>(<span class="dv">1000</span>,<span class="dv">10</span>)</span>
+<span id="cb48-4"><a href="introduction-to-caret.html#cb48-4" aria-hidden="true" tabindex="-1"></a>seeds[[<span class="dv">101</span>]] <span class="ot">=</span> <span class="fu">sample.int</span>(<span class="dv">1000</span>,<span class="dv">1</span>)</span>
+<span id="cb48-5"><a href="introduction-to-caret.html#cb48-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-6"><a href="introduction-to-caret.html#cb48-6" aria-hidden="true" tabindex="-1"></a>train_ctrl_seed_repeated <span class="ot">=</span> <span class="fu">trainControl</span>(<span class="at">method=</span><span class="st">&#39;repeatedcv&#39;</span>,</span>
+<span id="cb48-7"><a href="introduction-to-caret.html#cb48-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">number=</span><span class="dv">10</span>, <span class="co">#number of folds</span></span>
+<span id="cb48-8"><a href="introduction-to-caret.html#cb48-8" aria-hidden="true" tabindex="-1"></a>                              <span class="at">repeats=</span><span class="dv">10</span>, <span class="co">#number of times to repeat cross-validation</span></span>
+<span id="cb48-9"><a href="introduction-to-caret.html#cb48-9" aria-hidden="true" tabindex="-1"></a>                              <span class="at">seeds=</span>seeds)</span>
+<span id="cb48-10"><a href="introduction-to-caret.html#cb48-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-11"><a href="introduction-to-caret.html#cb48-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-12"><a href="introduction-to-caret.html#cb48-12" aria-hidden="true" tabindex="-1"></a>dtreeIris<span class="fl">.10</span>fold.seed.repeated <span class="ot">&lt;-</span> <span class="fu">train</span>(</span>
+<span id="cb48-13"><a href="introduction-to-caret.html#cb48-13" aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">~</span> .,</span>
+<span id="cb48-14"><a href="introduction-to-caret.html#cb48-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> training,</span>
+<span id="cb48-15"><a href="introduction-to-caret.html#cb48-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;rpart&quot;</span>,</span>
+<span id="cb48-16"><a href="introduction-to-caret.html#cb48-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">preProc =</span> <span class="fu">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;scale&quot;</span>,<span class="st">&quot;nzv&quot;</span>,<span class="st">&quot;corr&quot;</span>,<span class="st">&quot;BoxCox&quot;</span>),</span>
+<span id="cb48-17"><a href="introduction-to-caret.html#cb48-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">trControl =</span> train_ctrl_seed_repeated</span>
+<span id="cb48-18"><a href="introduction-to-caret.html#cb48-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb48-19"><a href="introduction-to-caret.html#cb48-19" aria-hidden="true" tabindex="-1"></a>dtreeIris<span class="fl">.10</span>fold.seed.repeated</span></code></pre></div>
+<pre><code>## CART 
+## 
+## 105 samples
+##   4 predictor
+##   3 classes: &#39;setosa&#39;, &#39;versicolor&#39;, &#39;virginica&#39; 
+## 
+## Pre-processing: centered (3), scaled (3), Box-Cox transformation (3), remove (1) 
+## Resampling: Cross-Validated (10 fold, repeated 10 times) 
+## Summary of sample sizes: 94, 95, 94, 93, 95, 95, ... 
+## Resampling results across tuning parameters:
+## 
+##   cp         Accuracy   Kappa     
+##   0.0000000  0.9355000  0.90268112
+##   0.4285714  0.6628788  0.50378893
+##   0.5000000  0.3666970  0.09857143
+## 
+## Accuracy was used to select the optimal model using the largest value.
+## The final value used for the model was cp = 0.</code></pre>
+</div>
+<div id="optimising-hyperparameters" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Optimising hyperparameters<a href="introduction-to-caret.html#optimising-hyperparameters" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For different models, we need optimise different hyperparameters. To specify the different values we wish to consider, we use the tuneGrid or tuneLength parameters. In the decision tree example, we can optimise the cp value. Instead of looking at only 3 values, we may want to look at 10:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="introduction-to-caret.html#cb50-1" aria-hidden="true" tabindex="-1"></a>dtreeIris.hyperparam <span class="ot">&lt;-</span> <span class="fu">train</span>(</span>
+<span id="cb50-2"><a href="introduction-to-caret.html#cb50-2" aria-hidden="true" tabindex="-1"></a>    Species <span class="sc">~</span> .,</span>
+<span id="cb50-3"><a href="introduction-to-caret.html#cb50-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> training,</span>
+<span id="cb50-4"><a href="introduction-to-caret.html#cb50-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;rpart&quot;</span>,</span>
+<span id="cb50-5"><a href="introduction-to-caret.html#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">preProc =</span> <span class="fu">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;scale&quot;</span>,<span class="st">&quot;nzv&quot;</span>,<span class="st">&quot;corr&quot;</span>,<span class="st">&quot;BoxCox&quot;</span>),</span>
+<span id="cb50-6"><a href="introduction-to-caret.html#cb50-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">trControl =</span> train_ctrl_seed_repeated,</span>
+<span id="cb50-7"><a href="introduction-to-caret.html#cb50-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">tuneLength =</span> <span class="dv">10</span> <span class="co">#pick number of different hyperparam values to try</span></span>
+<span id="cb50-8"><a href="introduction-to-caret.html#cb50-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb50-9"><a href="introduction-to-caret.html#cb50-9" aria-hidden="true" tabindex="-1"></a>dtreeIris.hyperparam</span></code></pre></div>
+<pre><code>## CART 
+## 
+## 105 samples
+##   4 predictor
+##   3 classes: &#39;setosa&#39;, &#39;versicolor&#39;, &#39;virginica&#39; 
+## 
+## Pre-processing: centered (3), scaled (3), Box-Cox transformation (3), remove (1) 
+## Resampling: Cross-Validated (10 fold, repeated 10 times) 
+## Summary of sample sizes: 95, 94, 95, 94, 94, 95, ... 
+## Resampling results across tuning parameters:
+## 
+##   cp          Accuracy   Kappa    
+##   0.00000000  0.9314899  0.8961806
+##   0.05555556  0.9314899  0.8961806
+##   0.11111111  0.9314899  0.8961806
+##   0.16666667  0.9314899  0.8961806
+##   0.22222222  0.9314899  0.8961806
+##   0.27777778  0.9314899  0.8961806
+##   0.33333333  0.9314899  0.8961806
+##   0.38888889  0.9314899  0.8961806
+##   0.44444444  0.6409091  0.4737835
+##   0.50000000  0.3718182  0.1071429
+## 
+## Accuracy was used to select the optimal model using the largest value.
+## The final value used for the model was cp = 0.3888889.</code></pre>
+<p>We will see more example of this parameter as we explore different types of models.</p>
+</div>
+<div id="using-dummy-variables-with-the-sacramento-dataset" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Using dummy variables with the Sacramento dataset<a href="introduction-to-caret.html#using-dummy-variables-with-the-sacramento-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If you have categorical predictors instead of continuous numeric variables, you may need to convert your categorical variable to a series of dummy variables. We will show this method on the Sacramento dataset.</p>
+<p>From the documentation:
+This data frame contains house and sale price data for 932 homes in Sacramento CA. The original data were obtained from the website for the SpatialKey software. From their website: “The Sacramento real estate transactions file is a list of 985 real estate transactions in the Sacramento area reported over a five-day period, as reported by the Sacramento Bee.” Google was used to fill in missing/incorrect data.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="introduction-to-caret.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;Sacramento&quot;</span>) <span class="do">##loads the dataset, which can be accessed under the variable name Sacramento</span></span>
+<span id="cb52-2"><a href="introduction-to-caret.html#cb52-2" aria-hidden="true" tabindex="-1"></a>?Sacramento</span>
+<span id="cb52-3"><a href="introduction-to-caret.html#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Sacramento)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    932 obs. of  9 variables:
+##  $ city     : Factor w/ 37 levels &quot;ANTELOPE&quot;,&quot;AUBURN&quot;,..: 34 34 34 34 34 34 34 34 29 31 ...
+##  $ zip      : Factor w/ 68 levels &quot;z95603&quot;,&quot;z95608&quot;,..: 64 52 44 44 53 65 66 49 24 25 ...
+##  $ beds     : int  2 3 2 2 2 3 3 3 2 3 ...
+##  $ baths    : num  1 1 1 1 1 1 2 1 2 2 ...
+##  $ sqft     : int  836 1167 796 852 797 1122 1104 1177 941 1146 ...
+##  $ type     : Factor w/ 3 levels &quot;Condo&quot;,&quot;Multi_Family&quot;,..: 3 3 3 3 3 1 3 3 1 3 ...
+##  $ price    : int  59222 68212 68880 69307 81900 89921 90895 91002 94905 98937 ...
+##  $ latitude : num  38.6 38.5 38.6 38.6 38.5 ...
+##  $ longitude: num  -121 -121 -121 -121 -121 ...</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="introduction-to-caret.html#cb54-1" aria-hidden="true" tabindex="-1"></a>dummies <span class="ot">=</span> <span class="fu">dummyVars</span>(price <span class="sc">~</span> ., <span class="at">data =</span> Sacramento) <span class="co">#convert the categorical variables to dummies</span></span>
+<span id="cb54-2"><a href="introduction-to-caret.html#cb54-2" aria-hidden="true" tabindex="-1"></a>Sacramento.dummies <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="fu">predict</span>(dummies, <span class="at">newdata =</span> Sacramento))</span>
+<span id="cb54-3"><a href="introduction-to-caret.html#cb54-3" aria-hidden="true" tabindex="-1"></a>Sacramento.dummies<span class="sc">$</span>price<span class="ot">=</span>Sacramento<span class="sc">$</span>price</span></code></pre></div>
+<p>Once we have dummified, we can just split the data into training and test and train a model like with the Iris data.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="introduction-to-caret.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">23</span>)</span>
+<span id="cb55-2"><a href="introduction-to-caret.html#cb55-2" aria-hidden="true" tabindex="-1"></a>trainTestPartition.Sacramento<span class="ot">&lt;-</span><span class="fu">createDataPartition</span>(<span class="at">y=</span>Sacramento.dummies<span class="sc">$</span>price, <span class="co">#the class label, caret ensures an even split of classes</span></span>
+<span id="cb55-3"><a href="introduction-to-caret.html#cb55-3" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">p=</span><span class="fl">0.7</span>, <span class="co">#proportion of samples assigned to train</span></span>
+<span id="cb55-4"><a href="introduction-to-caret.html#cb55-4" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">list=</span><span class="cn">FALSE</span>)</span>
+<span id="cb55-5"><a href="introduction-to-caret.html#cb55-5" aria-hidden="true" tabindex="-1"></a>training.Sacramento <span class="ot">&lt;-</span> Sacramento.dummies[ trainTestPartition.Sacramento,]</span>
+<span id="cb55-6"><a href="introduction-to-caret.html#cb55-6" aria-hidden="true" tabindex="-1"></a>testing.Sacramento  <span class="ot">&lt;-</span> Sacramento.dummies[<span class="sc">-</span>trainTestPartition.Sacramento,]</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="introduction-to-caret.html#cb56-1" aria-hidden="true" tabindex="-1"></a>lmSacramento <span class="ot">&lt;-</span> <span class="fu">train</span>(</span>
+<span id="cb56-2"><a href="introduction-to-caret.html#cb56-2" aria-hidden="true" tabindex="-1"></a>    price <span class="sc">~</span> .,</span>
+<span id="cb56-3"><a href="introduction-to-caret.html#cb56-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> training.Sacramento,</span>
+<span id="cb56-4"><a href="introduction-to-caret.html#cb56-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,</span>
+<span id="cb56-5"><a href="introduction-to-caret.html#cb56-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">preProc =</span> <span class="fu">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;scale&quot;</span>,<span class="st">&quot;nzv&quot;</span>,<span class="st">&quot;corr&quot;</span>,<span class="st">&quot;BoxCox&quot;</span>)</span>
+<span id="cb56-6"><a href="introduction-to-caret.html#cb56-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb56-7"><a href="introduction-to-caret.html#cb56-7" aria-hidden="true" tabindex="-1"></a>lmSacramento</span></code></pre></div>
+<pre><code>## Linear Regression 
+## 
+## 655 samples
+## 113 predictors
+## 
+## Pre-processing: centered (10), scaled (10), Box-Cox transformation (4),
+##  remove (103) 
+## Resampling: Bootstrapped (25 reps) 
+## Summary of sample sizes: 655, 655, 655, 655, 655, 655, ... 
+## Resampling results:
+## 
+##   RMSE      Rsquared   MAE     
+##   87078.53  0.5843419  62112.79
+## 
+## Tuning parameter &#39;intercept&#39; was held constant at a value of TRUE</code></pre>
+<p>We can also train without using dummy variables and compare.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="introduction-to-caret.html#cb58-1" aria-hidden="true" tabindex="-1"></a>training.Sacramento.nondummy <span class="ot">&lt;-</span> Sacramento[ trainTestPartition.Sacramento,]</span>
+<span id="cb58-2"><a href="introduction-to-caret.html#cb58-2" aria-hidden="true" tabindex="-1"></a>testing.Sacramento.nondummy  <span class="ot">&lt;-</span> Sacramento[<span class="sc">-</span>trainTestPartition.Sacramento,]</span>
+<span id="cb58-3"><a href="introduction-to-caret.html#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="introduction-to-caret.html#cb58-4" aria-hidden="true" tabindex="-1"></a>lmSacramento.nondummy <span class="ot">&lt;-</span> <span class="fu">train</span>(</span>
+<span id="cb58-5"><a href="introduction-to-caret.html#cb58-5" aria-hidden="true" tabindex="-1"></a>    price <span class="sc">~</span> .,</span>
+<span id="cb58-6"><a href="introduction-to-caret.html#cb58-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> training.Sacramento.nondummy,</span>
+<span id="cb58-7"><a href="introduction-to-caret.html#cb58-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,</span>
+<span id="cb58-8"><a href="introduction-to-caret.html#cb58-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">preProc =</span> <span class="fu">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;scale&quot;</span>,<span class="st">&quot;nzv&quot;</span>,<span class="st">&quot;corr&quot;</span>,<span class="st">&quot;BoxCox&quot;</span>)</span>
+<span id="cb58-9"><a href="introduction-to-caret.html#cb58-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb58-10"><a href="introduction-to-caret.html#cb58-10" aria-hidden="true" tabindex="-1"></a>lmSacramento.nondummy</span></code></pre></div>
+<pre><code>## Linear Regression 
+## 
+## 655 samples
+##   8 predictor
+## 
+## Pre-processing: centered (10), scaled (10), Box-Cox transformation (4),
+##  remove (100) 
+## Resampling: Bootstrapped (25 reps) 
+## Summary of sample sizes: 655, 655, 655, 655, 655, 655, ... 
+## Resampling results:
+## 
+##   RMSE      Rsquared   MAE     
+##   86605.34  0.5832732  61987.72
+## 
+## Tuning parameter &#39;intercept&#39; was held constant at a value of TRUE</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="dimensionality-reduction.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

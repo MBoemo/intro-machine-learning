@@ -1,8 +1,8 @@
-# Solutions ch. 2 - Dimensionality reduction {#solutions-dimensionality-reduction}
+# Solutions - Dimensionality reduction {#solutions-dimensionality-reduction}
 
-Solutions to exercises of chapter \@ref(dimensionality-reduction).
+Solutions to exercises of dimensionality reduction chapter.
 
-## Exercise 2.5. 
+## Exercise 1. 
 
 Read in the corresponding spreadsheet into the R environment as a data frame variable. 
 
@@ -17,7 +17,7 @@ metadata <- sc_rna %>%
   slice( 1:4) %>% 
   pivot_longer( cols=-Sample, names_to = 'cell_type', values_to  = 'index') %>% 
   pivot_wider( names_from = Sample, values_from = index) %>% 
-  mutate(group=str_remove(cell_type, '_.*$')) %>% 
+  mutate(group=str_remove(cell_type, '\\..*$')) %>% 
   mutate_if( is.numeric, as.factor)  
   
 sc_rna_fil <- sc_rna %>% 
@@ -48,7 +48,7 @@ sc_2d_data <- tsne_model_1$Y %>%
   as.data.frame() %>% 
   rename( x=V1,y=V2) %>% 
   mutate(cell_type = cell_type ) %>% 
-  mutate( cell_group = str_remove(cell_type, '_.*$'))
+  mutate( cell_group = str_remove(cell_type, '\\..*$'))
 
 ggplot(data=sc_2d_data) +
   geom_point( mapping=aes(x=x,y=y, color=cell_group), alpha=0.5) +
@@ -59,7 +59,7 @@ ggplot(data=sc_2d_data) +
 
 <img src="15-solutions-dimensionality-reduction_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
-## Exercise 2.6.
+## Exercise 2.
 
 We can plot the expression patterns for pre-implantation embryos:
 

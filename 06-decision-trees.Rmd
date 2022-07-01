@@ -44,14 +44,14 @@ The above example is of the categorical variable decision tree type.
 
 <!-- this chunk will not run because we have not defined any data-->
 
-```{r, eval=FALSE}
+```{r, eval=FALSE,message=F}
 library(rpart)
 x <- cbind(x_train,y_train) ##y_train – represents dependent variable, x_train – represents independent variable
 # grow tree 
 fit <- rpart(y_train ~ ., data = x,method="class") ##x – represents training data
 summary(fit)
 #Predict Output 
-predicted= predict(fit,x_test)
+predicted <- predict(fit,x_test)
 ```
 
 **Terminology related to decision trees**
@@ -145,7 +145,7 @@ We are going to plot a car evaluation data with 7 attributes, 6 as feature attri
 
 R package *caret* helps to perform various machine learning tasks including decision tree classification. The *rplot.plot* package will help to get a visual plot of the decision tree.
 
-```{r loading packages and car data}
+```{r loading packages and car data,message=F,message=F}
 library(caret)
 library(rpart.plot)
 #download.file(url = "https://archive.ics.uci.edu/ml/machine-learning-databases/car/car.data",
@@ -290,7 +290,7 @@ confusionMatrix(rpart_test_pred_information, as.factor(car.testing$class) )
 
 **C.50**
 
-```{r c50 train}
+```{r c50 train,message=F,message=F}
 library(C50)
 car.training.factors= as.data.frame(lapply(car.training,as.factor))
 car.testing.factors= as.data.frame(lapply(car.testing,as.factor))
@@ -307,7 +307,7 @@ confusionMatrix(c50_test_pred, as.factor(car.testing.factors$class) )
 
 We can use the same pipeline for the Iris dataset but we need to remember to scale, centre and check for highly correlation variables and skewness because now we have numeric predictors.
 
-```{r load iris rf}
+```{r load iris rf,message=F}
 library(datasets)
 data(iris) ##loads the dataset, which can be accessed under the variable name iris
 ?iris ##opens the documentation for the dataset
@@ -328,11 +328,11 @@ iris.testing  <- iris[-trainTestPartition,] #take the corresponding rows for tes
 
 ```{r train gini dtree iris}
 set.seed(42)
-seeds = vector(mode='list',length=101) #you need length #folds*#repeats + 1 so 10*10 + 1 here
+seeds = vector(mode = 'list', length = 101) #you need length #folds*#repeats + 1 so 10*10 + 1 here
 for (i in 1:100) seeds[[i]] = sample.int(1000,10)
 seeds[[101]] = sample.int(1000,1)
 
-train_ctrl_seed_repeated = trainControl(method='repeatedcv',
+train_ctrl_seed_repeated <- trainControl(method='repeatedcv',
                               number=10, #number of folds
                               repeats=10, #number of times to repeat cross-validation
                               seeds=seeds)
@@ -347,10 +347,10 @@ iris_dtree <- train(
 )
 iris_dtree
 prp(iris_dtree$finalModel,box.palette = 'Reds',tweak=1.2)
-iris_information_predict_train=predict(iris_dtree,iris.training,type='raw')
+iris_information_predict_train <- predict(iris_dtree,iris.training,type='raw')
 confusionMatrix(iris_information_predict_train,iris.training$Species)
 
-iris_gini_predict=predict(iris_dtree,iris.testing,type='raw')
+iris_gini_predict <- predict(iris_dtree,iris.testing,type='raw')
 confusionMatrix(iris_gini_predict,iris.testing$Species)
 ```
 
@@ -366,181 +366,20 @@ iris_dtree_information <- train(
 )
 
 iris_dtree_information
-prp(iris_dtree_information$finalModel,box.palette = 'Blues',tweak=1.2)
-iris_information_predict_train=predict(iris_dtree_information,iris.training,type='raw')
-confusionMatrix(iris_information_predict_train,iris.training$Species)
+prp(iris_dtree_information$finalModel, box.palette = 'Blues', tweak=1.2)
+iris_information_predict_train=predict(iris_dtree_information, iris.training, type = 'raw')
+confusionMatrix(iris_information_predict_train, iris.training$Species)
 
-iris_information_predict=predict(iris_dtree_information,iris.testing,type='raw')
-confusionMatrix(iris_information_predict,iris.testing$Species)
+iris_information_predict=predict(iris_dtree_information, iris.testing, type = 'raw')
+confusionMatrix(iris_information_predict, iris.testing$Species)
 ```
 
 In this case, the output models are the same for the information and gini split parameter choices but this is a very simple model which does not capture the patterns in the data fully.
 
-## Random Forest
-
-**What is a Random Forest?**
-
-It is a kind of ensemble learning method that combines a set of weak models to form a powerful model. In the process it reduces dimensionality, removes outliers, treats missing values, and more importantly it is both a regression and classification machine learning approach. 
-
-**How does it work?**
-
-In Random Forest, multiple trees are grown as opposed to a single tree in a decision tree model. Assume number of cases in the training set is N. Then, sample of these N cases is taken at random but with replacement. This sample will be the training set for growing the tree. Each tree is grown to the largest extent possible and without pruning.
-
-To classify a new object based on attributes, each tree gives a classification i.e. “votes” for that class. The forest chooses the classification having the most votes (over all the trees in the forest) and in case of regression, it takes the average of outputs by different trees.
-
-**Key differences between decision trees and random forest**
-
-Decision trees proceed by searching for a split on every variable in every node random forest searches for a split only on one variable in a node -  the variable that has the largest association with the target among all other explanatory variables but only on a subset of randomly selected explanatory variables that is tested for that node. At every node a new list is selected. 
-
-Therefore, eligible variable set will be different from node to node but the important ones will eventually be "voted in" based on their success in predicting the target variable. 
-
-This random selection of explanatory variables at each node and which are different at each tree is known as bagging. For each tree the ratio between bagging and out of bagging is 60/40. 
-
-The important thing to note is that the trees are themselves not interpreted but they are used to collectively rank the importance of each variable. 
-
-**Example Random Forest code for binary classification**
-
-*Loading randomForest library*
-
-```{r load rf}
-library(randomForest)
-```
-
-We will again use the car data which we used for the Decision Tree example.
-
-```{r load car data rf}
-car.data <- read.csv("data/Decision_tree_and_RF/car.data", sep = ',', header = FALSE)
-colnames(car.data)=c('buying','maint','doors','persons','lug_boot','safety','class')
-set.seed(42)
-trainTestPartition <- createDataPartition(y = car.data$class, p= 0.7, list = FALSE)
-car.training <- car.data[trainTestPartition,]
-car.testing <- car.data[-trainTestPartition,]
-```
-
-Input dataset has 20 independent variables and a target variable. The target variable y is binary.
-
-*Building Random Forest model*
-
-We will build 500 decision trees using randomForest.
-
-```{r ntree rf}
-car.training.factors= as.data.frame(lapply(car.training,as.factor))
-car_rf_direct <- randomForest(class~.,
-                              car.training.factors,
-                              ntree=500,
-                              importance=T)
-error.rates=as.data.frame(car_rf_direct$err.rate)
-error.rates$ntree=as.numeric(rownames(error.rates))
-error.rates.melt=reshape2::melt(error.rates,id.vars=c('ntree'))
-ggplot(error.rates.melt,aes(x=ntree,y=value,color=variable))+geom_line()
-```
-
-500 decision trees or a forest has been built using the Random Forest algorithm based learning. We can plot the error rate across decision trees. The plot seems to indicate that after around 200 decision trees, there is not a significant reduction in error rate.
-
-```{r varimp cars}
-# Variable Importance Plot
-varImpPlot(car_rf_direct,
-           sort = T,
-           main="Variable Importance")
-```
-
-Variable importance plot is also a useful tool and can be plotted using varImpPlot function. The variables plotted based on Model Accuracy and Gini value. We can also get a table with decreasing order of importance based on a measure (1 for model accuracy and 2 node impurity)
-
-```{r importance cars}
-# Variable Importance Table
-importance(car_rf_direct,type=2)
-importance(car_rf_direct,type=1)
-```
-
-We can train a random forest with caret instead of directly using the randomForest package.
-
-```{r rf caret}
-set.seed(42)
-seeds = vector(mode='list',length=101)
-for (i in 1:100) seeds[[i]] = sample.int(1000,100)
-seeds[[101]] = sample.int(1000,1)
-
-trctrl <- trainControl(method = "repeatedcv", 
-                       number = 10, 
-                       repeats = 10,
-                       seeds = seeds)
-
-car_rf_fit <- train(class ~., data = car.training.factors, method = "rf",
-                   trControl=trctrl,
-                   ntree = 10,
-                   tuneLength = 10)
-car_rf_fit
-car_rf_fit$finalModel
-rf_test_pred <- predict(car_rf_fit, newdata = car.testing.factors)
-confusionMatrix(rf_test_pred, car.testing.factors$class )
-```
-This performance here is better than decision trees and is much better balanced across the different classes.
-
-```{r varimp cars caret}
-# Variable Importance Plot
-varImpPlot(car_rf_fit$finalModel,
-           sort = T,
-           main="Variable Importance")
-```
-
-As you can see from the variable importance plot, caret automatically converts categorical variables to dummy variables. This is because it facilitates many types of models, some of which cannot handle categorical variables.
-
-### Iris example for Random Forests
-
-We can use the same pipeline for the Iris dataset but we need to remember to scale, centre and check for highly correlation variables and skewness because now we have numeric predictors.
-
-```{r load iris dtree}
-library(datasets)
-data(iris) ##loads the dataset, which can be accessed under the variable name iris
-?iris ##opens the documentation for the dataset
-summary(iris) ##presents the 5 figure summary of the dataset
-str(iris) ##presents the structure of the iris dataframe
-```
-
-```{r iris split training test rf}
-set.seed(42)
-trainTestPartition<-createDataPartition(y=iris$Species, #the class label, caret ensures an even split of classes
-                                        p=0.7, #proportion of samples assigned to train
-                                        list=FALSE)
-str(trainTestPartition)
-
-iris.training <- iris[ trainTestPartition,] #take the corresponding rows for training
-iris.testing  <- iris[-trainTestPartition,] #take the corresponding rows for testing by removing training rows
-```
-
-```{r train iris rf}
-set.seed(42)
-seeds = vector(mode='list',length=101)
-for (i in 1:100) seeds[[i]] = sample.int(1000,10)
-seeds[[101]] = sample.int(1000,1)
-
-train_ctrl_seed_repeated = trainControl(method='repeatedcv',
-                              number=10, #number of folds
-                              repeats=10, #number of times to repeat cross-validation
-                              seeds=seeds)
-iris_rf <- train(
-                Species ~ .,
-                data = iris.training,
-                method = "rf",
-                preProc = c("corr","nzv","center", "scale","BoxCox")
-)
-iris_rf
-iris_predict_train=predict(iris_rf,iris.training,type='raw')
-confusionMatrix(iris_predict_train,iris.training$Species)
-iris_predict_test=predict(iris_rf,iris.testing,type='raw')
-confusionMatrix(iris_predict_test,iris.testing$Species)
-```
-In this case, the model predicts the training data perfectly but gives the same confusion matrix on the testing data as for decision trees.
-
-```{r varimp iris}
-importance(iris_rf$finalModel)
-varImpPlot(iris_rf$finalModel)
-```
-
 ## Cell segmentation examples
 
 Load required libraries
-```{r echo=T}
+```{r echo=T,message=F}
 library(caret)
 library(pROC)
 library(e1071)
@@ -600,19 +439,7 @@ dtreeTune
 prp(dtreeTune$finalModel)
 ```
 
-```{r echo=T, eval=FALSE}
-rfTune <- train(x = segDataTrain,
-                   y = segClassTrain,
-                   method = 'rf',
-                   tuneLength = 9,
-                   preProc = c("center", "scale"),
-                   metric = "ROC",
-                   trControl = cvCtrl)
-
-rfTune
-```
-
-decision tree accuracy profile
+Decision tree accuracy profile
 ```{r dtreeAccuracyProfileCellSegment, fig.cap='dtree accuracy profile.', out.width='80%', fig.asp=0.7, fig.align='center', echo=T}
 plot(dtreeTune, metric = "ROC", scales = list(x = list(log =2)))
 ```
@@ -646,13 +473,384 @@ Calculate area under ROC curve
 auc(dtreeROC)
 ```
 
-Try performing the same analysis for the random forest model too.
+## Regression example - Blood Brain Barrier
 
-## Exercises
+This example serves to demonstrate the use of decision trees and random forests in regression, but perhaps more importantly, it highlights the power and flexibility of the [caret](http://cran.r-project.org/web/packages/caret/index.html) package. Earlier we used _k_-NN for a regression analysis of the **BloodBrain** dataset (see section 04-nearest-neighbours.Rmd). We will repeat the regression analysis, but this time we will fit a decision tree. Remarkably, a re-run of this analysis using a completely different type of model, requires changes to only two lines of code.
 
-**Titanic Data**\ 
-One of the reasons that the shipwreck led to such loss of life was that there were not enough lifeboats for the passengers and crew. Although there was some element of luck involved in surviving the sinking, some groups of people were more likely to survive than others, such as women, children, and the upper-class.
+The pre-processing steps and generation of seeds are identical, therefore if the data were still in memory, we could skip this next block of code:
+```{r echo=T}
+data(BloodBrain)
 
-In this exercise, try to complete the analysis of what sorts of people were likely to survive. The data can be downloaded from https://goo.gl/At238b or loaded with ```readRDS('data/titanic.rds')```. Hint: Use decision tree.   
+set.seed(42)
+trainIndex <- createDataPartition(y=logBBB, times=1, p=0.8, list=F)
+descrTrain <- bbbDescr[trainIndex,]
+concRatioTrain <- logBBB[trainIndex]
+descrTest <- bbbDescr[-trainIndex,]
+concRatioTest <- logBBB[-trainIndex]
 
-Solutions to exercises can be found in appendix \@ref(solutions-decision-trees).
+transformations <- preProcess(descrTrain,
+                              method=c("center", "scale", "corr", "nzv"),
+                              cutoff=0.75)
+descrTrain <- predict(transformations, descrTrain)
+
+set.seed(42)
+seeds <- vector(mode = "list", length = 26)
+for(i in 1:25) seeds[[i]] <- sample.int(1000, 50)
+seeds[[26]] <- sample.int(1000,1)
+```
+
+### Decision tree
+
+In the arguments to the ```train``` function we change ```method``` from ```knn``` to ```rpart```. The ```tunegrid``` parameter is replaced with ```tuneLength = 9```. Now we are ready to fit an decision tree model.
+```{r echo=T}
+dtTune <- train(descrTrain,
+                 concRatioTrain,
+                 method='rpart',
+                 tuneLength = 9,
+                 trControl = trainControl(method="repeatedcv",
+                                          number = 5,
+                                          repeats = 5,
+                                          seeds=seeds
+                                          )
+)
+
+dtTune
+```
+
+```{r rmseCordt, fig.cap='Root Mean Squared Error as a function of cost.', out.width='100%', fig.asp=0.6, fig.align='center', echo=T}
+plot(dtTune)
+```
+
+Use model to predict outcomes, after first pre-processing the test set.
+```{r echo=T}
+descrTest <- predict(transformations, descrTest)
+test_pred <- predict(dtTune, descrTest)
+```
+
+Prediction performance can be visualized in a scatterplot.
+```{r obsPredConcRatiosdt, fig.cap='Concordance between observed concentration ratios and those predicted by decision tree.', out.width='80%', fig.asp=0.8, fig.align='center', echo=T}
+qplot(concRatioTest, test_pred) + 
+  xlab("observed") +
+  ylab("predicted") +
+  theme_bw()
+```
+
+We can also measure correlation between observed and predicted values.
+```{r echo=T}
+cor(concRatioTest, test_pred)
+```
+
+## Random Forest
+
+**What is a Random Forest?**
+
+It is a kind of ensemble learning method that combines a set of weak models to form a powerful model. In the process it reduces dimensionality, removes outliers, treats missing values, and more importantly it is both a regression and classification machine learning approach. 
+
+**How does it work?**
+
+In Random Forest, multiple trees are grown as opposed to a single tree in a decision tree model. Assume number of cases in the training set is N. Then, sample of these N cases is taken at random but with replacement. This sample will be the training set for growing the tree. Each tree is grown to the largest extent possible and without pruning.
+
+To classify a new object based on attributes, each tree gives a classification i.e. “votes” for that class. The forest chooses the classification having the most votes (over all the trees in the forest) and in case of regression, it takes the average of outputs by different trees.
+
+**Key differences between decision trees and random forest**
+
+Decision trees proceed by searching for a split on every variable in every node random forest searches for a split only on one variable in a node -  the variable that has the largest association with the target among all other explanatory variables but only on a subset of randomly selected explanatory variables that is tested for that node. At every node a new list is selected. 
+
+Therefore, eligible variable set will be different from node to node but the important ones will eventually be "voted in" based on their success in predicting the target variable. 
+
+This random selection of explanatory variables at each node and which are different at each tree is known as bagging. For each tree the ratio between bagging and out of bagging is 60/40. 
+
+The important thing to note is that the trees are themselves not interpreted but they are used to collectively rank the importance of each variable. 
+
+**Example Random Forest code for binary classification**
+
+*Loading randomForest library*
+
+```{r load rf,message=F}
+library(randomForest)
+```
+
+We will again use the car data which we used for the Decision Tree example.
+
+```{r load car data rf}
+car.data <- read.csv("data/Decision_tree_and_RF/car.data", sep = ',', header = FALSE)
+colnames(car.data)=c('buying','maint','doors','persons','lug_boot','safety','class')
+set.seed(42)
+trainTestPartition <- createDataPartition(y = car.data$class, p= 0.7, list = FALSE)
+car.training <- car.data[trainTestPartition,]
+car.testing <- car.data[-trainTestPartition,]
+```
+
+Input dataset has 20 independent variables and a target variable. The target variable y is binary.
+
+*Building Random Forest model*
+
+We will build 500 decision trees using randomForest.
+
+```{r ntree rf}
+car.training.factors <- as.data.frame(lapply(car.training,as.factor))
+car_rf_direct <- randomForest(class~.,
+                              car.training.factors,
+                              ntree = 500,
+                              importance = T)
+error.rates <- as.data.frame(car_rf_direct$err.rate)
+error.rates$ntree <- as.numeric(rownames(error.rates))
+error.rates.melt <- reshape2::melt(error.rates, id.vars = c('ntree'))
+ggplot(error.rates.melt,aes(x = ntree,y = value,color = variable)) + geom_line()
+```
+
+500 decision trees or a forest has been built using the Random Forest algorithm based learning. We can plot the error rate across decision trees. The plot seems to indicate that after around 200 decision trees, there is not a significant reduction in error rate.
+
+```{r varimp cars}
+# Variable Importance Plot
+varImpPlot(car_rf_direct,
+           sort = T,
+           main="Variable Importance")
+```
+
+Variable importance plot is also a useful tool and can be plotted using varImpPlot function. The variables plotted based on Model Accuracy and Gini value. We can also get a table with decreasing order of importance based on a measure (1 for model accuracy and 2 node impurity)
+
+```{r importance cars}
+# Variable Importance Table
+importance(car_rf_direct, type = 2)
+importance(car_rf_direct, type = 1)
+```
+
+We can train a random forest with caret instead of directly using the randomForest package.
+
+```{r rf caret}
+set.seed(42)
+seeds = vector(mode='list',length=101)
+for (i in 1:100) seeds[[i]] = sample.int(1000,100)
+seeds[[101]] = sample.int(1000,1)
+
+trctrl <- trainControl(method = "repeatedcv", 
+                       number = 10, 
+                       repeats = 10,
+                       seeds = seeds)
+
+car_rf_fit <- train(class ~., data = car.training.factors, method = "rf",
+                   trControl=trctrl,
+                   ntree = 10,
+                   tuneLength = 10)
+car_rf_fit
+car_rf_fit$finalModel
+rf_test_pred <- predict(car_rf_fit, newdata = car.testing.factors)
+confusionMatrix(rf_test_pred, car.testing.factors$class )
+```
+This performance here is better than decision trees and is much better balanced across the different classes.
+
+```{r varimp cars caret}
+# Variable Importance Plot
+varImpPlot(car_rf_fit$finalModel,
+           sort = T,
+           main="Variable Importance")
+```
+
+As you can see from the variable importance plot, caret automatically converts categorical variables to dummy variables. This is because it facilitates many types of models, some of which cannot handle categorical variables.
+
+### Iris example for Random Forests
+
+We can use the same pipeline for the Iris dataset but we need to remember to scale, centre and check for highly correlation variables and skewness because now we have numeric predictors.
+
+```{r load iris dtree,message=F}
+library(datasets)
+data(iris) ##loads the dataset, which can be accessed under the variable name iris
+?iris ##opens the documentation for the dataset
+summary(iris) ##presents the 5 figure summary of the dataset
+str(iris) ##presents the structure of the iris dataframe
+```
+
+```{r iris split training test rf}
+set.seed(42)
+trainTestPartition <- createDataPartition(y = iris$Species, #the class label, caret ensures an even split of classes
+                                        p = 0.7, #proportion of samples assigned to train
+                                        list=FALSE)
+str(trainTestPartition)
+
+iris.training <- iris[ trainTestPartition,] #take the corresponding rows for training
+iris.testing  <- iris[-trainTestPartition,] #take the corresponding rows for testing by removing training rows
+```
+
+```{r train iris rf}
+set.seed(42)
+seeds = vector(mode = 'list',length=101)
+for (i in 1:100) seeds[[i]] = sample.int(1000,10)
+seeds[[101]] = sample.int(1000,1)
+
+train_ctrl_seed_repeated = trainControl(method = 'repeatedcv',
+                              number = 10, #number of folds
+                              repeats = 10, #number of times to repeat cross-validation
+                              seeds = seeds)
+iris_rf <- train(
+                Species ~ .,
+                data = iris.training,
+                method = "rf",
+                preProc = c("corr","nzv","center", "scale","BoxCox")
+)
+iris_rf
+iris_predict_train = predict(iris_rf, iris.training,type = 'raw')
+confusionMatrix(iris_predict_train, iris.training$Species)
+iris_predict_test = predict(iris_rf, iris.testing,type = 'raw')
+confusionMatrix(iris_predict_test, iris.testing$Species)
+```
+In this case, the model predicts the training data perfectly but gives the same confusion matrix on the testing data as for decision trees.
+
+```{r varimp iris}
+importance(iris_rf$finalModel)
+varImpPlot(iris_rf$finalModel)
+```
+
+## Cell segmentation examples
+
+Load required libraries
+```{r echo=T,message=F}
+library(caret)
+library(pROC)
+library(e1071)
+```
+
+Load data
+```{r echo=T}
+data(segmentationData)
+segClass <- segmentationData$Class
+segData <- segmentationData[,4:59] ##Extract predictors from segmentationData
+```
+
+Partition data
+```{r echo=T}
+set.seed(42)
+trainIndex <- createDataPartition(y=segClass, times=1, p=0.5, list=F)
+segDataTrain <- segData[trainIndex,]
+segDataTest <- segData[-trainIndex,]
+segClassTrain <- segClass[trainIndex]
+segClassTest <- segClass[-trainIndex]
+```
+
+Set seeds for reproducibility (optional). We will be trying 9 values of the tuning parameter with 5 repeats of 10 fold cross-validation, so we need the following list of seeds.
+```{r echo=T}
+set.seed(42)
+seeds <- vector(mode = "list", length = 51)
+for(i in 1:50) seeds[[i]] <- sample.int(1000, 9)
+seeds[[51]] <- sample.int(1000,1)
+```
+
+We will pass the twoClassSummary function into model training through **trainControl**. Additionally we would like the model to predict class probabilities so that we can calculate the ROC curve, so we use the **classProbs** option. 
+
+```{r echo=T}
+cvCtrl <- trainControl(method = "repeatedcv", 
+                       repeats = 5,
+                       number = 10,
+                       summaryFunction = twoClassSummary,
+                       classProbs = TRUE,
+                       seeds=seeds)
+```
+
+```{r echo=T}
+rfTune <- train(x = segDataTrain,
+                   y = segClassTrain,
+                   method = 'rf',
+                   tuneLength = 9,
+                   preProc = c("center", "scale"),
+                   metric = "ROC",
+                   trControl = cvCtrl)
+
+rfTune
+```
+
+```{r rfAccuracyProfileCellSegment, fig.cap='rf accuracy profile.', out.width='80%', fig.asp=0.7, fig.align='center', echo=T}
+plot(rfTune, metric = "ROC", scales = list(x = list(log =2)))
+```
+
+Test set results
+```{r echo=T}
+#segDataTest <- predict(transformations, segDataTest)
+rfPred <- predict(rfTune, segDataTest)
+confusionMatrix(rfPred, segClassTest)
+```
+
+Get predicted class probabilities
+```{r echo=T}
+rfProbs <- predict(rfTune, segDataTest, type="prob")
+head(rfProbs)
+```
+
+Build a ROC curve
+```{r echo=T}
+rfROC <- roc(segClassTest, rfProbs[,"PS"])
+auc(rfROC)
+```
+
+Plot ROC curve.
+```{r rfROCcurveCellSegment, fig.cap='rf ROC curve for cell segmentation data set.', out.width='80%', fig.asp=1, fig.align='center', echo=T}
+plot(rfROC, type = "S")
+```
+
+Calculate area under ROC curve
+```{r echo=T}
+auc(rfROC)
+```
+
+## Regression example - Blood Brain Barrier
+
+The pre-processing steps and generation of seeds are identical, therefore if the data were still in memory, we could skip this next block of code:
+```{r echo=T}
+data(BloodBrain)
+
+set.seed(42)
+trainIndex <- createDataPartition(y=logBBB, times=1, p=0.8, list=F)
+descrTrain <- bbbDescr[trainIndex,]
+concRatioTrain <- logBBB[trainIndex]
+descrTest <- bbbDescr[-trainIndex,]
+concRatioTest <- logBBB[-trainIndex]
+
+transformations <- preProcess(descrTrain,
+                              method=c("center", "scale", "corr", "nzv"),
+                              cutoff=0.75)
+descrTrain <- predict(transformations, descrTrain)
+
+set.seed(42)
+seeds <- vector(mode = "list", length = 26)
+for(i in 1:25) seeds[[i]] <- sample.int(1000, 50)
+seeds[[26]] <- sample.int(1000,1)
+```
+
+### Random forest
+
+```{r echo=T}
+rfTune <- train(descrTrain,
+                 concRatioTrain,
+                 method='rf',
+                 tuneLength = 9,
+                 trControl = trainControl(method="repeatedcv",
+                                          number = 5,
+                                          repeats = 5,
+                                          seeds=seeds
+                                          )
+)
+
+rfTune
+```
+
+```{r rmseCorrf, fig.cap='Root Mean Squared Error as a function of cost.', out.width='100%', fig.asp=0.6, fig.align='center', echo=T}
+plot(rfTune)
+```
+
+Use model to predict outcomes, after first pre-processing the test set.
+```{r echo=T}
+descrTest <- predict(transformations, descrTest)
+test_pred <- predict(rfTune, descrTest)
+```
+
+Prediction performance can be visualized in a scatterplot.
+```{r obsPredConcRatiosrf, fig.cap='Concordance between observed concentration ratios and those predicted by random forest.', out.width='80%', fig.asp=0.8, fig.align='center', echo=T}
+qplot(concRatioTest, test_pred) + 
+  xlab("observed") +
+  ylab("predicted") +
+  theme_bw()
+```
+
+We can also measure correlation between observed and predicted values.
+```{r echo=T}
+cor(concRatioTest, test_pred)
+```

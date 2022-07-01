@@ -84,7 +84,7 @@ Training of an SVM will be demonstrated on a 2-dimensional simulated data set, w
 
 ### Setup environment
 Load required libraries
-```{r echo=T}
+```{r echo=T,message=F}
 library(caret)
 library(RColorBrewer)
 library(ggplot2)
@@ -142,7 +142,6 @@ trctrl <- trainControl(method = "repeatedcv",
                        repeats = 10,
                        seeds = seeds,
                        classProbs=TRUE)
-library(e1071)
 svmTune <- train(x = moonsTrain[,c(1:2)],
                  y = moonsTrain[,3],
                  method = "svmRadial",
@@ -341,7 +340,7 @@ svmTune$finalModel
 
 ## Iris example
 
-```{r iris}
+```{r iris,message=F}
 library(datasets)
 data(iris) ##loads the dataset, which can be accessed under the variable name iris
 ?iris ##opens the documentation for the dataset
@@ -390,7 +389,7 @@ confusionMatrix(iris_gini_predict,iris.testing$Species)
 ## Cell segmentation example
 
 Load required libraries
-```{r echo=T}
+```{r echo=T,message=F}
 library(caret)
 library(pROC)
 library(e1071)
@@ -491,7 +490,7 @@ auc(svmROC)
 
 ## Example - regression
 
-This example serves to demonstrate the use of SVMs in regression, but perhaps more importantly, it highlights the power and flexibility of the [caret](http://cran.r-project.org/web/packages/caret/index.html) package. Earlier we used _k_-NN for a regression analysis of the **BloodBrain** dataset (see section B2_kNearestNeighbours.Rmd). We will repeat the regression analysis, but this time we will fit a radial kernel SVM. Remarkably, a re-run of this analysis using a completely different type of model, requires changes to only two lines of code.
+This example serves to demonstrate the use of SVMs in regression, but perhaps more importantly, it highlights the power and flexibility of the [caret](http://cran.r-project.org/web/packages/caret/index.html) package. Earlier we used _k_-NN for a regression analysis of the **BloodBrain** dataset (see section 04-nearest-neighbours.Rmd). We will repeat the regression analysis, but this time we will fit a radial kernel SVM. Remarkably, a re-run of this analysis using a completely different type of model, requires changes to only two lines of code.
 
 The pre-processing steps and generation of seeds are identical, therefore if the data were still in memory, we could skip this next block of code:
 ```{r echo=T}

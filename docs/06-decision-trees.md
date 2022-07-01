@@ -9,14 +9,15 @@ Decision tree or recursive partitioning is a supervised graph based algorithm to
 
 The nodes in the graph represent an event or choice and it is referred to as a **leaf** and the set of *decisions* made at the node is reffered to as **branches**. 
 
-Decision trees map non-linear relationships and the hierarchial leaves and branches makes a **Tree**. 
+Decision trees map non-linear relationships and the hierarchical leaves and branches makes a **Tree**. 
 
 It is one of the most widely used tool in ML for predictive analytics. Examples of use of decision tress are − predicting an email as spam or not spam, predicting whether a tumor is cancerous or not.
 
 <div class="figure" style="text-align: center">
 <img src="images/decision_tree.png" alt="Decision Tree" width="55%" />
-<p class="caption">Decision Tree</p>
+<p class="caption">(\#fig:unnamed-chunk-1)Decision Tree</p>
 </div>
+
 *Image source: analyticsvidhya.com*
 
 **How does it work?**
@@ -25,8 +26,9 @@ A model is first created with training data and then a set of validation data is
 
 <div class="figure" style="text-align: center">
 <img src="images/decision_tree_2.png" alt="Example of a decision Tree" width="90%" />
-<p class="caption">Example of a decision Tree</p>
+<p class="caption">(\#fig:unnamed-chunk-2)Example of a decision Tree</p>
 </div>
+
 *Image source: analyticsvidhya.com* 
 
 **Example of a decision tree**\
@@ -36,30 +38,28 @@ The decision tree algorithm will initially segregate the students based on **all
 
 In the snapshot above, you can see that variable Gender is able to identify best homogeneous sets compared to the other two variables.
 
-There are a number of decision tree algorithms. We have to choose them based on our dataset. If the dependent variable is categorical, then we have to use a *categorical variable decision tree*. If the dependent variable is continuous, then we have to use a *continuos variable deicsion tree*. 
+There are a number of decision tree algorithms. We have to choose them based on our dataset. If the dependent variable is categorical, then we have to use a *categorical variable decision tree*. If the dependent variable is continuous, then we have to use a *continuous variable decision tree*. 
 
 The above example is of the categorical variable decision tree type. 
 
-**A simple R code for decision tree looks like this:**
+**Some simple R code for a decision tree looks like this:**
 
-library(rpart)\
-x <- cbind(x_train,y_train)\
+<!-- this chunk will not run because we have not defined any data-->
+
+
+```r
+library(rpart)
+x <- cbind(x_train,y_train) ##y_train – represents dependent variable, x_train – represents independent variable
 # grow tree 
-fit <- rpart(y_train ~ ., data = x,method="class")\
-summary(fit)\
+fit <- rpart(y_train ~ ., data = x,method="class") ##x – represents training data
+summary(fit)
 #Predict Output 
-predicted= predict(fit,x_test)\
+predicted <- predict(fit,x_test)
+```
 
-Where: 
+**Terminology related to decision trees**
 
-y_train – represents dependent variable.\
-x_train – represents independent variable\
-x – represents training data.\
-
-
-**Terminologies related to decision trees**
-
-*Root nodule*: the entire population that can get further divided into homogenous sets
+*Root nodule*: the entire population that can get further divided into homogeneous sets
 
 *Splitting*: process of diving a node into two or more sub-nodes
 
@@ -67,7 +67,7 @@ x – represents training data.\
 
 *Leaf or terminal node*: when a node does not split further it is called a terminal node. 
 
-*Prunning*: A loose stopping crieteria is used to contruct the tree and then the tree is cut back by removing branches that do not contribute to the generalisation accuracy. 
+*Pruning*: A loose stopping crieteria is used to contruct the tree and then the tree is cut back by removing branches that do not contribute to the generalisation accuracy. 
 
 *Branch*: a sub-section of an entire tree
 
@@ -107,12 +107,12 @@ Steps to Calculate Chi-square for a split:
 2. Calculated Chi-square of Split using Sum of all Chi-square of success and Failure of each node of the split
 
 **Information Gain**\
-The more homogenous something is the less information is needed to describe it and hence it has gained information. Information theory has a measure to define this degree of disorganization in a system and it is known as Entropy. If a sample is completely homogeneous, then the entropy is zero and if it is equally divided (50% – 50%), it has entropy of one.
+The more homogeneous something is the less information is needed to describe it and hence it has gained information. Information theory has a measure to define this degree of disorganization in a system and it is known as Entropy. If a sample is completely homogeneous, then the entropy is zero and if it is equally divided (50% – 50%), it has entropy of one.
 
 Entropy can be calculated using formula
 $$Entropy = -plog_2p - qlog_2q$$
 
-Where p and q are probablity of success and failure
+Where p and q are probability of success and failure
 
 **Reduction in Variance**
 
@@ -127,7 +127,7 @@ Reduction in variance is an algorithm used for continuous target variables (regr
 
 **Disadvantages of decision tree** 
 
-1.Overfitting is the common disadvantage of decision trees. It is taken care of partially by constraining the model parameter and by prunning.\
+1.Overfitting is the common disadvantage of decision trees. It is taken care of partially by constraining the model parameter and by pruning.\
 2. It is not ideal for continuous variables as in it looses information
 
 *Some parameters used to defining a tree and constrain overfitting*
@@ -140,11 +140,11 @@ Reduction in variance is an algorithm used for continuous target variables (regr
 
 *Acknowledgement: some aspects of this explanation can be read from www.analyticsvidhya.com*
 
-**Example code with categorical data**
+## Example code with categorical data
 
-We are going to plot a car evaulation data with 7 attributes, 6 as feature attributes and 1 as the target attribute. This is to evaluate what kinds of cars people purchase. All the attributes are categorical. We will try to build a classifier for predicting the Class attribute. The index of target attribute is 7th.
+We are going to plot a car evaluation data with 7 attributes, 6 as feature attributes and 1 as the target attribute. This is to evaluate what kinds of cars people purchase. All the attributes are categorical. We will try to build a classifier for predicting the Class attribute. The index of target attribute is 7th. For more information about this dataset, see https://archive.ics.uci.edu/ml/datasets/car+evaluation
 
-*instaling packages and downloading data*
+### Loading packages and data
 
 R package *caret* helps to perform various machine learning tasks including decision tree classification. The *rplot.plot* package will help to get a visual plot of the decision tree.
 
@@ -154,82 +154,71 @@ library(caret)
 ```
 
 ```
-## Loading required package: lattice
-```
-
-```
-## Loading required package: ggplot2
+## Warning in system("timedatectl", intern = TRUE): running command 'timedatectl'
+## had status 1
 ```
 
 ```r
 library(rpart.plot)
-```
-
-```
-## Loading required package: rpart
-```
-
-```r
-data_url <- c("https://archive.ics.uci.edu/ml/machine-learning-databases/car/car.data")
-download.file(url = data_url, destfile = "car.data")
- car_df <- read.csv("car.data", sep = ',', header = FALSE)
+#download.file(url = "https://archive.ics.uci.edu/ml/machine-learning-databases/car/car.data",
+#              destfile = "data/car.data")
+car.data <- read.csv("data/Decision_tree_and_RF/car.data", sep = ',', header = FALSE)
+colnames(car.data)=c('buying','maint','doors','persons','lug_boot','safety','class')
 ```
 
 
 ```r
- str(car_df)
+str(car.data) 
 ```
 
 ```
 ## 'data.frame':	1728 obs. of  7 variables:
-##  $ V1: chr  "vhigh" "vhigh" "vhigh" "vhigh" ...
-##  $ V2: chr  "vhigh" "vhigh" "vhigh" "vhigh" ...
-##  $ V3: chr  "2" "2" "2" "2" ...
-##  $ V4: chr  "2" "2" "2" "2" ...
-##  $ V5: chr  "small" "small" "small" "med" ...
-##  $ V6: chr  "low" "med" "high" "low" ...
-##  $ V7: chr  "unacc" "unacc" "unacc" "unacc" ...
+##  $ buying  : chr  "vhigh" "vhigh" "vhigh" "vhigh" ...
+##  $ maint   : chr  "vhigh" "vhigh" "vhigh" "vhigh" ...
+##  $ doors   : chr  "2" "2" "2" "2" ...
+##  $ persons : chr  "2" "2" "2" "2" ...
+##  $ lug_boot: chr  "small" "small" "small" "med" ...
+##  $ safety  : chr  "low" "med" "high" "low" ...
+##  $ class   : chr  "unacc" "unacc" "unacc" "unacc" ...
 ```
-
-The output of this will show us that our dataset consists of 1728 observations each with 7 attributes.
-
 
 ```r
-head(car_df)
+head(car.data)
 ```
 
 ```
-##      V1    V2 V3 V4    V5   V6    V7
-## 1 vhigh vhigh  2  2 small  low unacc
-## 2 vhigh vhigh  2  2 small  med unacc
-## 3 vhigh vhigh  2  2 small high unacc
-## 4 vhigh vhigh  2  2   med  low unacc
-## 5 vhigh vhigh  2  2   med  med unacc
-## 6 vhigh vhigh  2  2   med high unacc
+##   buying maint doors persons lug_boot safety class
+## 1  vhigh vhigh     2       2    small    low unacc
+## 2  vhigh vhigh     2       2    small    med unacc
+## 3  vhigh vhigh     2       2    small   high unacc
+## 4  vhigh vhigh     2       2      med    low unacc
+## 5  vhigh vhigh     2       2      med    med unacc
+## 6  vhigh vhigh     2       2      med   high unacc
 ```
 
-All the features are categorical, so normalization of data is not needed.
+The output of this will show us that our dataset consists of 1728 observations each with 7 attributes and that all the features are categorical, so normalization of data is not needed.
 
-*Data Slicing*
+### Data Slicing
 
 Data slicing is a step to split data into train and test set. Training data set can be used specifically for our model building. Test dataset should not be mixed up while building model. Even during standardization, we should not standardize our test set.
 
 
 ```r
-set.seed(3033)
-intrain <- createDataPartition(y = car_df$V7, p= 0.7, list = FALSE)
-training <- car_df[intrain,]
-testing <- car_df[-intrain,]
+set.seed(42)
+trainTestPartition <- createDataPartition(y = car.data$class, p= 0.7, list = FALSE)
+car.training <- car.data[trainTestPartition,]
+car.testing <- car.data[-trainTestPartition,]
 ```
 
-The “p” parameter holds a decimal value in the range of 0-1. It’s to show that percentage of the split. We are using p=0.7. It means that data split should be done in 70:30 ratio. 
+The “p” parameter holds a decimal value in the range of 0-1. It’s to show that percentage of the split. We are using p=0.7. It means that data split should be done in 70:30 ratio.
 
-*Data Preprocessing*
+### Data Preprocessing
+
+First, check the dimensions of the data.
 
 
 ```r
-#check dimensions of train & test set
-dim(training); dim(testing);
+dim(car.training); dim(car.testing);
 ```
 
 ```
@@ -240,48 +229,53 @@ dim(training); dim(testing);
 ## [1] 517   7
 ```
 
+Next, check for missing data.
+
 
 ```r
-anyNA(car_df)
+anyNA(car.data)
 ```
 
 ```
 ## [1] FALSE
 ```
 
-
-```r
-summary(car_df)
-```
-
-```
-##       V1                 V2                 V3                 V4           
-##  Length:1728        Length:1728        Length:1728        Length:1728       
-##  Class :character   Class :character   Class :character   Class :character  
-##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-##       V5                 V6                 V7           
-##  Length:1728        Length:1728        Length:1728       
-##  Class :character   Class :character   Class :character  
-##  Mode  :character   Mode  :character   Mode  :character
-```
-
-*Training the Decision Tree classifier with criterion as INFORMATION GAIN*
+Make sure none of the variables are zero or near-zero variance.
 
 
 ```r
-trctrl <- trainControl(method = "repeatedcv", number = 10, repeats = 3)
-set.seed(3333)
-dtree_fit <- train(V7 ~., data = training, method = "rpart",
-                   parms = list(split = "information"),
+nzv(car.data)
+```
+
+```
+## integer(0)
+```
+
+### Training Decisions Trees
+
+
+
+```r
+set.seed(42)
+seeds = vector(mode='list',length=101)
+for (i in 1:100) seeds[[i]] = sample.int(1000,100)
+seeds[[101]] = sample.int(1000,1)
+
+trctrl <- trainControl(method = "repeatedcv", 
+                       number = 10, 
+                       repeats = 10,
+                       seeds = seeds)
+```
+
+Training the Decision Tree classifier with criterion as GINI INDEX
+
+
+```r
+dtree_fit <- train(class ~., data = car.training, method = "rpart",
+                   parms = list(split = "gini"),
                    trControl=trctrl,
                    tuneLength = 10)
-```
-
-*Trained Decision Tree classifier results*
-
-
-```r
-dtree_fit 
+dtree_fit
 ```
 
 ```
@@ -292,50 +286,99 @@ dtree_fit
 ##    4 classes: 'acc', 'good', 'unacc', 'vgood' 
 ## 
 ## No pre-processing
-## Resampling: Cross-Validated (10 fold, repeated 3 times) 
-## Summary of sample sizes: 1090, 1092, 1089, 1089, 1089, 1090, ... 
+## Resampling: Cross-Validated (10 fold, repeated 10 times) 
+## Summary of sample sizes: 1090, 1090, 1092, 1089, 1090, 1089, ... 
 ## Resampling results across tuning parameters:
 ## 
 ##   cp           Accuracy   Kappa    
-##   0.005494505  0.8717704  0.7290692
-##   0.007692308  0.8621260  0.7055343
-##   0.008241758  0.8610377  0.7015747
-##   0.010989011  0.8538908  0.6820370
-##   0.016483516  0.8219632  0.6100808
-##   0.018543956  0.8115194  0.5848871
-##   0.019230769  0.8115194  0.5848871
-##   0.024725275  0.8046066  0.5785861
-##   0.060439560  0.7863800  0.5568316
-##   0.070054945  0.7643436  0.4594143
+##   0.006868132  0.8561955  0.6905404
+##   0.008241758  0.8533826  0.6840524
+##   0.009615385  0.8517310  0.6780120
+##   0.012362637  0.8424055  0.6518579
+##   0.013736264  0.8387772  0.6442497
+##   0.016483516  0.8282234  0.6206633
+##   0.019230769  0.8208613  0.6059427
+##   0.024725275  0.8072310  0.5764531
+##   0.052197802  0.7977251  0.5671482
+##   0.072802198  0.7512436  0.3541499
 ## 
 ## Accuracy was used to select the optimal model using the largest value.
-## The final value used for the model was cp = 0.005494505.
+## The final value used for the model was cp = 0.006868132.
 ```
-*Plotting the decision tress*
+Training the Decision Tree classifier with criterion as INFORMATION GAIN
 
 
 ```r
-prp(dtree_fit$finalModel, box.palette = "Reds", tweak = 1.2)
+dtree_fit_information <- train(class ~., data = car.training, method = "rpart",
+                               parms = list(split = "information"),
+                               trControl=trctrl,
+                               tuneLength = 10)
+dtree_fit_information
 ```
 
-<img src="06-decision-trees_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+```
+## CART 
+## 
+## 1211 samples
+##    6 predictor
+##    4 classes: 'acc', 'good', 'unacc', 'vgood' 
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold, repeated 10 times) 
+## Summary of sample sizes: 1091, 1091, 1090, 1090, 1089, 1090, ... 
+## Resampling results across tuning parameters:
+## 
+##   cp           Accuracy   Kappa    
+##   0.006868132  0.8538494  0.6879006
+##   0.008241758  0.8537695  0.6860030
+##   0.009615385  0.8529559  0.6831290
+##   0.012362637  0.8359565  0.6411485
+##   0.013736264  0.8294294  0.6264449
+##   0.016483516  0.8252267  0.6172837
+##   0.019230769  0.8179598  0.6014662
+##   0.024725275  0.7972610  0.5351600
+##   0.052197802  0.7738585  0.4786880
+##   0.072802198  0.7330169  0.2661896
+## 
+## Accuracy was used to select the optimal model using the largest value.
+## The final value used for the model was cp = 0.006868132.
+```
 
-*Prediction* 
+In both cases, the same cp value is chosen but we see different accuracy and kappa values.
 
-The model is trained with cp = 0.01123596. cp is complexity parameter for our dtree. We are ready to predict classes for our test set. We can use predict() method. Let’s try to predict target variable for test set’s 1st record.
+### Plotting the decision trees
 
 
 ```r
-testing[1,]
+prp(dtree_fit$finalModel, box.palette = "Reds", tweak = 1.2) ##Gini tree
+```
+
+<img src="06-decision-trees_files/figure-html/plot tree dtree cars-1.png" width="672" />
+
+```r
+prp(dtree_fit_information$finalModel, box.palette = "Blues", tweak = 1.2) ##Information tree
+```
+
+<img src="06-decision-trees_files/figure-html/plot tree dtree cars-2.png" width="672" />
+
+We also see different trees from the two *split* parameters.
+
+### Prediction
+
+The model is trained with cp = 0.006868132. cp is the complexity parameter for our dtree. We are ready to predict classes for our test set. We can use predict() method. Let’s try to predict target variable for test set’s 1st record.
+
+
+```r
+car.testing[1,]
 ```
 
 ```
-##      V1    V2 V3 V4  V5   V6    V7
-## 6 vhigh vhigh  2  2 med high unacc
+##   buying maint doors persons lug_boot safety class
+## 2  vhigh vhigh     2       2    small    med unacc
 ```
 
 ```r
-predict(dtree_fit, newdata = testing[1,])
+predict(dtree_fit, newdata = car.testing[1,])
 ```
 
 ```
@@ -343,12 +386,21 @@ predict(dtree_fit, newdata = testing[1,])
 ## Levels: acc good unacc vgood
 ```
 
-For our 1st record of testing data classifier is predicting class variable as “unacc”.  Now, its time to predict target variable for the whole test set.
+```r
+predict(dtree_fit_information, newdata = car.testing[1,])
+```
+
+```
+## [1] unacc
+## Levels: acc good unacc vgood
+```
+
+In both models, the 1st record is predicted as unacc. Now, we predict target variable for the whole test set.
 
 
 ```r
-test_pred <- predict(dtree_fit, newdata = testing)
-confusionMatrix(test_pred, as.factor(testing$V7) )  #check accuracy
+test_pred <- predict(dtree_fit, newdata = car.testing)
+confusionMatrix(test_pred, as.factor(car.testing$class) )
 ```
 
 ```
@@ -356,337 +408,1017 @@ confusionMatrix(test_pred, as.factor(testing$V7) )  #check accuracy
 ## 
 ##           Reference
 ## Prediction acc good unacc vgood
-##      acc    94   14    28     3
-##      good    3    5     0     2
-##      unacc  17    0   335     0
-##      vgood   1    1     0    14
+##      acc    80    8    20     8
+##      good    6    4     2     0
+##      unacc  22    1   341     0
+##      vgood   7    7     0    11
 ## 
 ## Overall Statistics
 ##                                           
-##                Accuracy : 0.8665          
-##                  95% CI : (0.8342, 0.8947)
+##                Accuracy : 0.8433          
+##                  95% CI : (0.8091, 0.8736)
 ##     No Information Rate : 0.7021          
-##     P-Value [Acc > NIR] : < 2.2e-16       
+##     P-Value [Acc > NIR] : 6.824e-14       
 ##                                           
-##                   Kappa : 0.71            
+##                   Kappa : 0.6542          
 ##                                           
 ##  Mcnemar's Test P-Value : NA              
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: acc Class: good Class: unacc Class: vgood
-## Sensitivity              0.8174    0.250000       0.9229      0.73684
-## Specificity              0.8881    0.989940       0.8896      0.99598
-## Pos Pred Value           0.6763    0.500000       0.9517      0.87500
-## Neg Pred Value           0.9444    0.970414       0.8303      0.99002
+## Sensitivity              0.6957    0.200000       0.9394      0.57895
+## Specificity              0.9104    0.983903       0.8506      0.97189
+## Pos Pred Value           0.6897    0.333333       0.9368      0.44000
+## Neg Pred Value           0.9127    0.968317       0.8562      0.98374
 ## Prevalence               0.2224    0.038685       0.7021      0.03675
-## Detection Rate           0.1818    0.009671       0.6480      0.02708
-## Detection Prevalence     0.2689    0.019342       0.6809      0.03095
-## Balanced Accuracy        0.8527    0.619970       0.9062      0.86641
+## Detection Rate           0.1547    0.007737       0.6596      0.02128
+## Detection Prevalence     0.2244    0.023211       0.7041      0.04836
+## Balanced Accuracy        0.8030    0.591952       0.8950      0.77542
 ```
 
-The above results show that the classifier with the criterion as information gain is giving 83.72% of accuracy for the test set.
+```r
+test_pred_information <- predict(dtree_fit_information, newdata = car.testing)
+confusionMatrix(test_pred_information, as.factor(car.testing$class) )
+```
 
-*Training the Decision Tree classifier with criterion as GINI INDEX*
+```
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction acc good unacc vgood
+##      acc    88    6    26     8
+##      good    6    6     2     0
+##      unacc  17    1   335     0
+##      vgood   4    7     0    11
+## 
+## Overall Statistics
+##                                           
+##                Accuracy : 0.8511          
+##                  95% CI : (0.8174, 0.8806)
+##     No Information Rate : 0.7021          
+##     P-Value [Acc > NIR] : 2.18e-15        
+##                                           
+##                   Kappa : 0.6783          
+##                                           
+##  Mcnemar's Test P-Value : NA              
+## 
+## Statistics by Class:
+## 
+##                      Class: acc Class: good Class: unacc Class: vgood
+## Sensitivity              0.7652     0.30000       0.9229      0.57895
+## Specificity              0.9005     0.98390       0.8831      0.97791
+## Pos Pred Value           0.6875     0.42857       0.9490      0.50000
+## Neg Pred Value           0.9306     0.97217       0.8293      0.98384
+## Prevalence               0.2224     0.03868       0.7021      0.03675
+## Detection Rate           0.1702     0.01161       0.6480      0.02128
+## Detection Prevalence     0.2476     0.02708       0.6828      0.04255
+## Balanced Accuracy        0.8329     0.64195       0.9030      0.77843
+```
 
-Let’s try to program a decision tree classifier using splitting criterion as gini index. 
+Although the 1st record was predicted the same in the Gini and information versions of the decision tree model, we see differences across the testing set.
+
+### Implementing Decision Trees directly
+
+Both *rpart* and *C.50* are widely-used packages for Decision Trees. If you want to use the packages directly then you can implement them like this:
+
+**rpart**
 
 
 ```r
-set.seed(3333)
-dtree_fit_gini <- train(V7 ~., data = training, method = "rpart",
-                   parms = list(split = "gini"),
-                   trControl=trctrl,
-                   tuneLength = 10)
-dtree_fit_gini
+rpart_dtree=rpart(class~.,
+                  car.training,
+                  parms = list(split="gini"),
+                  cp=0.006868132)
+prp(rpart_dtree,box.palette = 'Reds',tweak=1.2)
+```
+
+<img src="06-decision-trees_files/figure-html/rpart direct gini-1.png" width="672" />
+
+```r
+rpart_test_pred <- predict(rpart_dtree, newdata = car.testing,type = 'class')
+confusionMatrix(rpart_test_pred, as.factor(car.testing$class) )
+```
+
+```
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction acc good unacc vgood
+##      acc   109    0    11     6
+##      good    3   16     0     0
+##      unacc   2    0   352     0
+##      vgood   1    4     0    13
+## 
+## Overall Statistics
+##                                           
+##                Accuracy : 0.9478          
+##                  95% CI : (0.9249, 0.9653)
+##     No Information Rate : 0.7021          
+##     P-Value [Acc > NIR] : < 2.2e-16       
+##                                           
+##                   Kappa : 0.887           
+##                                           
+##  Mcnemar's Test P-Value : NA              
+## 
+## Statistics by Class:
+## 
+##                      Class: acc Class: good Class: unacc Class: vgood
+## Sensitivity              0.9478     0.80000       0.9697      0.68421
+## Specificity              0.9577     0.99396       0.9870      0.98996
+## Pos Pred Value           0.8651     0.84211       0.9944      0.72222
+## Neg Pred Value           0.9847     0.99197       0.9325      0.98798
+## Prevalence               0.2224     0.03868       0.7021      0.03675
+## Detection Rate           0.2108     0.03095       0.6809      0.02515
+## Detection Prevalence     0.2437     0.03675       0.6847      0.03482
+## Balanced Accuracy        0.9528     0.89698       0.9784      0.83709
+```
+
+
+```r
+rpart_dtree_information=rpart(class~.,
+                              car.training,
+                              parms = list(split="information"),
+                              cp=0.005494505)
+prp(rpart_dtree_information,box.palette = 'Blues',tweak=1.2)
+```
+
+<img src="06-decision-trees_files/figure-html/rpart direct information-1.png" width="672" />
+
+```r
+rpart_test_pred_information <- predict(rpart_dtree_information, newdata = car.testing,type = 'class')
+confusionMatrix(rpart_test_pred_information, as.factor(car.testing$class) )
+```
+
+```
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction acc good unacc vgood
+##      acc   108    4     8     6
+##      good    1   12     0     0
+##      unacc   5    0   355     0
+##      vgood   1    4     0    13
+## 
+## Overall Statistics
+##                                           
+##                Accuracy : 0.9439          
+##                  95% CI : (0.9204, 0.9621)
+##     No Information Rate : 0.7021          
+##     P-Value [Acc > NIR] : < 2.2e-16       
+##                                           
+##                   Kappa : 0.8766          
+##                                           
+##  Mcnemar's Test P-Value : NA              
+## 
+## Statistics by Class:
+## 
+##                      Class: acc Class: good Class: unacc Class: vgood
+## Sensitivity              0.9391     0.60000       0.9780      0.68421
+## Specificity              0.9552     0.99799       0.9675      0.98996
+## Pos Pred Value           0.8571     0.92308       0.9861      0.72222
+## Neg Pred Value           0.9821     0.98413       0.9490      0.98798
+## Prevalence               0.2224     0.03868       0.7021      0.03675
+## Detection Rate           0.2089     0.02321       0.6867      0.02515
+## Detection Prevalence     0.2437     0.02515       0.6963      0.03482
+## Balanced Accuracy        0.9472     0.79899       0.9727      0.83709
+```
+
+**C.50**
+
+
+```r
+library(C50)
+car.training.factors= as.data.frame(lapply(car.training,as.factor))
+car.testing.factors= as.data.frame(lapply(car.testing,as.factor))
+c50_dtree <- C5.0(x = car.training.factors[, 1:6], y = car.training.factors$class)
+summary(c50_dtree)
+```
+
+```
+## 
+## Call:
+## C5.0.default(x = car.training.factors[, 1:6], y = car.training.factors$class)
+## 
+## 
+## C5.0 [Release 2.07 GPL Edition]  	Fri Jul  1 10:00:00 2022
+## -------------------------------
+## 
+## Class specified by attribute `outcome'
+## 
+## Read 1211 cases (7 attributes) from undefined.data
+## 
+## Decision tree:
+## 
+## persons = 2: unacc (409)
+## persons in {4,more}:
+## :...safety = low: unacc (261)
+##     safety in {high,med}:
+##     :...buying in {low,med}:
+##         :...maint in {high,vhigh}:
+##         :   :...lug_boot = big:
+##         :   :   :...buying = med: acc (23)
+##         :   :   :   buying = low:
+##         :   :   :   :...safety = med: acc (12)
+##         :   :   :       safety = high:
+##         :   :   :       :...maint = high: vgood (6)
+##         :   :   :           maint = vhigh: acc (6)
+##         :   :   lug_boot in {med,small}:
+##         :   :   :...safety = high: acc (41/4)
+##         :   :       safety = med:
+##         :   :       :...lug_boot = med:
+##         :   :           :...doors = 2: unacc (6/1)
+##         :   :           :   doors in {4,5more}: acc (13)
+##         :   :           :   doors = 3:
+##         :   :           :   :...persons = 4: unacc (3/1)
+##         :   :           :       persons = more: acc (4)
+##         :   :           lug_boot = small:
+##         :   :           :...buying = med: unacc (13)
+##         :   :               buying = low:
+##         :   :               :...maint = high: acc (5)
+##         :   :                   maint = vhigh: unacc (6)
+##         :   maint in {low,med}:
+##         :   :...safety = med:
+##         :       :...lug_boot = small:
+##         :       :   :...doors in {3,4,5more}: acc (15)
+##         :       :   :   doors = 2:
+##         :       :   :   :...persons = 4: acc (3)
+##         :       :   :       persons = more: unacc (4)
+##         :       :   lug_boot in {big,med}:
+##         :       :   :...maint = med:
+##         :       :       :...buying = low: good (14/3)
+##         :       :       :   buying = med: acc (11)
+##         :       :       maint = low:
+##         :       :       :...lug_boot = big: good (12)
+##         :       :           lug_boot = med:
+##         :       :           :...doors in {2,3}: acc (6/1)
+##         :       :               doors in {4,5more}: good (7)
+##         :       safety = high:
+##         :       :...lug_boot = small:
+##         :           :...doors = 2:
+##         :           :   :...persons = 4: acc (2/1)
+##         :           :   :   persons = more: unacc (4)
+##         :           :   doors in {3,4,5more}:
+##         :           :   :...buying = low: good (9)
+##         :           :       buying = med:
+##         :           :       :...maint = low: good (3)
+##         :           :           maint = med: acc (4)
+##         :           lug_boot in {big,med}:
+##         :           :...lug_boot = big: vgood (23)
+##         :               lug_boot = med:
+##         :               :...doors = 2:
+##         :                   :...buying = low: good (2)
+##         :                   :   buying = med: acc (3/1)
+##         :                   doors in {3,4,5more}:
+##         :                   :...persons = more: vgood (11)
+##         :                       persons = 4:
+##         :                       :...doors = 3: good (2)
+##         :                           doors in {4,5more}: vgood (5)
+##         buying in {high,vhigh}:
+##         :...maint = vhigh: unacc (65)
+##             maint in {high,low,med}:
+##             :...lug_boot = small:
+##                 :...safety = med: unacc (32)
+##                 :   safety = high:
+##                 :   :...maint in {low,med}: acc (19/3)
+##                 :       maint = high:
+##                 :       :...buying = high: acc (5/1)
+##                 :           buying = vhigh: unacc (5)
+##                 lug_boot in {big,med}:
+##                 :...maint = high:
+##                     :...buying = high: acc (25/3)
+##                     :   buying = vhigh: unacc (23)
+##                     maint in {low,med}:
+##                     :...lug_boot = big: acc (47)
+##                         lug_boot = med:
+##                         :...safety = high: acc (20)
+##                             safety = med:
+##                             :...doors in {4,5more}: acc (10)
+##                                 doors in {2,3}:
+##                                 :...persons = 4: unacc (6)
+##                                     persons = more:
+##                                     :...doors = 2: unacc (2)
+##                                         doors = 3: acc (4)
+## 
+## 
+## Evaluation on training data (1211 cases):
+## 
+## 	    Decision Tree   
+## 	  ----------------  
+## 	  Size      Errors  
+## 
+## 	    46   19( 1.6%)   <<
+## 
+## 
+## 	   (a)   (b)   (c)   (d)    <-classified as
+## 	  ----  ----  ----  ----
+## 	   264     3     2          (a): class acc
+## 	     3    46                (b): class good
+## 	    10         837          (c): class unacc
+## 	     1                45    (d): class vgood
+## 
+## 
+## 	Attribute usage:
+## 
+## 	100.00%	persons
+## 	 66.23%	safety
+## 	 44.67%	buying
+## 	 44.67%	maint
+## 	 39.31%	lug_boot
+## 	 10.57%	doors
+## 
+## 
+## Time: 0.0 secs
+```
+
+
+```r
+c50_test_pred <- predict(c50_dtree, newdata = car.testing.factors,type = 'class')
+confusionMatrix(c50_test_pred, as.factor(car.testing.factors$class) )
+```
+
+```
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction acc good unacc vgood
+##      acc   113    4     3     4
+##      good    1   16     0     0
+##      unacc   1    0   360     0
+##      vgood   0    0     0    15
+## 
+## Overall Statistics
+##                                           
+##                Accuracy : 0.9749          
+##                  95% CI : (0.9574, 0.9865)
+##     No Information Rate : 0.7021          
+##     P-Value [Acc > NIR] : < 2.2e-16       
+##                                           
+##                   Kappa : 0.9446          
+##                                           
+##  Mcnemar's Test P-Value : NA              
+## 
+## Statistics by Class:
+## 
+##                      Class: acc Class: good Class: unacc Class: vgood
+## Sensitivity              0.9826     0.80000       0.9917      0.78947
+## Specificity              0.9726     0.99799       0.9935      1.00000
+## Pos Pred Value           0.9113     0.94118       0.9972      1.00000
+## Neg Pred Value           0.9949     0.99200       0.9808      0.99203
+## Prevalence               0.2224     0.03868       0.7021      0.03675
+## Detection Rate           0.2186     0.03095       0.6963      0.02901
+## Detection Prevalence     0.2398     0.03288       0.6983      0.02901
+## Balanced Accuracy        0.9776     0.89899       0.9926      0.89474
+```
+
+### Iris example for Decision Trees
+
+We can use the same pipeline for the Iris dataset but we need to remember to scale, centre and check for highly correlation variables and skewness because now we have numeric predictors.
+
+
+```r
+library(datasets)
+data(iris) ##loads the dataset, which can be accessed under the variable name iris
+?iris ##opens the documentation for the dataset
+summary(iris) ##presents the 5 figure summary of the dataset
+```
+
+```
+##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+##  Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+##  Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+##        Species  
+##  setosa    :50  
+##  versicolor:50  
+##  virginica :50  
+##                 
+##                 
+## 
+```
+
+```r
+str(iris) ##presents the structure of the iris dataframe
+```
+
+```
+## 'data.frame':	150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+```
+
+
+```r
+set.seed(42)
+trainTestPartition<-createDataPartition(y=iris$Species, #the class label, caret ensures an even split of classes
+                                        p=0.7, #proportion of samples assigned to train
+                                        list=FALSE)
+str(trainTestPartition)
+```
+
+```
+##  int [1:105, 1] 1 2 3 4 5 7 8 10 11 12 ...
+##  - attr(*, "dimnames")=List of 2
+##   ..$ : NULL
+##   ..$ : chr "Resample1"
+```
+
+```r
+iris.training <- iris[ trainTestPartition,] #take the corresponding rows for training
+iris.testing  <- iris[-trainTestPartition,] #take the corresponding rows for testing by removing training rows
+```
+
+
+```r
+set.seed(42)
+seeds = vector(mode = 'list', length = 101) #you need length #folds*#repeats + 1 so 10*10 + 1 here
+for (i in 1:100) seeds[[i]] = sample.int(1000,10)
+seeds[[101]] = sample.int(1000,1)
+
+train_ctrl_seed_repeated <- trainControl(method='repeatedcv',
+                              number=10, #number of folds
+                              repeats=10, #number of times to repeat cross-validation
+                              seeds=seeds)
+iris_dtree <- train(
+                  Species ~ .,
+                  data = iris.training,
+                  method = "rpart",
+                  parms = list(split = "gini"),
+                  preProc = c("corr","nzv","center", "scale","BoxCox"),
+                  tuneLength=10,
+                  trControl = train_ctrl_seed_repeated
+)
+iris_dtree
 ```
 
 ```
 ## CART 
 ## 
-## 1211 samples
-##    6 predictor
-##    4 classes: 'acc', 'good', 'unacc', 'vgood' 
+## 105 samples
+##   4 predictor
+##   3 classes: 'setosa', 'versicolor', 'virginica' 
 ## 
-## No pre-processing
-## Resampling: Cross-Validated (10 fold, repeated 3 times) 
-## Summary of sample sizes: 1090, 1092, 1089, 1089, 1089, 1090, ... 
+## Pre-processing: centered (3), scaled (3), Box-Cox transformation (3), remove (1) 
+## Resampling: Cross-Validated (10 fold, repeated 10 times) 
+## Summary of sample sizes: 94, 95, 94, 93, 95, 95, ... 
 ## Resampling results across tuning parameters:
 ## 
-##   cp           Accuracy   Kappa    
-##   0.005494505  0.8725855  0.7315324
-##   0.007692308  0.8654387  0.7134630
-##   0.008241758  0.8648853  0.7122492
-##   0.010989011  0.8637926  0.7082363
-##   0.016483516  0.8376939  0.6465974
-##   0.018543956  0.8189557  0.6043954
-##   0.019230769  0.8164783  0.6001911
-##   0.024725275  0.8082087  0.5862848
-##   0.060439560  0.7935934  0.5696770
-##   0.070054945  0.7442278  0.3266330
+##   cp          Accuracy   Kappa     
+##   0.00000000  0.9713081  0.95637362
+##   0.05555556  0.9713081  0.95637362
+##   0.11111111  0.9713081  0.95637362
+##   0.16666667  0.9713081  0.95637362
+##   0.22222222  0.9713081  0.95637362
+##   0.27777778  0.9713081  0.95637362
+##   0.33333333  0.9713081  0.95637362
+##   0.38888889  0.9713081  0.95637362
+##   0.44444444  0.9113081  0.87065933
+##   0.50000000  0.3666970  0.09857143
 ## 
 ## Accuracy was used to select the optimal model using the largest value.
-## The final value used for the model was cp = 0.005494505.
+## The final value used for the model was cp = 0.3888889.
 ```
 
-It is showing us the accuracy metrics for different values of cp. 
+```r
+prp(iris_dtree$finalModel,box.palette = 'Reds',tweak=1.2)
+```
 
-*Plotting decision tree*
+<img src="06-decision-trees_files/figure-html/train gini dtree iris-1.png" width="672" />
+
+```r
+iris_information_predict_train <- predict(iris_dtree,iris.training,type='raw')
+confusionMatrix(iris_information_predict_train,iris.training$Species)
+```
+
+```
+## Confusion Matrix and Statistics
+## 
+##             Reference
+## Prediction   setosa versicolor virginica
+##   setosa         35          0         0
+##   versicolor      0         34         2
+##   virginica       0          1        33
+## 
+## Overall Statistics
+##                                           
+##                Accuracy : 0.9714          
+##                  95% CI : (0.9188, 0.9941)
+##     No Information Rate : 0.3333          
+##     P-Value [Acc > NIR] : < 2.2e-16       
+##                                           
+##                   Kappa : 0.9571          
+##                                           
+##  Mcnemar's Test P-Value : NA              
+## 
+## Statistics by Class:
+## 
+##                      Class: setosa Class: versicolor Class: virginica
+## Sensitivity                 1.0000            0.9714           0.9429
+## Specificity                 1.0000            0.9714           0.9857
+## Pos Pred Value              1.0000            0.9444           0.9706
+## Neg Pred Value              1.0000            0.9855           0.9718
+## Prevalence                  0.3333            0.3333           0.3333
+## Detection Rate              0.3333            0.3238           0.3143
+## Detection Prevalence        0.3333            0.3429           0.3238
+## Balanced Accuracy           1.0000            0.9714           0.9643
+```
+
+```r
+iris_gini_predict <- predict(iris_dtree,iris.testing,type='raw')
+confusionMatrix(iris_gini_predict,iris.testing$Species)
+```
+
+```
+## Confusion Matrix and Statistics
+## 
+##             Reference
+## Prediction   setosa versicolor virginica
+##   setosa         15          0         0
+##   versicolor      0         14         2
+##   virginica       0          1        13
+## 
+## Overall Statistics
+##                                          
+##                Accuracy : 0.9333         
+##                  95% CI : (0.8173, 0.986)
+##     No Information Rate : 0.3333         
+##     P-Value [Acc > NIR] : < 2.2e-16      
+##                                          
+##                   Kappa : 0.9            
+##                                          
+##  Mcnemar's Test P-Value : NA             
+## 
+## Statistics by Class:
+## 
+##                      Class: setosa Class: versicolor Class: virginica
+## Sensitivity                 1.0000            0.9333           0.8667
+## Specificity                 1.0000            0.9333           0.9667
+## Pos Pred Value              1.0000            0.8750           0.9286
+## Neg Pred Value              1.0000            0.9655           0.9355
+## Prevalence                  0.3333            0.3333           0.3333
+## Detection Rate              0.3333            0.3111           0.2889
+## Detection Prevalence        0.3333            0.3556           0.3111
+## Balanced Accuracy           1.0000            0.9333           0.9167
+```
 
 
 ```r
-prp(dtree_fit_gini$finalModel, box.palette = "Blues", tweak = 1.2)
+iris_dtree_information <- train(
+                          Species ~ .,
+                          data = iris.training,
+                          method = "rpart",
+                          parms = list(split = "information"),
+                          preProc = c("corr","nzv","center", "scale","BoxCox"),
+                          tuneLength=10,
+                          trControl = train_ctrl_seed_repeated
+)
+
+iris_dtree_information
 ```
 
-<img src="06-decision-trees_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+```
+## CART 
+## 
+## 105 samples
+##   4 predictor
+##   3 classes: 'setosa', 'versicolor', 'virginica' 
+## 
+## Pre-processing: centered (3), scaled (3), Box-Cox transformation (3), remove (1) 
+## Resampling: Cross-Validated (10 fold, repeated 10 times) 
+## Summary of sample sizes: 95, 94, 95, 94, 94, 95, ... 
+## Resampling results across tuning parameters:
+## 
+##   cp          Accuracy   Kappa    
+##   0.00000000  0.9710354  0.9561669
+##   0.05555556  0.9710354  0.9561669
+##   0.11111111  0.9710354  0.9561669
+##   0.16666667  0.9710354  0.9561669
+##   0.22222222  0.9710354  0.9561669
+##   0.27777778  0.9710354  0.9561669
+##   0.33333333  0.9710354  0.9561669
+##   0.38888889  0.9710354  0.9561669
+##   0.44444444  0.8950354  0.8475954
+##   0.50000000  0.3718182  0.1071429
+## 
+## Accuracy was used to select the optimal model using the largest value.
+## The final value used for the model was cp = 0.3888889.
+```
 
-*Prediction*
+```r
+prp(iris_dtree_information$finalModel, box.palette = 'Blues', tweak=1.2)
+```
 
-Our model is trained with cp = 0.01123596. Now, it’s time to predict target variable for the whole test set.
+<img src="06-decision-trees_files/figure-html/train information dtree iris-1.png" width="672" />
+
+```r
+iris_information_predict_train=predict(iris_dtree_information, iris.training, type = 'raw')
+confusionMatrix(iris_information_predict_train, iris.training$Species)
+```
+
+```
+## Confusion Matrix and Statistics
+## 
+##             Reference
+## Prediction   setosa versicolor virginica
+##   setosa         35          0         0
+##   versicolor      0         34         2
+##   virginica       0          1        33
+## 
+## Overall Statistics
+##                                           
+##                Accuracy : 0.9714          
+##                  95% CI : (0.9188, 0.9941)
+##     No Information Rate : 0.3333          
+##     P-Value [Acc > NIR] : < 2.2e-16       
+##                                           
+##                   Kappa : 0.9571          
+##                                           
+##  Mcnemar's Test P-Value : NA              
+## 
+## Statistics by Class:
+## 
+##                      Class: setosa Class: versicolor Class: virginica
+## Sensitivity                 1.0000            0.9714           0.9429
+## Specificity                 1.0000            0.9714           0.9857
+## Pos Pred Value              1.0000            0.9444           0.9706
+## Neg Pred Value              1.0000            0.9855           0.9718
+## Prevalence                  0.3333            0.3333           0.3333
+## Detection Rate              0.3333            0.3238           0.3143
+## Detection Prevalence        0.3333            0.3429           0.3238
+## Balanced Accuracy           1.0000            0.9714           0.9643
+```
+
+```r
+iris_information_predict=predict(iris_dtree_information, iris.testing, type = 'raw')
+confusionMatrix(iris_information_predict, iris.testing$Species)
+```
+
+```
+## Confusion Matrix and Statistics
+## 
+##             Reference
+## Prediction   setosa versicolor virginica
+##   setosa         15          0         0
+##   versicolor      0         14         2
+##   virginica       0          1        13
+## 
+## Overall Statistics
+##                                          
+##                Accuracy : 0.9333         
+##                  95% CI : (0.8173, 0.986)
+##     No Information Rate : 0.3333         
+##     P-Value [Acc > NIR] : < 2.2e-16      
+##                                          
+##                   Kappa : 0.9            
+##                                          
+##  Mcnemar's Test P-Value : NA             
+## 
+## Statistics by Class:
+## 
+##                      Class: setosa Class: versicolor Class: virginica
+## Sensitivity                 1.0000            0.9333           0.8667
+## Specificity                 1.0000            0.9333           0.9667
+## Pos Pred Value              1.0000            0.8750           0.9286
+## Neg Pred Value              1.0000            0.9655           0.9355
+## Prevalence                  0.3333            0.3333           0.3333
+## Detection Rate              0.3333            0.3111           0.2889
+## Detection Prevalence        0.3333            0.3556           0.3111
+## Balanced Accuracy           1.0000            0.9333           0.9167
+```
+
+In this case, the output models are the same for the information and gini split parameter choices but this is a very simple model which does not capture the patterns in the data fully.
+
+## Cell segmentation examples
+
+Load required libraries
+
+```r
+library(caret)
+library(pROC)
+library(e1071)
+```
+
+Load data
+
+```r
+data(segmentationData)
+segClass <- segmentationData$Class
+segData <- segmentationData[,4:59] ##Extract predictors from segmentationData
+```
+
+Partition data
+
+```r
+set.seed(42)
+trainIndex <- createDataPartition(y=segClass, times=1, p=0.5, list=F)
+segDataTrain <- segData[trainIndex,]
+segDataTest <- segData[-trainIndex,]
+segClassTrain <- segClass[trainIndex]
+segClassTest <- segClass[-trainIndex]
+```
+
+Set seeds for reproducibility (optional). We will be trying 9 values of the tuning parameter with 5 repeats of 10 fold cross-validation, so we need the following list of seeds.
+
+```r
+set.seed(42)
+seeds <- vector(mode = "list", length = 51)
+for(i in 1:50) seeds[[i]] <- sample.int(1000, 9)
+seeds[[51]] <- sample.int(1000,1)
+```
+
+We will pass the twoClassSummary function into model training through **trainControl**. Additionally we would like the model to predict class probabilities so that we can calculate the ROC curve, so we use the **classProbs** option. 
 
 
 ```r
-test_pred_gini <- predict(dtree_fit_gini, newdata = testing)
-confusionMatrix(test_pred_gini, as.factor(testing$V7) )  #check accuracy
+cvCtrl <- trainControl(method = "repeatedcv", 
+                       repeats = 5,
+                       number = 10,
+                       summaryFunction = twoClassSummary,
+                       classProbs = TRUE,
+                       seeds=seeds)
+```
+
+
+
+```r
+dtreeTune <- train(x = segDataTrain,
+                   y = segClassTrain,
+                   method = 'rpart',
+                   tuneLength = 9,
+                   preProc = c("center", "scale"),
+                   metric = "ROC",
+                   trControl = cvCtrl)
+
+dtreeTune
+```
+
+```
+## CART 
+## 
+## 1010 samples
+##   56 predictor
+##    2 classes: 'PS', 'WS' 
+## 
+## Pre-processing: centered (56), scaled (56) 
+## Resampling: Cross-Validated (10 fold, repeated 5 times) 
+## Summary of sample sizes: 909, 909, 909, 909, 909, 909, ... 
+## Resampling results across tuning parameters:
+## 
+##   cp          ROC        Sens       Spec     
+##   0.01018519  0.8294744  0.8347692  0.6738889
+##   0.01250000  0.8296239  0.8347692  0.6827778
+##   0.01388889  0.8300726  0.8326154  0.6883333
+##   0.01805556  0.8229060  0.8276923  0.6833333
+##   0.03333333  0.8249615  0.8187692  0.6888889
+##   0.03611111  0.8247436  0.8212308  0.6822222
+##   0.06111111  0.8200256  0.8292308  0.6533333
+##   0.12777778  0.7979402  0.7664615  0.7116667
+##   0.26666667  0.6813034  0.7353846  0.6272222
+## 
+## ROC was used to select the optimal model using the largest value.
+## The final value used for the model was cp = 0.01388889.
+```
+
+
+```r
+prp(dtreeTune$finalModel)
+```
+
+<img src="06-decision-trees_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+
+Decision tree accuracy profile
+
+```r
+plot(dtreeTune, metric = "ROC", scales = list(x = list(log =2)))
+```
+
+<div class="figure" style="text-align: center">
+<img src="06-decision-trees_files/figure-html/dtreeAccuracyProfileCellSegment-1.png" alt="dtree accuracy profile." width="80%" />
+<p class="caption">(\#fig:dtreeAccuracyProfileCellSegment)dtree accuracy profile.</p>
+</div>
+
+Test set results
+
+```r
+#segDataTest <- predict(transformations, segDataTest)
+dtreePred <- predict(dtreeTune, segDataTest)
+confusionMatrix(dtreePred, segClassTest)
 ```
 
 ```
 ## Confusion Matrix and Statistics
 ## 
 ##           Reference
-## Prediction acc good unacc vgood
-##      acc    95   10    29     6
-##      good    6   10     1     7
-##      unacc  13    0   333     0
-##      vgood   1    0     0     6
-## 
-## Overall Statistics
+## Prediction  PS  WS
+##         PS 548 107
+##         WS 102 252
 ##                                           
-##                Accuracy : 0.8588          
-##                  95% CI : (0.8258, 0.8877)
-##     No Information Rate : 0.7021          
-##     P-Value [Acc > NIR] : < 2.2e-16       
+##                Accuracy : 0.7929          
+##                  95% CI : (0.7665, 0.8175)
+##     No Information Rate : 0.6442          
+##     P-Value [Acc > NIR] : <2e-16          
 ##                                           
-##                   Kappa : 0.698           
+##                   Kappa : 0.5467          
 ##                                           
-##  Mcnemar's Test P-Value : NA              
+##  Mcnemar's Test P-Value : 0.782           
+##                                           
+##             Sensitivity : 0.8431          
+##             Specificity : 0.7019          
+##          Pos Pred Value : 0.8366          
+##          Neg Pred Value : 0.7119          
+##              Prevalence : 0.6442          
+##          Detection Rate : 0.5431          
+##    Detection Prevalence : 0.6492          
+##       Balanced Accuracy : 0.7725          
+##                                           
+##        'Positive' Class : PS              
 ## 
-## Statistics by Class:
-## 
-##                      Class: acc Class: good Class: unacc Class: vgood
-## Sensitivity              0.8261     0.50000       0.9174      0.31579
-## Specificity              0.8881     0.97183       0.9156      0.99799
-## Pos Pred Value           0.6786     0.41667       0.9624      0.85714
-## Neg Pred Value           0.9469     0.97972       0.8246      0.97451
-## Prevalence               0.2224     0.03868       0.7021      0.03675
-## Detection Rate           0.1838     0.01934       0.6441      0.01161
-## Detection Prevalence     0.2708     0.04642       0.6692      0.01354
-## Balanced Accuracy        0.8571     0.73592       0.9165      0.65689
 ```
 
-The above results show that the classifier with the criterion as gini index is giving 86.05% of accuracy for the test set. In this case, our classifier with criterion gini index is giving better results.
-
-*Acknowledgement: the above data comes from a machine learning database and the codes are discussed at*: http://dataaspirant.com/2017/02/03/decision-tree-classifier-implementation-in-r/ 
-
-**Methods used in Decision Trees for trade-off balance**
-
-*Ensemble methods* involve group of predictive models to achieve a better accuracy and model stability. Ensemble methods are known to impart supreme boost to tree based models.
-
-*Bagging* is a technique used to reduce the variance of predictions by combining the result of multiple classifiers modeled on different sub-samples of the same data set. 
-
-*Boosting* refers to a family of algorithms which converts weak learner to strong learner by combing the prediction of each weak learner using methods like average/ weighted average or by considering a prediction that has a higher vote. Gradient boosting and XGboost are examples of boosting algorithms. 
-
-**Iris example for Decision Trees**
-
-Even if we already know the classes for the 150 instances of irises, it could be interesting to create a model that predicts the species from the petal and sepal width and length. One model that is easy to create and understand is a decision tree, which can be created with the C5.0 package.
-
+Get predicted class probabilities
 
 ```r
-if(!require(C50)){install.packages("C50")}
+dtreeProbs <- predict(dtreeTune, segDataTest, type="prob")
+head(dtreeProbs)
 ```
 
 ```
-## Loading required package: C50
+##           PS         WS
+## 1  0.9509346 0.04906542
+## 5  0.9509346 0.04906542
+## 8  0.9509346 0.04906542
+## 9  0.9509346 0.04906542
+## 10 0.9509346 0.04906542
+## 12 0.9509346 0.04906542
 ```
+
+Build a ROC curve
 
 ```r
-library(C50)
-input <- iris[,1:4]
-output <- iris[,5]
-model1 <- C5.0(input, output, control = C5.0Control(noGlobalPruning = TRUE,minCases=1))
-summary(model1)
+dtreeROC <- roc(segClassTest, dtreeProbs[,"PS"])
 ```
 
 ```
-## 
-## Call:
-## C5.0.default(x = input, y = output, control = C5.0Control(noGlobalPruning
-##  = TRUE, minCases = 1))
-## 
-## 
-## C5.0 [Release 2.07 GPL Edition]  	Wed Oct  7 18:40:21 2020
-## -------------------------------
-## 
-## Class specified by attribute `outcome'
-## 
-## Read 150 cases (5 attributes) from undefined.data
-## 
-## Decision tree:
-## 
-## Petal.Length <= 1.9: setosa (50)
-## Petal.Length > 1.9:
-## :...Petal.Width > 1.7: virginica (46/1)
-##     Petal.Width <= 1.7:
-##     :...Petal.Length <= 4.9: versicolor (48/1)
-##         Petal.Length > 4.9:
-##         :...Petal.Width <= 1.5: virginica (3)
-##             Petal.Width > 1.5:
-##             :...Petal.Length <= 5.4: versicolor (2)
-##                 Petal.Length > 5.4: virginica (1)
-## 
-## 
-## Evaluation on training data (150 cases):
-## 
-## 	    Decision Tree   
-## 	  ----------------  
-## 	  Size      Errors  
-## 
-## 	     6    2( 1.3%)   <<
-## 
-## 
-## 	   (a)   (b)   (c)    <-classified as
-## 	  ----  ----  ----
-## 	    50                (a): class setosa
-## 	          49     1    (b): class versicolor
-## 	           1    49    (c): class virginica
-## 
-## 
-## 	Attribute usage:
-## 
-## 	100.00%	Petal.Length
-## 	 66.67%	Petal.Width
-## 
-## 
-## Time: 0.0 secs
+## Setting levels: control = PS, case = WS
+```
+
+```
+## Setting direction: controls > cases
 ```
 
 ```r
-plot(model1, main="C5.0 Decision Tree - Unpruned, min=1")
+auc(dtreeROC)
 ```
 
-<img src="06-decision-trees_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+```
+## Area under the curve: 0.8374
+```
 
-We can play with the parameters of the classifier to see better/simpler/more complete/more complex trees. Here's a simpler one:
-
+Plot ROC curve.
 
 ```r
-model2 <- C5.0(input, output, control = C5.0Control(noGlobalPruning = FALSE))
-plot(model2, main="C5.0 Decision Tree - Pruned")
+plot(dtreeROC, type = "S")
 ```
 
-<img src="06-decision-trees_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<div class="figure" style="text-align: center">
+<img src="06-decision-trees_files/figure-html/dtreeROCcurveCellSegment-1.png" alt="dtree ROC curve for cell segmentation data set." width="80%" />
+<p class="caption">(\#fig:dtreeROCcurveCellSegment)dtree ROC curve for cell segmentation data set.</p>
+</div>
 
-```r
-plot(model2, type='simple')
-```
-
-<img src="06-decision-trees_files/figure-html/unnamed-chunk-19-2.png" width="672" />
+Calculate area under ROC curve
 
 ```r
-summary(model2)
+auc(dtreeROC)
 ```
 
 ```
-## 
-## Call:
-## C5.0.default(x = input, y = output, control = C5.0Control(noGlobalPruning
-##  = FALSE))
-## 
-## 
-## C5.0 [Release 2.07 GPL Edition]  	Wed Oct  7 18:40:21 2020
-## -------------------------------
-## 
-## Class specified by attribute `outcome'
-## 
-## Read 150 cases (5 attributes) from undefined.data
-## 
-## Decision tree:
-## 
-## Petal.Length <= 1.9: setosa (50)
-## Petal.Length > 1.9:
-## :...Petal.Width > 1.7: virginica (46/1)
-##     Petal.Width <= 1.7:
-##     :...Petal.Length <= 4.9: versicolor (48/1)
-##         Petal.Length > 4.9: virginica (6/2)
-## 
-## 
-## Evaluation on training data (150 cases):
-## 
-## 	    Decision Tree   
-## 	  ----------------  
-## 	  Size      Errors  
-## 
-## 	     4    4( 2.7%)   <<
-## 
-## 
-## 	   (a)   (b)   (c)    <-classified as
-## 	  ----  ----  ----
-## 	    50                (a): class setosa
-## 	          47     3    (b): class versicolor
-## 	           1    49    (c): class virginica
-## 
-## 
-## 	Attribute usage:
-## 
-## 	100.00%	Petal.Length
-## 	 66.67%	Petal.Width
-## 
-## 
-## Time: 0.0 secs
+## Area under the curve: 0.8374
 ```
+
+## Regression example - Blood Brain Barrier
+
+This example serves to demonstrate the use of decision trees and random forests in regression, but perhaps more importantly, it highlights the power and flexibility of the [caret](http://cran.r-project.org/web/packages/caret/index.html) package. Earlier we used _k_-NN for a regression analysis of the **BloodBrain** dataset (see section 04-nearest-neighbours.Rmd). We will repeat the regression analysis, but this time we will fit a decision tree. Remarkably, a re-run of this analysis using a completely different type of model, requires changes to only two lines of code.
+
+The pre-processing steps and generation of seeds are identical, therefore if the data were still in memory, we could skip this next block of code:
 
 ```r
-#We can "zoom into" the usage of features for creation of the model:
-C5imp(model2,metric='usage')
+data(BloodBrain)
+
+set.seed(42)
+trainIndex <- createDataPartition(y=logBBB, times=1, p=0.8, list=F)
+descrTrain <- bbbDescr[trainIndex,]
+concRatioTrain <- logBBB[trainIndex]
+descrTest <- bbbDescr[-trainIndex,]
+concRatioTest <- logBBB[-trainIndex]
+
+transformations <- preProcess(descrTrain,
+                              method=c("center", "scale", "corr", "nzv"),
+                              cutoff=0.75)
+descrTrain <- predict(transformations, descrTrain)
+
+set.seed(42)
+seeds <- vector(mode = "list", length = 26)
+for(i in 1:25) seeds[[i]] <- sample.int(1000, 50)
+seeds[[26]] <- sample.int(1000,1)
 ```
 
-```
-##              Overall
-## Petal.Length  100.00
-## Petal.Width    66.67
-## Sepal.Length    0.00
-## Sepal.Width     0.00
-```
+### Decision tree
 
-Now I have a model. Can we predict the class from the numerical attributes?
+In the arguments to the ```train``` function we change ```method``` from ```knn``` to ```rpart```. The ```tunegrid``` parameter is replaced with ```tuneLength = 9```. Now we are ready to fit an decision tree model.
 
 ```r
-newcases <- iris[c(1:3,51:53,101:103),]
-newcases
+dtTune <- train(descrTrain,
+                 concRatioTrain,
+                 method='rpart',
+                 tuneLength = 9,
+                 trControl = trainControl(method="repeatedcv",
+                                          number = 5,
+                                          repeats = 5,
+                                          seeds=seeds
+                                          )
+)
 ```
 
 ```
-##     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
-## 1            5.1         3.5          1.4         0.2     setosa
-## 2            4.9         3.0          1.4         0.2     setosa
-## 3            4.7         3.2          1.3         0.2     setosa
-## 51           7.0         3.2          4.7         1.4 versicolor
-## 52           6.4         3.2          4.5         1.5 versicolor
-## 53           6.9         3.1          4.9         1.5 versicolor
-## 101          6.3         3.3          6.0         2.5  virginica
-## 102          5.8         2.7          5.1         1.9  virginica
-## 103          7.1         3.0          5.9         2.1  virginica
+## Warning in nominalTrainWorkflow(x = x, y = y, wts = weights, info = trainInfo, :
+## There were missing values in resampled performance measures.
 ```
 
 ```r
-predicted <- predict(model2, newcases, type="class")
-predicted
+dtTune
 ```
 
 ```
-## [1] setosa     setosa     setosa     versicolor versicolor versicolor virginica 
-## [8] virginica  virginica 
-## Levels: setosa versicolor virginica
+## CART 
+## 
+## 168 samples
+##  63 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (5 fold, repeated 5 times) 
+## Summary of sample sizes: 136, 134, 134, 134, 134, 134, ... 
+## Resampling results across tuning parameters:
+## 
+##   cp          RMSE       Rsquared   MAE      
+##   0.01806336  0.6814627  0.3379575  0.5261921
+##   0.02477565  0.6835957  0.3318366  0.5269945
+##   0.03155690  0.6849950  0.3219426  0.5252247
+##   0.05241187  0.6955772  0.2937793  0.5323978
+##   0.05465950  0.6969888  0.2907385  0.5346962
+##   0.06435226  0.7004593  0.2773218  0.5352713
+##   0.09019924  0.7109988  0.2554855  0.5449032
+##   0.13642255  0.7351868  0.1863806  0.5697312
+##   0.27502543  0.7531179  0.1609250  0.5912603
+## 
+## RMSE was used to select the optimal model using the smallest value.
+## The final value used for the model was cp = 0.01806336.
+```
+
+
+```r
+plot(dtTune)
+```
+
+<div class="figure" style="text-align: center">
+<img src="06-decision-trees_files/figure-html/rmseCordt-1.png" alt="Root Mean Squared Error as a function of cost." width="100%" />
+<p class="caption">(\#fig:rmseCordt)Root Mean Squared Error as a function of cost.</p>
+</div>
+
+Use model to predict outcomes, after first pre-processing the test set.
+
+```r
+descrTest <- predict(transformations, descrTest)
+test_pred <- predict(dtTune, descrTest)
+```
+
+Prediction performance can be visualized in a scatterplot.
+
+```r
+qplot(concRatioTest, test_pred) + 
+  xlab("observed") +
+  ylab("predicted") +
+  theme_bw()
+```
+
+<div class="figure" style="text-align: center">
+<img src="06-decision-trees_files/figure-html/obsPredConcRatiosdt-1.png" alt="Concordance between observed concentration ratios and those predicted by decision tree." width="80%" />
+<p class="caption">(\#fig:obsPredConcRatiosdt)Concordance between observed concentration ratios and those predicted by decision tree.</p>
+</div>
+
+We can also measure correlation between observed and predicted values.
+
+```r
+cor(concRatioTest, test_pred)
+```
+
+```
+## [1] 0.5496074
 ```
 
 ## Random Forest
@@ -705,382 +1437,723 @@ To classify a new object based on attributes, each tree gives a classification i
 
 Decision trees proceed by searching for a split on every variable in every node random forest searches for a split only on one variable in a node -  the variable that has the largest association with the target among all other explanatory variables but only on a subset of randomly selected explanatory variables that is tested for that node. At every node a new list is selected. 
 
-Therefore, eligible variable set will be different from node to node but the important ones will eventually be "voted in" based on their success in predicting the targert variable. 
+Therefore, eligible variable set will be different from node to node but the important ones will eventually be "voted in" based on their success in predicting the target variable. 
 
-This random selection of explanatory variables at each node and which are different at each treee is known as bagging. For each tree the ratio between bagging and out of bagging is 60/40. 
+This random selection of explanatory variables at each node and which are different at each tree is known as bagging. For each tree the ratio between bagging and out of bagging is 60/40. 
 
-The important thing to note is that the trees are themselves not intpreted but they are used to collectively rank the importance of each variable. 
+The important thing to note is that the trees are themselves not interpreted but they are used to collectively rank the importance of each variable. 
 
 **Example Random Forest code for binary classification**
 
-In this example, a bank wanted to cross-sell term deposit product to its customers and hence it wanted to build a predictive model, which will identify customers who are more likely to respond to term deport cross-sell campaign.
-
-*Install and load randomForest library*
+*Loading randomForest library*
 
 
 ```r
-# Load library
 library(randomForest)
 ```
 
-```
-## randomForest 4.6-14
-```
-
-```
-## Type rfNews() to see new features/changes/bug fixes.
-```
-
-```
-## 
-## Attaching package: 'randomForest'
-```
-
-```
-## The following object is masked from 'package:ggplot2':
-## 
-##     margin
-```
+We will again use the car data which we used for the Decision Tree example.
 
 
 ```r
-## Read data
-Example<-read.csv(file="data/Decision_tree_and_RF/bank.csv",header = T)
-Example$y = as.factor(Example$y)
+car.data <- read.csv("data/Decision_tree_and_RF/car.data", sep = ',', header = FALSE)
+colnames(car.data)=c('buying','maint','doors','persons','lug_boot','safety','class')
+set.seed(42)
+trainTestPartition <- createDataPartition(y = car.data$class, p= 0.7, list = FALSE)
+car.training <- car.data[trainTestPartition,]
+car.testing <- car.data[-trainTestPartition,]
 ```
 
 Input dataset has 20 independent variables and a target variable. The target variable y is binary.
 
-
-```r
-names(Example)
-```
-
-```
-##  [1] "age"            "job"            "marital"        "education"     
-##  [5] "default"        "housing"        "loan"           "contact"       
-##  [9] "month"          "day_of_week"    "duration"       "campaign"      
-## [13] "pdays"          "previous"       "poutcome"       "emp.var.rate"  
-## [17] "cons.price.idx" "cons.conf.idx"  "euribor3m"      "nr.employed"   
-## [21] "y"
-```
-
-
-```r
-table(Example$y)/nrow(Example)
-```
-
-```
-## 
-##        no       yes 
-## 0.8905074 0.1094926
-```
-
-11% of the observations has target variable “yes” and remaining 89% observations take value “no”.
-
-We will split the data sample into development and validation samples.
-
-
-```r
-sample.ind <- sample(2, 
-                     nrow(Example),
-                     replace = T,
-                     prob = c(0.6,0.4))
-Example.dev <- Example[sample.ind==1,]
-Example.val <- Example[sample.ind==2,]
-
-table(Example.dev$y)/nrow(Example.dev)
-```
-
-```
-## 
-##        no       yes 
-## 0.8897638 0.1102362
-```
-Both development and validation samples have similar target variable distribution. This is just a sample validation.
-
-
-
-```r
-class(Example.dev$y)
-```
-
-```
-## [1] "factor"
-```
-Class of target or response variable is factor, so a classification Random Forest will be built. The current data frame has a list of independent variables, so we can make it formula and then pass as a parameter value for randomForest.
-
-
-*Make Formula*
-
-
-```r
-varNames <- names(Example.dev)
-# Exclude ID or Response variable
-varNames <- varNames[!varNames %in% c("y")]
-
-# add + sign between exploratory variables
-varNames1 <- paste(varNames, collapse = "+")
-
-# Add response variable and convert to a formula object
-rf.form <- as.formula(paste("y", varNames1, sep = " ~ "))
-```
-
-
 *Building Random Forest model*
 
-We will build 500 decision trees using Random Forest.
+We will build 500 decision trees using randomForest.
 
 
 ```r
-Example.rf <- randomForest(rf.form,
-                              Example.dev,
-                              ntree=500,
-                              importance=T)
-
-plot(Example.rf)
+car.training.factors <- as.data.frame(lapply(car.training,as.factor))
+car_rf_direct <- randomForest(class~.,
+                              car.training.factors,
+                              ntree = 500,
+                              importance = T)
+error.rates <- as.data.frame(car_rf_direct$err.rate)
+error.rates$ntree <- as.numeric(rownames(error.rates))
+error.rates.melt <- reshape2::melt(error.rates, id.vars = c('ntree'))
+ggplot(error.rates.melt,aes(x = ntree,y = value,color = variable)) + geom_line()
 ```
 
-<img src="06-decision-trees_files/figure-html/unnamed-chunk-28-1.png" width="672" />
+<img src="06-decision-trees_files/figure-html/ntree rf-1.png" width="672" />
 
-500 decision trees or a forest has been built using the Random Forest algorithm based learning. We can plot the error rate across decision trees. The plot seems to indicate that after 100 decision trees, there is not a significant reduction in error rate.
-
+500 decision trees or a forest has been built using the Random Forest algorithm based learning. We can plot the error rate across decision trees. The plot seems to indicate that after around 200 decision trees, there is not a significant reduction in error rate.
 
 
 ```r
 # Variable Importance Plot
-varImpPlot(Example.rf,
+varImpPlot(car_rf_direct,
            sort = T,
-           main="Variable Importance",
-           n.var=5)
+           main="Variable Importance")
 ```
 
-<img src="06-decision-trees_files/figure-html/unnamed-chunk-29-1.png" width="672" />
+<img src="06-decision-trees_files/figure-html/varimp cars-1.png" width="672" />
 
-
-Variable importance plot is also a useful tool and can be plotted using varImpPlot function. Top 5 variables are selected and plotted based on Model Accuracy and Gini value. We can also get a table with decreasing order of importance based on a measure (1 for model accuracy and 2 node impurity)
-
+Variable importance plot is also a useful tool and can be plotted using varImpPlot function. The variables plotted based on Model Accuracy and Gini value. We can also get a table with decreasing order of importance based on a measure (1 for model accuracy and 2 node impurity)
 
 
 ```r
 # Variable Importance Table
-var.imp <- data.frame(importance(Example.rf,
-           type=2))
-# make row names as columns
-var.imp$Variables <- row.names(var.imp)
-var.imp[order(var.imp$MeanDecreaseGini,decreasing = T),]
+importance(car_rf_direct, type = 2)
 ```
 
 ```
-##                MeanDecreaseGini      Variables
-## duration             143.966515       duration
-## euribor3m             57.510569      euribor3m
-## nr.employed           38.438332    nr.employed
-## age                   37.305513            age
-## job                   22.169214            job
-## pdays                 18.926765          pdays
-## cons.conf.idx         18.455165  cons.conf.idx
-## education             17.801930      education
-## day_of_week           17.381769    day_of_week
-## campaign              16.475563       campaign
-## cons.price.idx        15.922234 cons.price.idx
-## poutcome              14.271728       poutcome
-## emp.var.rate          14.150449   emp.var.rate
-## month                 12.866756          month
-## marital                9.775724        marital
-## previous               8.943332       previous
-## housing                8.624434        housing
-## loan                   5.669661           loan
-## contact                5.430161        contact
-## default                3.978805        default
+##          MeanDecreaseGini
+## buying           70.63157
+## maint            64.29906
+## doors            25.46582
+## persons         125.29397
+## lug_boot         41.00580
+## safety          146.57007
 ```
 
-Based on Random Forest variable importance, the variables could be selected for any other predictive modelling techniques or machine learning.
+```r
+importance(car_rf_direct, type = 1)
+```
 
-*Predict Response Variable Value using Random Forest*
+```
+##          MeanDecreaseAccuracy
+## buying              92.540316
+## maint               78.131096
+## doors                1.037205
+## persons            138.170418
+## lug_boot            61.063570
+## safety             146.872070
+```
 
-Generic predict function can be used for predicting response variable using Random Forest object.
-
+We can train a random forest with caret instead of directly using the randomForest package.
 
 
 ```r
-# Predicting response variable
-Example.dev$predicted.response <- predict(Example.rf ,Example.dev)
-```
+set.seed(42)
+seeds = vector(mode='list',length=101)
+for (i in 1:100) seeds[[i]] = sample.int(1000,100)
+seeds[[101]] = sample.int(1000,1)
 
+trctrl <- trainControl(method = "repeatedcv", 
+                       number = 10, 
+                       repeats = 10,
+                       seeds = seeds)
 
-confusionMatrix function from caret package can be used for creating confusion matrix based on actual response variable and predicted value.
-
-
-
-```r
-# Load Library or packages
-library(e1071)
-library(caret)
-## Loading required package: lattice
-## Loading required package: ggplot2
-# Create Confusion Matrix
-confusionMatrix(data=Example.dev$predicted.response,
-                reference=Example.dev$y,
-                positive='yes')
+car_rf_fit <- train(class ~., data = car.training.factors, method = "rf",
+                   trControl=trctrl,
+                   ntree = 10,
+                   tuneLength = 10)
+car_rf_fit
 ```
 
 ```
-## Confusion Matrix and Statistics
+## Random Forest 
 ## 
-##           Reference
-## Prediction   no  yes
-##        no  2260    1
-##        yes    0  279
-##                                      
-##                Accuracy : 0.9996     
-##                  95% CI : (0.9978, 1)
-##     No Information Rate : 0.8898     
-##     P-Value [Acc > NIR] : <2e-16     
-##                                      
-##                   Kappa : 0.998      
-##                                      
-##  Mcnemar's Test P-Value : 1          
-##                                      
-##             Sensitivity : 0.9964     
-##             Specificity : 1.0000     
-##          Pos Pred Value : 1.0000     
-##          Neg Pred Value : 0.9996     
-##              Prevalence : 0.1102     
-##          Detection Rate : 0.1098     
-##    Detection Prevalence : 0.1098     
-##       Balanced Accuracy : 0.9982     
-##                                      
-##        'Positive' Class : yes        
+## 1211 samples
+##    6 predictor
+##    4 classes: 'acc', 'good', 'unacc', 'vgood' 
 ## 
-```
-
-It has accuracy of 99.81%. Now we can predict response for the validation sample and calculate model accuracy for the sample.
-
-
-```r
-# Predicting response variable
-Example.val$predicted.response <- predict(Example.rf ,Example.val)
-
-# Create Confusion Matrix
-confusionMatrix(data=Example.val$predicted.response,
-                reference=Example.val$y,
-                positive='yes')
-```
-
-```
-## Confusion Matrix and Statistics
+## No pre-processing
+## Resampling: Cross-Validated (10 fold, repeated 10 times) 
+## Summary of sample sizes: 1090, 1090, 1092, 1089, 1090, 1089, ... 
+## Resampling results across tuning parameters:
 ## 
-##           Reference
-## Prediction   no  yes
-##        no  1356   97
-##        yes   52   74
-##                                           
-##                Accuracy : 0.9056          
-##                  95% CI : (0.8901, 0.9196)
-##     No Information Rate : 0.8917          
-##     P-Value [Acc > NIR] : 0.0388508       
-##                                           
-##                   Kappa : 0.4476          
-##                                           
-##  Mcnemar's Test P-Value : 0.0003126       
-##                                           
-##             Sensitivity : 0.43275         
-##             Specificity : 0.96307         
-##          Pos Pred Value : 0.58730         
-##          Neg Pred Value : 0.93324         
-##              Prevalence : 0.10830         
-##          Detection Rate : 0.04687         
-##    Detection Prevalence : 0.07980         
-##       Balanced Accuracy : 0.69791         
-##                                           
-##        'Positive' Class : yes             
+##   mtry  Accuracy   Kappa    
+##    2    0.7606898  0.3281620
+##    3    0.8393261  0.6198352
+##    4    0.8708673  0.7120605
+##    6    0.9000768  0.7812695
+##    7    0.9037939  0.7900722
+##    9    0.9098089  0.8029032
+##   10    0.9147816  0.8137806
+##   12    0.9144339  0.8124692
+##   13    0.9141305  0.8119262
+##   15    0.9137051  0.8107910
 ## 
-```
-Accuracy level has dropped to 91.8% but still significantly higher. 
-
-**Iris data example**
-
-
-```r
-library(randomForest)
-ind <- sample(2,nrow(iris),replace=TRUE,prob=c(0.7,0.3))
-trainData <- iris[ind==1,]
-testData <- iris[ind==2,]
-iris.rf <- randomForest(Species~.,data=trainData,ntree=100,proximity=TRUE)
-table(predict(iris.rf),trainData$Species)
-```
-
-```
-##             
-##              setosa versicolor virginica
-##   setosa         31          0         0
-##   versicolor      0         31         3
-##   virginica       0          1        34
+## Accuracy was used to select the optimal model using the largest value.
+## The final value used for the model was mtry = 10.
 ```
 
 ```r
-print(iris.rf)
+car_rf_fit$finalModel
 ```
 
 ```
 ## 
 ## Call:
-##  randomForest(formula = Species ~ ., data = trainData, ntree = 100,      proximity = TRUE) 
+##  randomForest(x = x, y = y, ntree = 10, mtry = min(param$mtry,      ncol(x))) 
 ##                Type of random forest: classification
-##                      Number of trees: 100
-## No. of variables tried at each split: 2
+##                      Number of trees: 10
+## No. of variables tried at each split: 10
 ## 
-##         OOB estimate of  error rate: 4%
+##         OOB estimate of  error rate: 10.73%
 ## Confusion matrix:
-##            setosa versicolor virginica class.error
-## setosa         31          0         0  0.00000000
-## versicolor      0         31         1  0.03125000
-## virginica       0          3        34  0.08108108
+##       acc good unacc vgood class.error
+## acc   214   12    37     4  0.19850187
+## good   21   23     1     4  0.53061224
+## unacc  28    1   811     0  0.03452381
+## vgood  12    9     0    25  0.45652174
 ```
 
 ```r
-#plot(iris.rf)
-importance(iris.rf)
+rf_test_pred <- predict(car_rf_fit, newdata = car.testing.factors)
+confusionMatrix(rf_test_pred, car.testing.factors$class )
+```
+
+```
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction acc good unacc vgood
+##      acc    93    2     8     1
+##      good    9   14     0     0
+##      unacc  12    1   355     0
+##      vgood   1    3     0    18
+## 
+## Overall Statistics
+##                                           
+##                Accuracy : 0.9284          
+##                  95% CI : (0.9027, 0.9491)
+##     No Information Rate : 0.7021          
+##     P-Value [Acc > NIR] : < 2.2e-16       
+##                                           
+##                   Kappa : 0.8417          
+##                                           
+##  Mcnemar's Test P-Value : NA              
+## 
+## Statistics by Class:
+## 
+##                      Class: acc Class: good Class: unacc Class: vgood
+## Sensitivity              0.8087     0.70000       0.9780      0.94737
+## Specificity              0.9726     0.98189       0.9156      0.99197
+## Pos Pred Value           0.8942     0.60870       0.9647      0.81818
+## Neg Pred Value           0.9467     0.98785       0.9463      0.99798
+## Prevalence               0.2224     0.03868       0.7021      0.03675
+## Detection Rate           0.1799     0.02708       0.6867      0.03482
+## Detection Prevalence     0.2012     0.04449       0.7118      0.04255
+## Balanced Accuracy        0.8907     0.84095       0.9468      0.96967
+```
+This performance here is better than decision trees and is much better balanced across the different classes.
+
+
+```r
+# Variable Importance Plot
+varImpPlot(car_rf_fit$finalModel,
+           sort = T,
+           main="Variable Importance")
+```
+
+<img src="06-decision-trees_files/figure-html/varimp cars caret-1.png" width="672" />
+
+As you can see from the variable importance plot, caret automatically converts categorical variables to dummy variables. This is because it facilitates many types of models, some of which cannot handle categorical variables.
+
+### Iris example for Random Forests
+
+We can use the same pipeline for the Iris dataset but we need to remember to scale, centre and check for highly correlation variables and skewness because now we have numeric predictors.
+
+
+```r
+library(datasets)
+data(iris) ##loads the dataset, which can be accessed under the variable name iris
+?iris ##opens the documentation for the dataset
+summary(iris) ##presents the 5 figure summary of the dataset
+```
+
+```
+##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+##  Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+##  Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+##        Species  
+##  setosa    :50  
+##  versicolor:50  
+##  virginica :50  
+##                 
+##                 
+## 
+```
+
+```r
+str(iris) ##presents the structure of the iris dataframe
+```
+
+```
+## 'data.frame':	150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+```
+
+
+```r
+set.seed(42)
+trainTestPartition <- createDataPartition(y = iris$Species, #the class label, caret ensures an even split of classes
+                                        p = 0.7, #proportion of samples assigned to train
+                                        list=FALSE)
+str(trainTestPartition)
+```
+
+```
+##  int [1:105, 1] 1 2 3 4 5 7 8 10 11 12 ...
+##  - attr(*, "dimnames")=List of 2
+##   ..$ : NULL
+##   ..$ : chr "Resample1"
+```
+
+```r
+iris.training <- iris[ trainTestPartition,] #take the corresponding rows for training
+iris.testing  <- iris[-trainTestPartition,] #take the corresponding rows for testing by removing training rows
+```
+
+
+```r
+set.seed(42)
+seeds = vector(mode = 'list',length=101)
+for (i in 1:100) seeds[[i]] = sample.int(1000,10)
+seeds[[101]] = sample.int(1000,1)
+
+train_ctrl_seed_repeated = trainControl(method = 'repeatedcv',
+                              number = 10, #number of folds
+                              repeats = 10, #number of times to repeat cross-validation
+                              seeds = seeds)
+iris_rf <- train(
+                Species ~ .,
+                data = iris.training,
+                method = "rf",
+                preProc = c("corr","nzv","center", "scale","BoxCox")
+)
+iris_rf
+```
+
+```
+## Random Forest 
+## 
+## 105 samples
+##   4 predictor
+##   3 classes: 'setosa', 'versicolor', 'virginica' 
+## 
+## Pre-processing: centered (3), scaled (3), Box-Cox transformation (3), remove (1) 
+## Resampling: Bootstrapped (25 reps) 
+## Summary of sample sizes: 105, 105, 105, 105, 105, 105, ... 
+## Resampling results across tuning parameters:
+## 
+##   mtry  Accuracy   Kappa    
+##   2     0.9571862  0.9351275
+##   3     0.9532560  0.9291124
+##   4     0.9521131  0.9274814
+## 
+## Accuracy was used to select the optimal model using the largest value.
+## The final value used for the model was mtry = 2.
+```
+
+```r
+iris_predict_train = predict(iris_rf, iris.training,type = 'raw')
+confusionMatrix(iris_predict_train, iris.training$Species)
+```
+
+```
+## Confusion Matrix and Statistics
+## 
+##             Reference
+## Prediction   setosa versicolor virginica
+##   setosa         35          0         0
+##   versicolor      0         35         0
+##   virginica       0          0        35
+## 
+## Overall Statistics
+##                                      
+##                Accuracy : 1          
+##                  95% CI : (0.9655, 1)
+##     No Information Rate : 0.3333     
+##     P-Value [Acc > NIR] : < 2.2e-16  
+##                                      
+##                   Kappa : 1          
+##                                      
+##  Mcnemar's Test P-Value : NA         
+## 
+## Statistics by Class:
+## 
+##                      Class: setosa Class: versicolor Class: virginica
+## Sensitivity                 1.0000            1.0000           1.0000
+## Specificity                 1.0000            1.0000           1.0000
+## Pos Pred Value              1.0000            1.0000           1.0000
+## Neg Pred Value              1.0000            1.0000           1.0000
+## Prevalence                  0.3333            0.3333           0.3333
+## Detection Rate              0.3333            0.3333           0.3333
+## Detection Prevalence        0.3333            0.3333           0.3333
+## Balanced Accuracy           1.0000            1.0000           1.0000
+```
+
+```r
+iris_predict_test = predict(iris_rf, iris.testing,type = 'raw')
+confusionMatrix(iris_predict_test, iris.testing$Species)
+```
+
+```
+## Confusion Matrix and Statistics
+## 
+##             Reference
+## Prediction   setosa versicolor virginica
+##   setosa         15          0         0
+##   versicolor      0         14         2
+##   virginica       0          1        13
+## 
+## Overall Statistics
+##                                          
+##                Accuracy : 0.9333         
+##                  95% CI : (0.8173, 0.986)
+##     No Information Rate : 0.3333         
+##     P-Value [Acc > NIR] : < 2.2e-16      
+##                                          
+##                   Kappa : 0.9            
+##                                          
+##  Mcnemar's Test P-Value : NA             
+## 
+## Statistics by Class:
+## 
+##                      Class: setosa Class: versicolor Class: virginica
+## Sensitivity                 1.0000            0.9333           0.8667
+## Specificity                 1.0000            0.9333           0.9667
+## Pos Pred Value              1.0000            0.8750           0.9286
+## Neg Pred Value              1.0000            0.9655           0.9355
+## Prevalence                  0.3333            0.3333           0.3333
+## Detection Rate              0.3333            0.3111           0.2889
+## Detection Prevalence        0.3333            0.3556           0.3111
+## Balanced Accuracy           1.0000            0.9333           0.9167
+```
+In this case, the model predicts the training data perfectly but gives the same confusion matrix on the testing data as for decision trees.
+
+
+```r
+importance(iris_rf$finalModel)
 ```
 
 ```
 ##              MeanDecreaseGini
-## Sepal.Length         5.596558
-## Sepal.Width          1.005828
-## Petal.Length        31.407250
-## Petal.Width         27.870964
+## Sepal.Length        15.162537
+## Sepal.Width          4.701492
+## Petal.Width         49.264228
 ```
 
 ```r
-varImpPlot(iris.rf)
+varImpPlot(iris_rf$finalModel)
 ```
 
-<img src="06-decision-trees_files/figure-html/rf1-1.png" width="672" />
+<img src="06-decision-trees_files/figure-html/varimp iris-1.png" width="672" />
+
+## Cell segmentation examples
+
+Load required libraries
 
 ```r
-iris.pred<-predict(iris.rf,newdata=testData)
-table(iris.pred, testData$Species)
+library(caret)
+library(pROC)
+library(e1071)
+```
+
+Load data
+
+```r
+data(segmentationData)
+segClass <- segmentationData$Class
+segData <- segmentationData[,4:59] ##Extract predictors from segmentationData
+```
+
+Partition data
+
+```r
+set.seed(42)
+trainIndex <- createDataPartition(y=segClass, times=1, p=0.5, list=F)
+segDataTrain <- segData[trainIndex,]
+segDataTest <- segData[-trainIndex,]
+segClassTrain <- segClass[trainIndex]
+segClassTest <- segClass[-trainIndex]
+```
+
+Set seeds for reproducibility (optional). We will be trying 9 values of the tuning parameter with 5 repeats of 10 fold cross-validation, so we need the following list of seeds.
+
+```r
+set.seed(42)
+seeds <- vector(mode = "list", length = 51)
+for(i in 1:50) seeds[[i]] <- sample.int(1000, 9)
+seeds[[51]] <- sample.int(1000,1)
+```
+
+We will pass the twoClassSummary function into model training through **trainControl**. Additionally we would like the model to predict class probabilities so that we can calculate the ROC curve, so we use the **classProbs** option. 
+
+
+```r
+cvCtrl <- trainControl(method = "repeatedcv", 
+                       repeats = 5,
+                       number = 10,
+                       summaryFunction = twoClassSummary,
+                       classProbs = TRUE,
+                       seeds=seeds)
+```
+
+
+```r
+rfTune <- train(x = segDataTrain,
+                   y = segClassTrain,
+                   method = 'rf',
+                   tuneLength = 9,
+                   preProc = c("center", "scale"),
+                   metric = "ROC",
+                   trControl = cvCtrl)
+
+rfTune
 ```
 
 ```
-##             
-## iris.pred    setosa versicolor virginica
-##   setosa         19          0         0
-##   versicolor      0         15         0
-##   virginica       0          3        13
+## Random Forest 
+## 
+## 1010 samples
+##   56 predictor
+##    2 classes: 'PS', 'WS' 
+## 
+## Pre-processing: centered (56), scaled (56) 
+## Resampling: Cross-Validated (10 fold, repeated 5 times) 
+## Summary of sample sizes: 909, 909, 909, 909, 909, 909, ... 
+## Resampling results across tuning parameters:
+## 
+##   mtry  ROC        Sens       Spec     
+##    2    0.8934786  0.8806154  0.7011111
+##    8    0.8935940  0.8658462  0.7322222
+##   15    0.8929573  0.8600000  0.7372222
+##   22    0.8911923  0.8560000  0.7461111
+##   29    0.8883675  0.8526154  0.7405556
+##   35    0.8864829  0.8498462  0.7488889
+##   42    0.8858932  0.8464615  0.7394444
+##   49    0.8843248  0.8498462  0.7416667
+##   56    0.8828632  0.8458462  0.7444444
+## 
+## ROC was used to select the optimal model using the largest value.
+## The final value used for the model was mtry = 8.
 ```
 
-As observed for the previous examples, the discriminative features are the petal length and the petal width.
+
+```r
+plot(rfTune, metric = "ROC", scales = list(x = list(log =2)))
+```
+
+<div class="figure" style="text-align: center">
+<img src="06-decision-trees_files/figure-html/rfAccuracyProfileCellSegment-1.png" alt="rf accuracy profile." width="80%" />
+<p class="caption">(\#fig:rfAccuracyProfileCellSegment)rf accuracy profile.</p>
+</div>
+
+Test set results
+
+```r
+#segDataTest <- predict(transformations, segDataTest)
+rfPred <- predict(rfTune, segDataTest)
+confusionMatrix(rfPred, segClassTest)
+```
+
+```
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  PS  WS
+##         PS 576  95
+##         WS  74 264
+##                                         
+##                Accuracy : 0.8325        
+##                  95% CI : (0.808, 0.855)
+##     No Information Rate : 0.6442        
+##     P-Value [Acc > NIR] : <2e-16        
+##                                         
+##                   Kappa : 0.6298        
+##                                         
+##  Mcnemar's Test P-Value : 0.1239        
+##                                         
+##             Sensitivity : 0.8862        
+##             Specificity : 0.7354        
+##          Pos Pred Value : 0.8584        
+##          Neg Pred Value : 0.7811        
+##              Prevalence : 0.6442        
+##          Detection Rate : 0.5709        
+##    Detection Prevalence : 0.6650        
+##       Balanced Accuracy : 0.8108        
+##                                         
+##        'Positive' Class : PS            
+## 
+```
+
+Get predicted class probabilities
+
+```r
+rfProbs <- predict(rfTune, segDataTest, type="prob")
+head(rfProbs)
+```
+
+```
+##       PS    WS
+## 1  0.892 0.108
+## 5  0.926 0.074
+## 8  0.944 0.056
+## 9  0.620 0.380
+## 10 0.870 0.130
+## 12 0.730 0.270
+```
+
+Build a ROC curve
+
+```r
+rfROC <- roc(segClassTest, rfProbs[,"PS"])
+```
+
+```
+## Setting levels: control = PS, case = WS
+```
+
+```
+## Setting direction: controls > cases
+```
+
+```r
+auc(rfROC)
+```
+
+```
+## Area under the curve: 0.9023
+```
+
+Plot ROC curve.
+
+```r
+plot(rfROC, type = "S")
+```
+
+<div class="figure" style="text-align: center">
+<img src="06-decision-trees_files/figure-html/rfROCcurveCellSegment-1.png" alt="rf ROC curve for cell segmentation data set." width="80%" />
+<p class="caption">(\#fig:rfROCcurveCellSegment)rf ROC curve for cell segmentation data set.</p>
+</div>
+
+Calculate area under ROC curve
+
+```r
+auc(rfROC)
+```
+
+```
+## Area under the curve: 0.9023
+```
+
+## Regression example - Blood Brain Barrier
+
+The pre-processing steps and generation of seeds are identical, therefore if the data were still in memory, we could skip this next block of code:
+
+```r
+data(BloodBrain)
+
+set.seed(42)
+trainIndex <- createDataPartition(y=logBBB, times=1, p=0.8, list=F)
+descrTrain <- bbbDescr[trainIndex,]
+concRatioTrain <- logBBB[trainIndex]
+descrTest <- bbbDescr[-trainIndex,]
+concRatioTest <- logBBB[-trainIndex]
+
+transformations <- preProcess(descrTrain,
+                              method=c("center", "scale", "corr", "nzv"),
+                              cutoff=0.75)
+descrTrain <- predict(transformations, descrTrain)
+
+set.seed(42)
+seeds <- vector(mode = "list", length = 26)
+for(i in 1:25) seeds[[i]] <- sample.int(1000, 50)
+seeds[[26]] <- sample.int(1000,1)
+```
+
+### Random forest
 
 
-*Acknowledgement: the above data is from a machine-learning database and the code is discusses*: http://dni-institute.in/blogs/random-forest-using-r-step-by-step-tutorial/*
+```r
+rfTune <- train(descrTrain,
+                 concRatioTrain,
+                 method='rf',
+                 tuneLength = 9,
+                 trControl = trainControl(method="repeatedcv",
+                                          number = 5,
+                                          repeats = 5,
+                                          seeds=seeds
+                                          )
+)
 
-## Exercises
+rfTune
+```
 
-**Titanic Data**\ 
-One of the reasons that the shipwreck led to such loss of life was that there were not enough lifeboats for the passengers and crew. Although there was some element of luck involved in surviving the sinking, some groups of people were more likely to survive than others, such as women, children, and the upper-class.
+```
+## Random Forest 
+## 
+## 168 samples
+##  63 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (5 fold, repeated 5 times) 
+## Summary of sample sizes: 136, 134, 134, 134, 134, 134, ... 
+## Resampling results across tuning parameters:
+## 
+##   mtry  RMSE       Rsquared   MAE      
+##    2    0.5623974  0.5480514  0.4273841
+##    9    0.5371936  0.5705485  0.4097465
+##   17    0.5328204  0.5754905  0.4061802
+##   24    0.5318392  0.5746695  0.4045764
+##   32    0.5342083  0.5684221  0.4064105
+##   40    0.5348686  0.5670075  0.4061708
+##   47    0.5353506  0.5655544  0.4059083
+##   55    0.5376848  0.5604832  0.4083446
+##   63    0.5391429  0.5582140  0.4089364
+## 
+## RMSE was used to select the optimal model using the smallest value.
+## The final value used for the model was mtry = 24.
+```
 
-In this excerise, try to complete the analysis of what sorts of people were likely to survive. The data can be downloaded from https://goo.gl/At238b. Hint: Use decision tree.   
 
-Solutions to exercises can be found in appendix \@ref(solutions-decision-trees).
+```r
+plot(rfTune)
+```
+
+<div class="figure" style="text-align: center">
+<img src="06-decision-trees_files/figure-html/rmseCorrf-1.png" alt="Root Mean Squared Error as a function of cost." width="100%" />
+<p class="caption">(\#fig:rmseCorrf)Root Mean Squared Error as a function of cost.</p>
+</div>
+
+Use model to predict outcomes, after first pre-processing the test set.
+
+```r
+descrTest <- predict(transformations, descrTest)
+test_pred <- predict(rfTune, descrTest)
+```
+
+Prediction performance can be visualized in a scatterplot.
+
+```r
+qplot(concRatioTest, test_pred) + 
+  xlab("observed") +
+  ylab("predicted") +
+  theme_bw()
+```
+
+<div class="figure" style="text-align: center">
+<img src="06-decision-trees_files/figure-html/obsPredConcRatiosrf-1.png" alt="Concordance between observed concentration ratios and those predicted by random forest." width="80%" />
+<p class="caption">(\#fig:obsPredConcRatiosrf)Concordance between observed concentration ratios and those predicted by random forest.</p>
+</div>
+
+We can also measure correlation between observed and predicted values.
+
+```r
+cor(concRatioTest, test_pred)
+```
+
+```
+## [1] 0.7278505
+```

@@ -11,11 +11,16 @@ library(caret)
 ```
 
 ```
+## Loading required package: ggplot2
+```
+
+```
 ## Loading required package: lattice
 ```
 
 ```
-## Loading required package: ggplot2
+## Warning in system("timedatectl", intern = TRUE): running command 'timedatectl'
+## had status 1
 ```
 
 ```r
@@ -40,7 +45,7 @@ library(corrplot)
 ```
 
 ```
-## corrplot 0.84 loaded
+## corrplot 0.92 loaded
 ```
 
 Prepare for parallel processing
@@ -136,7 +141,7 @@ featurePlot(x = morphTrain,
 
 <div class="figure" style="text-align: center">
 <img src="17-solutions-nearest-neighbours_files/figure-html/wheatBoxplots-1.png" alt="Boxplots of the 7 geometric parameters in the wheat data set" width="75%" />
-<p class="caption">Boxplots of the 7 geometric parameters in the wheat data set</p>
+<p class="caption">(\#fig:wheatBoxplots)Boxplots of the 7 geometric parameters in the wheat data set</p>
 </div>
 
 Data check: pairwise correlations between predictors
@@ -148,7 +153,7 @@ corrplot(corMat, order="hclust", tl.cex=1)
 
 <div class="figure" style="text-align: center">
 <img src="17-solutions-nearest-neighbours_files/figure-html/wheatCorrelogram-1.png" alt="Correlogram of the wheat seed data set." width="75%" />
-<p class="caption">Correlogram of the wheat seed data set.</p>
+<p class="caption">(\#fig:wheatCorrelogram)Correlogram of the wheat seed data set.</p>
 </div>
 
 
@@ -187,7 +192,7 @@ featurePlot(x = morphTrain,
 
 <div class="figure" style="text-align: center">
 <img src="17-solutions-nearest-neighbours_files/figure-html/wheatDensityPlots-1.png" alt="Density plots of the 7 geometric parameters in the wheat data set" width="75%" />
-<p class="caption">Density plots of the 7 geometric parameters in the wheat data set</p>
+<p class="caption">(\#fig:wheatDensityPlots)Density plots of the 7 geometric parameters in the wheat data set</p>
 </div>
             
 Create a 'grid' of values of _k_ for evaluation:
@@ -244,40 +249,40 @@ knnFit
 ##   7 predictor
 ##   3 classes: 'Canadian', 'Kama', 'Rosa' 
 ## 
-## Pre-processing: centered (7), scaled (7) 
+## Pre-processing: centered (3), scaled (3), remove (4) 
 ## Resampling: Cross-Validated (10 fold, repeated 10 times) 
 ## Summary of sample sizes: 133, 132, 133, 132, 132, 133, ... 
 ## Resampling results across tuning parameters:
 ## 
 ##   k   Accuracy   Kappa    
-##    1  0.9172381  0.8756147
-##    3  0.9030000  0.8542882
-##    5  0.8975238  0.8461304
-##    7  0.8995238  0.8491221
-##    9  0.8927143  0.8389243
-##   11  0.8974286  0.8459930
-##   13  0.8940000  0.8408394
-##   15  0.8906667  0.8358560
-##   17  0.8986667  0.8478807
-##   19  0.9055238  0.8581482
-##   21  0.8994286  0.8490026
-##   23  0.8954286  0.8430026
-##   25  0.8948095  0.8420544
-##   27  0.8968095  0.8450950
-##   29  0.8921429  0.8381116
-##   31  0.8873810  0.8309740
-##   33  0.8825714  0.8237096
-##   35  0.8893810  0.8339577
-##   37  0.8907143  0.8360068
-##   39  0.8906667  0.8358971
-##   41  0.8927619  0.8390021
-##   43  0.8941429  0.8410779
-##   45  0.8934286  0.8399857
-##   47  0.8975238  0.8461885
-##   49  0.8961429  0.8441033
+##    1  0.8640238  0.7955794
+##    3  0.8411667  0.7614211
+##    5  0.8544524  0.7813197
+##    7  0.8646429  0.7966349
+##    9  0.8743810  0.8111795
+##   11  0.8771429  0.8154320
+##   13  0.8777619  0.8162978
+##   15  0.8804762  0.8204404
+##   17  0.8852857  0.8276139
+##   19  0.8839048  0.8255536
+##   21  0.8846190  0.8266306
+##   23  0.8846190  0.8266223
+##   25  0.8839048  0.8255454
+##   27  0.8853333  0.8277076
+##   29  0.8908095  0.8359544
+##   31  0.8907619  0.8358447
+##   33  0.8921429  0.8379874
+##   35  0.8874762  0.8309461
+##   37  0.8894762  0.8339626
+##   39  0.8888095  0.8329793
+##   41  0.8880952  0.8319026
+##   43  0.8880476  0.8317839
+##   45  0.8907619  0.8358610
+##   47  0.8874286  0.8308694
+##   49  0.8866667  0.8297155
 ## 
 ## Accuracy was used to select the optimal model using the largest value.
-## The final value used for the model was k = 1.
+## The final value used for the model was k = 33.
 ```
 
 Plot cross validation accuracy as a function of _k_
@@ -288,7 +293,7 @@ plot(knnFit)
 
 <div class="figure" style="text-align: center">
 <img src="17-solutions-nearest-neighbours_files/figure-html/cvAccuracyMorphTrain-1.png" alt="Accuracy (repeated cross-validation) as a function of neighbourhood size for the wheat seeds data set." width="100%" />
-<p class="caption">Accuracy (repeated cross-validation) as a function of neighbourhood size for the wheat seeds data set.</p>
+<p class="caption">(\#fig:cvAccuracyMorphTrain)Accuracy (repeated cross-validation) as a function of neighbourhood size for the wheat seeds data set.</p>
 </div>
 
 Predict the class (wheat variety) of the observations in the test set.
@@ -303,32 +308,32 @@ confusionMatrix(test_pred, varietyTest)
 ## 
 ##           Reference
 ## Prediction Canadian Kama Rosa
-##   Canadian       21    3    0
-##   Kama            0   17    0
+##   Canadian       20    3    0
+##   Kama            1   17    0
 ##   Rosa            0    1   21
 ## 
 ## Overall Statistics
 ##                                           
-##                Accuracy : 0.9365          
-##                  95% CI : (0.8453, 0.9824)
+##                Accuracy : 0.9206          
+##                  95% CI : (0.8244, 0.9737)
 ##     No Information Rate : 0.3333          
 ##     P-Value [Acc > NIR] : < 2.2e-16       
 ##                                           
-##                   Kappa : 0.9048          
+##                   Kappa : 0.881           
 ##                                           
 ##  Mcnemar's Test P-Value : NA              
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: Canadian Class: Kama Class: Rosa
-## Sensitivity                   1.0000      0.8095      1.0000
-## Specificity                   0.9286      1.0000      0.9762
-## Pos Pred Value                0.8750      1.0000      0.9545
-## Neg Pred Value                1.0000      0.9130      1.0000
+## Sensitivity                   0.9524      0.8095      1.0000
+## Specificity                   0.9286      0.9762      0.9762
+## Pos Pred Value                0.8696      0.9444      0.9545
+## Neg Pred Value                0.9750      0.9111      1.0000
 ## Prevalence                    0.3333      0.3333      0.3333
-## Detection Rate                0.3333      0.2698      0.3333
-## Detection Prevalence          0.3810      0.2698      0.3492
-## Balanced Accuracy             0.9643      0.9048      0.9881
+## Detection Rate                0.3175      0.2698      0.3333
+## Detection Prevalence          0.3651      0.2857      0.3492
+## Balanced Accuracy             0.9405      0.8929      0.9881
 ```
 
 

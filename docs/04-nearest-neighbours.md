@@ -18,7 +18,7 @@ A simple _k_-NN classification rule (figure \@ref(fig:knnClassification)) would 
 
 <div class="figure" style="text-align: center">
 <img src="images/knn_classification.svg" alt="Illustration of _k_-nn classification. In this example we have two classes: blue squares and red triangles. The green circle represents a test object. If k=3 (solid line circle) the test object is assigned to the red triangle class. If k=5 the test object is assigned to the blue square class.  By Antti Ajanki AnAj - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=2170282" width="75%" />
-<p class="caption">Illustration of _k_-nn classification. In this example we have two classes: blue squares and red triangles. The green circle represents a test object. If k=3 (solid line circle) the test object is assigned to the red triangle class. If k=5 the test object is assigned to the blue square class.  By Antti Ajanki AnAj - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=2170282</p>
+<p class="caption">(\#fig:knnClassification)Illustration of _k_-nn classification. In this example we have two classes: blue squares and red triangles. The green circle represents a test object. If k=3 (solid line circle) the test object is assigned to the red triangle class. If k=5 the test object is assigned to the blue square class.  By Antti Ajanki AnAj - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=2170282</p>
 </div>
 
 A basic implementation of _k_-NN regression would calculate a summary (e.g. a distance, a voting summary) of the numerical outcome of the _k_ nearest neighbours. 
@@ -37,7 +37,7 @@ Euclidean distance measures the straight-line distance between two samples (i.e.
 
 <div class="figure" style="text-align: center">
 <img src="04-nearest-neighbours_files/figure-html/euclideanDistanceDiagram-1.png" alt="Euclidean distance." width="75%" />
-<p class="caption">Euclidean distance.</p>
+<p class="caption">(\#fig:euclideanDistanceDiagram)Euclidean distance.</p>
 </div>
 
 **Manhattan distance:**
@@ -112,15 +112,6 @@ summary(as.factor(ytest))
 ```r
 library(ggplot2)
 library(GGally)
-```
-
-```
-## Registered S3 method overwritten by 'GGally':
-##   method from   
-##   +.gg   ggplot2
-```
-
-```r
 library(RColorBrewer)
 point_shapes <- c(15,17)
 point_colours <- brewer.pal(3,"Dark2")
@@ -145,7 +136,7 @@ ggplot(xtest, aes(V1,V2)) +
 
 <div class="figure" style="text-align: center">
 <img src="04-nearest-neighbours_files/figure-html/simDataBinClassTrainTest-1.png" alt="Scatterplots of the simulated training and test data sets that will be used in the demonstration of binary classification using _k_-nn" width="50%" /><img src="04-nearest-neighbours_files/figure-html/simDataBinClassTrainTest-2.png" alt="Scatterplots of the simulated training and test data sets that will be used in the demonstration of binary classification using _k_-nn" width="50%" />
-<p class="caption">Scatterplots of the simulated training and test data sets that will be used in the demonstration of binary classification using _k_-nn</p>
+<p class="caption">(\#fig:simDataBinClassTrainTest)Scatterplots of the simulated training and test data sets that will be used in the demonstration of binary classification using _k_-nn</p>
 </div>
 
 
@@ -173,7 +164,8 @@ library(caret)
 ```
 
 ```
-## Loading required package: lattice
+## Warning in system("timedatectl", intern = TRUE): running command 'timedatectl'
+## had status 1
 ```
 
 ```r
@@ -311,7 +303,7 @@ ggplot(xgrid, aes(V1,V2)) +
 
 <div class="figure" style="text-align: center">
 <img src="04-nearest-neighbours_files/figure-html/simDataBinClassDecisionBoundaryK1-1.png" alt="Binary classification of the simulated training and test sets with _k_=1." width="50%" /><img src="04-nearest-neighbours_files/figure-html/simDataBinClassDecisionBoundaryK1-2.png" alt="Binary classification of the simulated training and test sets with _k_=1." width="50%" />
-<p class="caption">Binary classification of the simulated training and test sets with _k_=1.</p>
+<p class="caption">(\#fig:simDataBinClassDecisionBoundaryK1)Binary classification of the simulated training and test sets with _k_=1.</p>
 </div>
 
 ### Bias-variance tradeoff
@@ -371,7 +363,7 @@ ggplot(misclass_errors, aes(x=k, y=error, group=set)) +
 
 <div class="figure" style="text-align: center">
 <img src="04-nearest-neighbours_files/figure-html/misclassErrorsFunK-1.png" alt="Misclassification errors as a function of neighbourhood size." width="100%" />
-<p class="caption">Misclassification errors as a function of neighbourhood size.</p>
+<p class="caption">(\#fig:misclassErrorsFunK)Misclassification errors as a function of neighbourhood size.</p>
 </div>
 We see excessive variance (overfitting) at low values of _k_, and bias (underfitting) at high values of _k_.
 
@@ -514,7 +506,7 @@ plot(knnFit)
 
 <div class="figure" style="text-align: center">
 <img src="04-nearest-neighbours_files/figure-html/cvAccuracyFunK-1.png" alt="Accuracy (repeated cross-validation) as a function of neighbourhood size." width="100%" />
-<p class="caption">Accuracy (repeated cross-validation) as a function of neighbourhood size.</p>
+<p class="caption">(\#fig:cvAccuracyFunK)Accuracy (repeated cross-validation) as a function of neighbourhood size.</p>
 </div>
 
 We can also plot other performance metrics, such as Cohen's Kappa, using the **metric** argument.
@@ -525,7 +517,7 @@ plot(knnFit, metric="Kappa")
 
 <div class="figure" style="text-align: center">
 <img src="04-nearest-neighbours_files/figure-html/cvKappaFunK-1.png" alt="Cohen's Kappa (repeated cross-validation) as a function of neighbourhood size." width="100%" />
-<p class="caption">Cohen's Kappa (repeated cross-validation) as a function of neighbourhood size.</p>
+<p class="caption">(\#fig:cvKappaFunK)Cohen's Kappa (repeated cross-validation) as a function of neighbourhood size.</p>
 </div>
 
 Let us now evaluate how our classifier performs on the test set.
@@ -615,7 +607,7 @@ ggplot(xgrid, aes(V1,V2)) +
 
 <div class="figure" style="text-align: center">
 <img src="04-nearest-neighbours_files/figure-html/simDataBinClassDecisionBoundaryK83-1.png" alt="Binary classification of the simulated training and test sets with _k_=83." width="50%" /><img src="04-nearest-neighbours_files/figure-html/simDataBinClassDecisionBoundaryK83-2.png" alt="Binary classification of the simulated training and test sets with _k_=83." width="50%" />
-<p class="caption">Binary classification of the simulated training and test sets with _k_=83.</p>
+<p class="caption">(\#fig:simDataBinClassDecisionBoundaryK83)Binary classification of the simulated training and test sets with _k_=83.</p>
 </div>
 
 ## Example on the Iris dataset
@@ -708,13 +700,6 @@ grid.arrange(VpSl  + ggtitle(""),
 
 ```r
 ggpairs(iris, ggplot2::aes(colour = Species, alpha = 0.4))             
-```
-
-```
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
 <img src="04-nearest-neighbours_files/figure-html/unnamed-chunk-21-2.png" width="672" />
@@ -817,7 +802,7 @@ Pre-processing and feature selection will be demonstrated using the cell segment
 
 <div class="figure" style="text-align: center">
 <img src="images/Hill_2007_cell_segmentation.jpg" alt="Image segmentation in high content screening. Images **b** and **c** are examples of well-segmented cells; **d** and **e** show poor-segmentation. Source: Hill(2007) https://doi.org/10.1186/1471-2105-8-340" width="75%" />
-<p class="caption">Image segmentation in high content screening. Images **b** and **c** are examples of well-segmented cells; **d** and **e** show poor-segmentation. Source: Hill(2007) https://doi.org/10.1186/1471-2105-8-340</p>
+<p class="caption">(\#fig:imageSegmentationHCS)Image segmentation in high content screening. Images **b** and **c** are examples of well-segmented cells; **d** and **e** show poor-segmentation. Source: Hill(2007) https://doi.org/10.1186/1471-2105-8-340</p>
 </div>
 
 This data set is one of several included in [caret](http://cran.r-project.org/web/packages/caret/index.html).
@@ -1047,7 +1032,7 @@ qplot(segDataTrain$IntenCoocASMCh3, binwidth=0.1) +
 
 <div class="figure" style="text-align: center">
 <img src="04-nearest-neighbours_files/figure-html/segDataSkewness-1.png" alt="Example of a predictor from the segmentation data set showing skewness." width="75%" />
-<p class="caption">Example of a predictor from the segmentation data set showing skewness.</p>
+<p class="caption">(\#fig:segDataSkewness)Example of a predictor from the segmentation data set showing skewness.</p>
 </div>
 
 [caret](http://cran.r-project.org/web/packages/caret/index.html) provides various methods for transforming skewed variables to normality, including the Box-Cox [@BoxCox] and Yeo-Johnson [@YeoJohnson] transformations.
@@ -1061,20 +1046,13 @@ A correlogram provides a helpful visualization of the patterns of pairwise corre
 
 ```r
 library(corrplot)
-```
-
-```
-## corrplot 0.84 loaded
-```
-
-```r
 corMat <- cor(segDataTrain)
 corrplot(corMat, order="hclust", tl.cex=0.4)
 ```
 
 <div class="figure" style="text-align: center">
 <img src="04-nearest-neighbours_files/figure-html/segDataCorrelogram-1.png" alt="Correlogram of the segmentation data set." width="75%" />
-<p class="caption">Correlogram of the segmentation data set.</p>
+<p class="caption">(\#fig:segDataCorrelogram)Correlogram of the segmentation data set.</p>
 </div>
 
 The **preProcess** function in [caret](http://cran.r-project.org/web/packages/caret/index.html) has an option, **corr** to remove highly correlated variables. It considers the absolute values of pair-wise correlations. If two variables are highly correlated, **preProcess** looks at the mean absolute correlation of each variable and removes the variable with the largest mean absolute correlation. 
@@ -1268,7 +1246,7 @@ plot(knnFit)
 
 <div class="figure" style="text-align: center">
 <img src="04-nearest-neighbours_files/figure-html/cvAccuracySegDataHighCorRem-1.png" alt="Accuracy (repeated cross-validation) as a function of neighbourhood size for the segmentation training data with highly correlated predictors removed." width="100%" />
-<p class="caption">Accuracy (repeated cross-validation) as a function of neighbourhood size for the segmentation training data with highly correlated predictors removed.</p>
+<p class="caption">(\#fig:cvAccuracySegDataHighCorRem)Accuracy (repeated cross-validation) as a function of neighbourhood size for the segmentation training data with highly correlated predictors removed.</p>
 </div>
 
 Let's retrieve some information on the final model. To see the optimum value of _k_ found during the grid search, run either of the following lines:
@@ -1503,7 +1481,7 @@ corrplot(cm, order="hclust", tl.pos="n")
 
 <div class="figure" style="text-align: center">
 <img src="04-nearest-neighbours_files/figure-html/compoundDescriptorsCorrelogram-1.png" alt="Correlogram of the chemical compound descriptors." width="80%" />
-<p class="caption">Correlogram of the chemical compound descriptors.</p>
+<p class="caption">(\#fig:compoundDescriptorsCorrelogram)Correlogram of the chemical compound descriptors.</p>
 </div>
 
 The number of variables exhibiting a pair-wise correlation coefficient above 0.75 can be determined:
@@ -1581,7 +1559,7 @@ knnTune
 ## k-Nearest Neighbors 
 ## 
 ## 168 samples
-## 127 predictors
+##  63 predictor
 ## 
 ## No pre-processing
 ## Resampling: Cross-Validated (5 fold, repeated 5 times) 
@@ -1589,19 +1567,19 @@ knnTune
 ## Resampling results across tuning parameters:
 ## 
 ##   k   RMSE       Rsquared   MAE      
-##    1  0.6549043  0.4108920  0.4766928
-##    2  0.6032405  0.4528603  0.4576061
-##    3  0.5971264  0.4502719  0.4540638
-##    4  0.5990394  0.4427879  0.4548592
-##    5  0.6133729  0.4188855  0.4696289
-##    6  0.6186412  0.4098024  0.4738693
-##    7  0.6159861  0.4130907  0.4738798
-##    8  0.6159065  0.4137798  0.4716903
-##    9  0.6173266  0.4091199  0.4724567
-##   10  0.6147349  0.4169201  0.4691612
+##    1  0.6572204  0.4094071  0.4739994
+##    2  0.5838867  0.4737129  0.4319682
+##    3  0.5869985  0.4632044  0.4377774
+##    4  0.6023137  0.4313942  0.4554854
+##    5  0.6119249  0.4130384  0.4653676
+##    6  0.6134509  0.4086748  0.4710572
+##    7  0.6289054  0.3803895  0.4846857
+##    8  0.6331586  0.3748235  0.4843006
+##    9  0.6358699  0.3744272  0.4835743
+##   10  0.6321851  0.3859343  0.4805353
 ## 
 ## RMSE was used to select the optimal model using the smallest value.
-## The final value used for the model was k = 3.
+## The final value used for the model was k = 2.
 ```
 
 The Root Mean Squared Error (RMSE) measures the differences between the values predicted by the model and the values actually observed. More specifically, it represents the sample standard deviation of the difference between the predicted values and observed values. 
@@ -1612,7 +1590,7 @@ plot(knnTune)
 
 <div class="figure" style="text-align: center">
 <img src="04-nearest-neighbours_files/figure-html/rmseFunK-1.png" alt="Root Mean Squared Error as a function of neighbourhood size." width="100%" />
-<p class="caption">Root Mean Squared Error as a function of neighbourhood size.</p>
+<p class="caption">(\#fig:rmseFunK)Root Mean Squared Error as a function of neighbourhood size.</p>
 </div>
 
 ### Use model to make predictions
@@ -1640,7 +1618,7 @@ qplot(concRatioTest, test_pred) +
 
 <div class="figure" style="text-align: center">
 <img src="04-nearest-neighbours_files/figure-html/obsPredConcRatios-1.png" alt="Concordance between observed concentration ratios and those predicted by _k_-nn regression." width="80%" />
-<p class="caption">Concordance between observed concentration ratios and those predicted by _k_-nn regression.</p>
+<p class="caption">(\#fig:obsPredConcRatios)Concordance between observed concentration ratios and those predicted by _k_-nn regression.</p>
 </div>
 
 We can also measure correlation between observed and predicted values.
@@ -1650,7 +1628,7 @@ cor(concRatioTest, test_pred)
 ```
 
 ```
-## [1] 0.5719185
+## [1] 0.6386877
 ```
 
 

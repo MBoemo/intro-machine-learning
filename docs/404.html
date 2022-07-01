@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Page not found | An Introduction to Machine Learning</title>
+  <meta name="description" content="Course materials for An Introduction to Machine Learning" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Page not found | An Introduction to Machine Learning" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/figures/cover_image.png" />
+  <meta property="og:description" content="Course materials for An Introduction to Machine Learning" />
+  <meta name="github-repo" content="bioinformatics-training/intro-machine-learning-2019" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Page not found | An Introduction to Machine Learning" />
+  
+  <meta name="twitter:description" content="Course materials for An Introduction to Machine Learning" />
+  <meta name="twitter:image" content="/figures/cover_image.png" />
+
+<meta name="author" content="Sudhakaran Prabakaran, Matt Wayland and Chris Penfold" />
+
+
+<meta name="date" content="2020-10-07" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About the course</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#overview"><i class="fa fa-check"></i><b>1.1</b> Overview</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#registration"><i class="fa fa-check"></i><b>1.2</b> Registration</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i><b>1.3</b> Prerequisites</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#github"><i class="fa fa-check"></i><b>1.4</b> Github</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i><b>1.5</b> License</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#contact"><i class="fa fa-check"></i><b>1.6</b> Contact</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#colophon"><i class="fa fa-check"></i><b>1.7</b> Colophon</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-machine-learning"><i class="fa fa-check"></i><b>2.1</b> What is machine learning?</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#aspects-of-ml"><i class="fa fa-check"></i><b>2.2</b> Aspects of ML</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#what-actually-happened-under-the-hood"><i class="fa fa-check"></i><b>2.3</b> What actually happened under the hood</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#introduction-to-caret"><i class="fa fa-check"></i><b>2.4</b> Introduction to CARET</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="intro.html"><a href="intro.html#preprocessing-with-the-iris-dataset"><i class="fa fa-check"></i><b>2.4.1</b> Preprocessing with the Iris dataset</a></li>
+<li class="chapter" data-level="2.4.2" data-path="intro.html"><a href="intro.html#training-different-types-of-models"><i class="fa fa-check"></i><b>2.4.2</b> Training different types of models</a></li>
+<li class="chapter" data-level="2.4.3" data-path="intro.html"><a href="intro.html#cross-validation"><i class="fa fa-check"></i><b>2.4.3</b> Cross-validation</a></li>
+<li class="chapter" data-level="2.4.4" data-path="intro.html"><a href="intro.html#optimising-hyperparameters"><i class="fa fa-check"></i><b>2.4.4</b> Optimising hyperparameters</a></li>
+<li class="chapter" data-level="2.4.5" data-path="intro.html"><a href="intro.html#using-dummy-variables-with-the-sacramento-dataset"><i class="fa fa-check"></i><b>2.4.5</b> Using dummy variables with the Sacramento dataset</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html"><i class="fa fa-check"></i><b>3</b> Dimensionality reduction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#linear-dimensionality-reduction"><i class="fa fa-check"></i><b>3.1</b> Linear Dimensionality Reduction</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#interpreting-the-principle-component-axes"><i class="fa fa-check"></i><b>3.1.1</b> Interpreting the Principle Component Axes</a></li>
+<li class="chapter" data-level="3.1.2" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#horseshoe-effect"><i class="fa fa-check"></i><b>3.1.2</b> Horseshoe effect</a></li>
+<li class="chapter" data-level="3.1.3" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#pca-analysis-of-mammalian-development"><i class="fa fa-check"></i><b>3.1.3</b> PCA analysis of mammalian development</a></li>
+<li class="chapter" data-level="3.1.4" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#biological-interpretation"><i class="fa fa-check"></i><b>3.1.4</b> Biological interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#nonlinear-dimensionality-reduction"><i class="fa fa-check"></i><b>3.2</b> Nonlinear Dimensionality Reduction</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#nonlinear-warping"><i class="fa fa-check"></i><b>3.2.1</b> Nonlinear warping</a></li>
+<li class="chapter" data-level="3.2.2" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#stochasticity"><i class="fa fa-check"></i><b>3.2.2</b> Stochasticity</a></li>
+<li class="chapter" data-level="3.2.3" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#analysis-of-mammalian-development"><i class="fa fa-check"></i><b>3.2.3</b> Analysis of mammalian development</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#other-dimensionality-reduction-techniques"><i class="fa fa-check"></i><b>3.3</b> Other dimensionality reduction techniques</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>4</b> Clustering</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="clustering.html"><a href="clustering.html#introduction"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="clustering.html"><a href="clustering.html#registered-s3-method-overwritten-by-ggally"><i class="fa fa-check"></i><b>4.2</b> Registered S3 method overwritten by ‘GGally’:</a></li>
+<li class="chapter" data-level="4.3" data-path="clustering.html"><a href="clustering.html#method-from"><i class="fa fa-check"></i><b>4.3</b> method from</a></li>
+<li class="chapter" data-level="4.4" data-path="clustering.html"><a href="clustering.html#gg-ggplot2"><i class="fa fa-check"></i><b>4.4</b> +.gg ggplot2</a></li>
+<li class="chapter" data-level="4.5" data-path="clustering.html"><a href="clustering.html#distance-metrics"><i class="fa fa-check"></i><b>4.5</b> Distance metrics</a></li>
+<li class="chapter" data-level="4.6" data-path="clustering.html"><a href="clustering.html#hierarchic-agglomerative"><i class="fa fa-check"></i><b>4.6</b> Hierarchic agglomerative</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="clustering.html"><a href="clustering.html#linkage-algorithms"><i class="fa fa-check"></i><b>4.6.1</b> Linkage algorithms</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="clustering.html"><a href="clustering.html#k-means"><i class="fa fa-check"></i><b>4.7</b> K-means</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="clustering.html"><a href="clustering.html#algorithm"><i class="fa fa-check"></i><b>4.7.1</b> Algorithm</a></li>
+<li class="chapter" data-level="4.7.2" data-path="clustering.html"><a href="clustering.html#choosing-initial-cluster-centres"><i class="fa fa-check"></i><b>4.7.2</b> Choosing initial cluster centres</a></li>
+<li class="chapter" data-level="4.7.3" data-path="clustering.html"><a href="clustering.html#choosingK"><i class="fa fa-check"></i><b>4.7.3</b> Choosing k</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="clustering.html"><a href="clustering.html#dbscan"><i class="fa fa-check"></i><b>4.8</b> DBSCAN</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="clustering.html"><a href="clustering.html#algorithm-1"><i class="fa fa-check"></i><b>4.8.1</b> Algorithm</a></li>
+<li class="chapter" data-level="4.8.2" data-path="clustering.html"><a href="clustering.html#implementation-in-r"><i class="fa fa-check"></i><b>4.8.2</b> Implementation in R</a></li>
+<li class="chapter" data-level="4.8.3" data-path="clustering.html"><a href="clustering.html#choosing-parameters"><i class="fa fa-check"></i><b>4.8.3</b> Choosing parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="clustering.html"><a href="clustering.html#section"><i class="fa fa-check"></i><b>4.9</b> </a></li>
+<li class="chapter" data-level="4.10" data-path="clustering.html"><a href="clustering.html#section-1"><i class="fa fa-check"></i><b>4.10</b> 0 1 2 3</a></li>
+<li class="chapter" data-level="4.11" data-path="clustering.html"><a href="clustering.html#section-2"><i class="fa fa-check"></i><b>4.11</b> 43 484 486 487</a></li>
+<li class="chapter" data-level="4.12" data-path="clustering.html"><a href="clustering.html#example-clustering-synthetic-data-sets"><i class="fa fa-check"></i><b>4.12</b> Example: clustering synthetic data sets</a>
+<ul>
+<li class="chapter" data-level="4.12.1" data-path="clustering.html"><a href="clustering.html#hierarchic-agglomerative-1"><i class="fa fa-check"></i><b>4.12.1</b> Hierarchic agglomerative</a></li>
+</ul></li>
+<li class="chapter" data-level="4.13" data-path="clustering.html"><a href="clustering.html#section-3"><i class="fa fa-check"></i><b>4.13</b> </a></li>
+<li class="chapter" data-level="4.14" data-path="clustering.html"><a href="clustering.html#section-4"><i class="fa fa-check"></i><b>4.14</b> ———————</a></li>
+<li class="chapter" data-level="4.15" data-path="clustering.html"><a href="clustering.html#welcome-to-dendextend-version-1.15.2"><i class="fa fa-check"></i><b>4.15</b> Welcome to dendextend version 1.15.2</a></li>
+<li class="chapter" data-level="4.16" data-path="clustering.html"><a href="clustering.html#type-citationdendextend-for-how-to-cite-the-package."><i class="fa fa-check"></i><b>4.16</b> Type citation(‘dendextend’) for how to cite the package.</a></li>
+<li class="chapter" data-level="4.17" data-path="clustering.html"><a href="clustering.html#section-5"><i class="fa fa-check"></i><b>4.17</b> </a></li>
+<li class="chapter" data-level="4.18" data-path="clustering.html"><a href="clustering.html#type-browsevignettespackage-dendextend-for-the-package-vignette."><i class="fa fa-check"></i><b>4.18</b> Type browseVignettes(package = ‘dendextend’) for the package vignette.</a></li>
+<li class="chapter" data-level="4.19" data-path="clustering.html"><a href="clustering.html#the-github-page-is-httpsgithub.comtalgalilidendextend"><i class="fa fa-check"></i><b>4.19</b> The github page is: <span>https://github.com/talgalili/dendextend/</span></a></li>
+<li class="chapter" data-level="4.20" data-path="clustering.html"><a href="clustering.html#section-6"><i class="fa fa-check"></i><b>4.20</b> </a></li>
+<li class="chapter" data-level="4.21" data-path="clustering.html"><a href="clustering.html#suggestions-and-bug-reports-can-be-submitted-at-httpsgithub.comtalgalilidendextendissues"><i class="fa fa-check"></i><b>4.21</b> Suggestions and bug-reports can be submitted at: <span>https://github.com/talgalili/dendextend/issues</span></a></li>
+<li class="chapter" data-level="4.22" data-path="clustering.html"><a href="clustering.html#you-may-ask-questions-at-stackoverflow-use-the-r-and-dendextend-tags"><i class="fa fa-check"></i><b>4.22</b> You may ask questions at stackoverflow, use the r and dendextend tags:</a></li>
+<li class="chapter" data-level="4.23" data-path="clustering.html"><a href="clustering.html#httpsstackoverflow.comquestionstaggeddendextend"><i class="fa fa-check"></i><b>4.23</b> <span>https://stackoverflow.com/questions/tagged/dendextend</span></a></li>
+<li class="chapter" data-level="4.24" data-path="clustering.html"><a href="clustering.html#section-7"><i class="fa fa-check"></i><b>4.24</b> </a></li>
+<li class="chapter" data-level="4.25" data-path="clustering.html"><a href="clustering.html#to-suppress-this-message-use-suppresspackagestartupmessageslibrarydendextend"><i class="fa fa-check"></i><b>4.25</b> To suppress this message use: suppressPackageStartupMessages(library(dendextend))</a></li>
+<li class="chapter" data-level="4.26" data-path="clustering.html"><a href="clustering.html#section-8"><i class="fa fa-check"></i><b>4.26</b> ———————</a></li>
+<li class="chapter" data-level="4.27" data-path="clustering.html"><a href="clustering.html#section-9"><i class="fa fa-check"></i><b>4.27</b> </a></li>
+<li class="chapter" data-level="4.28" data-path="clustering.html"><a href="clustering.html#attaching-package-dendextend"><i class="fa fa-check"></i><b>4.28</b> Attaching package: ‘dendextend’</a></li>
+<li class="chapter" data-level="4.29" data-path="clustering.html"><a href="clustering.html#the-following-object-is-masked-from-packageggdendro"><i class="fa fa-check"></i><b>4.29</b> The following object is masked from ‘package:ggdendro’:</a></li>
+<li class="chapter" data-level="4.30" data-path="clustering.html"><a href="clustering.html#section-10"><i class="fa fa-check"></i><b>4.30</b> </a></li>
+<li class="chapter" data-level="4.31" data-path="clustering.html"><a href="clustering.html#theme_dendro"><i class="fa fa-check"></i><b>4.31</b> theme_dendro</a></li>
+<li class="chapter" data-level="4.32" data-path="clustering.html"><a href="clustering.html#the-following-object-is-masked-from-packagestats"><i class="fa fa-check"></i><b>4.32</b> The following object is masked from ‘package:stats’:</a></li>
+<li class="chapter" data-level="4.33" data-path="clustering.html"><a href="clustering.html#section-11"><i class="fa fa-check"></i><b>4.33</b> </a></li>
+<li class="chapter" data-level="4.34" data-path="clustering.html"><a href="clustering.html#cutree"><i class="fa fa-check"></i><b>4.34</b> cutree</a>
+<ul>
+<li class="chapter" data-level="4.34.1" data-path="clustering.html"><a href="clustering.html#k-means-1"><i class="fa fa-check"></i><b>4.34.1</b> K-means</a></li>
+<li class="chapter" data-level="4.34.2" data-path="clustering.html"><a href="clustering.html#dbscan-1"><i class="fa fa-check"></i><b>4.34.2</b> DBSCAN</a></li>
+</ul></li>
+<li class="chapter" data-level="4.35" data-path="clustering.html"><a href="clustering.html#section-12"><i class="fa fa-check"></i><b>4.35</b> </a></li>
+<li class="chapter" data-level="4.36" data-path="clustering.html"><a href="clustering.html#section-13"><i class="fa fa-check"></i><b>4.36</b> 0 1 2 3 4 5 6</a></li>
+<li class="chapter" data-level="4.37" data-path="clustering.html"><a href="clustering.html#section-14"><i class="fa fa-check"></i><b>4.37</b> 2 168 307 105 127 45 34</a></li>
+<li class="chapter" data-level="4.38" data-path="clustering.html"><a href="clustering.html#section-15"><i class="fa fa-check"></i><b>4.38</b> </a></li>
+<li class="chapter" data-level="4.39" data-path="clustering.html"><a href="clustering.html#section-16"><i class="fa fa-check"></i><b>4.39</b> 0 1 2</a></li>
+<li class="chapter" data-level="4.40" data-path="clustering.html"><a href="clustering.html#section-17"><i class="fa fa-check"></i><b>4.40</b> 8 748 744</a></li>
+<li class="chapter" data-level="4.41" data-path="clustering.html"><a href="clustering.html#section-18"><i class="fa fa-check"></i><b>4.41</b> </a></li>
+<li class="chapter" data-level="4.42" data-path="clustering.html"><a href="clustering.html#section-19"><i class="fa fa-check"></i><b>4.42</b> 0 1</a></li>
+<li class="chapter" data-level="4.43" data-path="clustering.html"><a href="clustering.html#section-20"><i class="fa fa-check"></i><b>4.43</b> 40 1460</a></li>
+<li class="chapter" data-level="4.44" data-path="clustering.html"><a href="clustering.html#section-21"><i class="fa fa-check"></i><b>4.44</b> </a></li>
+<li class="chapter" data-level="4.45" data-path="clustering.html"><a href="clustering.html#section-22"><i class="fa fa-check"></i><b>4.45</b> 0 1 2</a></li>
+<li class="chapter" data-level="4.46" data-path="clustering.html"><a href="clustering.html#section-23"><i class="fa fa-check"></i><b>4.46</b> 109 399 992</a></li>
+<li class="chapter" data-level="4.47" data-path="clustering.html"><a href="clustering.html#section-24"><i class="fa fa-check"></i><b>4.47</b> </a></li>
+<li class="chapter" data-level="4.48" data-path="clustering.html"><a href="clustering.html#section-25"><i class="fa fa-check"></i><b>4.48</b> 0 1 2 3</a></li>
+<li class="chapter" data-level="4.49" data-path="clustering.html"><a href="clustering.html#section-26"><i class="fa fa-check"></i><b>4.49</b> 29 489 488 494</a></li>
+<li class="chapter" data-level="4.50" data-path="clustering.html"><a href="clustering.html#section-27"><i class="fa fa-check"></i><b>4.50</b> </a></li>
+<li class="chapter" data-level="4.51" data-path="clustering.html"><a href="clustering.html#section-28"><i class="fa fa-check"></i><b>4.51</b> 1</a></li>
+<li class="chapter" data-level="4.52" data-path="clustering.html"><a href="clustering.html#section-29"><i class="fa fa-check"></i><b>4.52</b> 1500</a></li>
+<li class="chapter" data-level="4.53" data-path="clustering.html"><a href="clustering.html#evaluating-cluster-quality"><i class="fa fa-check"></i><b>4.53</b> Evaluating cluster quality</a>
+<ul>
+<li class="chapter" data-level="4.53.1" data-path="clustering.html"><a href="clustering.html#silhouetteMethod"><i class="fa fa-check"></i><b>4.53.1</b> Silhouette method</a></li>
+<li class="chapter" data-level="4.53.2" data-path="clustering.html"><a href="clustering.html#example---k-means-clustering-of-blobs-data-set"><i class="fa fa-check"></i><b>4.53.2</b> Example - k-means clustering of blobs data set</a></li>
+<li class="chapter" data-level="4.53.3" data-path="clustering.html"><a href="clustering.html#example---dbscan-clustering-of-noisy-moons"><i class="fa fa-check"></i><b>4.53.3</b> Example - DBSCAN clustering of noisy moons</a></li>
+</ul></li>
+<li class="chapter" data-level="4.54" data-path="clustering.html"><a href="clustering.html#example-gene-expression-profiling-of-human-tissues"><i class="fa fa-check"></i><b>4.54</b> Example: gene expression profiling of human tissues</a>
+<ul>
+<li class="chapter" data-level="4.54.1" data-path="clustering.html"><a href="clustering.html#hierarchic-agglomerative-2"><i class="fa fa-check"></i><b>4.54.1</b> Hierarchic agglomerative</a></li>
+</ul></li>
+<li class="chapter" data-level="4.55" data-path="clustering.html"><a href="clustering.html#tissue"><i class="fa fa-check"></i><b>4.55</b> tissue</a></li>
+<li class="chapter" data-level="4.56" data-path="clustering.html"><a href="clustering.html#cerebellum-colon-endometrium-hippocampus-kidney-liver"><i class="fa fa-check"></i><b>4.56</b> cerebellum colon endometrium hippocampus kidney liver</a></li>
+<li class="chapter" data-level="4.57" data-path="clustering.html"><a href="clustering.html#section-30"><i class="fa fa-check"></i><b>4.57</b> 38 34 15 31 39 26</a></li>
+<li class="chapter" data-level="4.58" data-path="clustering.html"><a href="clustering.html#placenta"><i class="fa fa-check"></i><b>4.58</b> placenta</a></li>
+<li class="chapter" data-level="4.59" data-path="clustering.html"><a href="clustering.html#section-31"><i class="fa fa-check"></i><b>4.59</b> 6</a></li>
+<li class="chapter" data-level="4.60" data-path="clustering.html"><a href="clustering.html#section-32"><i class="fa fa-check"></i><b>4.60</b> <span>1</span> 22215 189</a></li>
+<li class="chapter" data-level="4.61" data-path="clustering.html"><a href="clustering.html#cluster"><i class="fa fa-check"></i><b>4.61</b> cluster</a></li>
+<li class="chapter" data-level="4.62" data-path="clustering.html"><a href="clustering.html#tissue-1-2-3-4-5-6"><i class="fa fa-check"></i><b>4.62</b> tissue 1 2 3 4 5 6</a></li>
+<li class="chapter" data-level="4.63" data-path="clustering.html"><a href="clustering.html#cerebellum-0-36-0-0-2-0"><i class="fa fa-check"></i><b>4.63</b> cerebellum 0 36 0 0 2 0</a></li>
+<li class="chapter" data-level="4.64" data-path="clustering.html"><a href="clustering.html#colon-0-0-34-0-0-0"><i class="fa fa-check"></i><b>4.64</b> colon 0 0 34 0 0 0</a></li>
+<li class="chapter" data-level="4.65" data-path="clustering.html"><a href="clustering.html#endometrium-15-0-0-0-0-0"><i class="fa fa-check"></i><b>4.65</b> endometrium 15 0 0 0 0 0</a></li>
+<li class="chapter" data-level="4.66" data-path="clustering.html"><a href="clustering.html#hippocampus-0-31-0-0-0-0"><i class="fa fa-check"></i><b>4.66</b> hippocampus 0 31 0 0 0 0</a></li>
+<li class="chapter" data-level="4.67" data-path="clustering.html"><a href="clustering.html#kidney-37-0-0-0-2-0"><i class="fa fa-check"></i><b>4.67</b> kidney 37 0 0 0 2 0</a></li>
+<li class="chapter" data-level="4.68" data-path="clustering.html"><a href="clustering.html#liver-0-0-0-24-2-0"><i class="fa fa-check"></i><b>4.68</b> liver 0 0 0 24 2 0</a></li>
+<li class="chapter" data-level="4.69" data-path="clustering.html"><a href="clustering.html#placenta-0-0-0-0-0-6"><i class="fa fa-check"></i><b>4.69</b> placenta 0 0 0 0 0 6</a></li>
+<li class="chapter" data-level="4.70" data-path="clustering.html"><a href="clustering.html#cluster-1"><i class="fa fa-check"></i><b>4.70</b> cluster</a></li>
+<li class="chapter" data-level="4.71" data-path="clustering.html"><a href="clustering.html#tissue-1-2-3-4-5-6-7-8"><i class="fa fa-check"></i><b>4.71</b> tissue 1 2 3 4 5 6 7 8</a></li>
+<li class="chapter" data-level="4.72" data-path="clustering.html"><a href="clustering.html#cerebellum-0-31-0-0-2-0-5-0"><i class="fa fa-check"></i><b>4.72</b> cerebellum 0 31 0 0 2 0 5 0</a></li>
+<li class="chapter" data-level="4.73" data-path="clustering.html"><a href="clustering.html#colon-0-0-34-0-0-0-0-0"><i class="fa fa-check"></i><b>4.73</b> colon 0 0 34 0 0 0 0 0</a></li>
+<li class="chapter" data-level="4.74" data-path="clustering.html"><a href="clustering.html#endometrium-0-0-0-0-0-15-0-0"><i class="fa fa-check"></i><b>4.74</b> endometrium 0 0 0 0 0 15 0 0</a></li>
+<li class="chapter" data-level="4.75" data-path="clustering.html"><a href="clustering.html#hippocampus-0-31-0-0-0-0-0-0"><i class="fa fa-check"></i><b>4.75</b> hippocampus 0 31 0 0 0 0 0 0</a></li>
+<li class="chapter" data-level="4.76" data-path="clustering.html"><a href="clustering.html#kidney-37-0-0-0-2-0-0-0"><i class="fa fa-check"></i><b>4.76</b> kidney 37 0 0 0 2 0 0 0</a></li>
+<li class="chapter" data-level="4.77" data-path="clustering.html"><a href="clustering.html#liver-0-0-0-24-2-0-0-0"><i class="fa fa-check"></i><b>4.77</b> liver 0 0 0 24 2 0 0 0</a></li>
+<li class="chapter" data-level="4.78" data-path="clustering.html"><a href="clustering.html#placenta-0-0-0-0-0-0-0-6"><i class="fa fa-check"></i><b>4.78</b> placenta 0 0 0 0 0 0 0 6</a></li>
+<li class="chapter" data-level="4.79" data-path="clustering.html"><a href="clustering.html#section-33"><i class="fa fa-check"></i><b>4.79</b> </a></li>
+<li class="chapter" data-level="4.80" data-path="clustering.html"><a href="clustering.html#attaching-package-gplots"><i class="fa fa-check"></i><b>4.80</b> Attaching package: ‘gplots’</a></li>
+<li class="chapter" data-level="4.81" data-path="clustering.html"><a href="clustering.html#the-following-object-is-masked-from-packagestats-1"><i class="fa fa-check"></i><b>4.81</b> The following object is masked from ‘package:stats’:</a></li>
+<li class="chapter" data-level="4.82" data-path="clustering.html"><a href="clustering.html#section-34"><i class="fa fa-check"></i><b>4.82</b> </a></li>
+<li class="chapter" data-level="4.83" data-path="clustering.html"><a href="clustering.html#lowess"><i class="fa fa-check"></i><b>4.83</b> lowess</a>
+<ul>
+<li class="chapter" data-level="4.83.1" data-path="clustering.html"><a href="clustering.html#k-means-2"><i class="fa fa-check"></i><b>4.83.1</b> K-means</a></li>
+</ul></li>
+<li class="chapter" data-level="4.84" data-path="clustering.html"><a href="clustering.html#tissue-1"><i class="fa fa-check"></i><b>4.84</b> tissue</a></li>
+<li class="chapter" data-level="4.85" data-path="clustering.html"><a href="clustering.html#cerebellum-colon-endometrium-hippocampus-kidney-liver-1"><i class="fa fa-check"></i><b>4.85</b> cerebellum colon endometrium hippocampus kidney liver</a></li>
+<li class="chapter" data-level="4.86" data-path="clustering.html"><a href="clustering.html#section-35"><i class="fa fa-check"></i><b>4.86</b> 38 34 15 31 39 26</a></li>
+<li class="chapter" data-level="4.87" data-path="clustering.html"><a href="clustering.html#placenta-1"><i class="fa fa-check"></i><b>4.87</b> placenta</a></li>
+<li class="chapter" data-level="4.88" data-path="clustering.html"><a href="clustering.html#section-36"><i class="fa fa-check"></i><b>4.88</b> 6</a></li>
+<li class="chapter" data-level="4.89" data-path="clustering.html"><a href="clustering.html#section-37"><i class="fa fa-check"></i><b>4.89</b> <span>1</span> 22215 189</a></li>
+<li class="chapter" data-level="4.90" data-path="clustering.html"><a href="clustering.html#loading-required-package-foreach"><i class="fa fa-check"></i><b>4.90</b> Loading required package: foreach</a></li>
+<li class="chapter" data-level="4.91" data-path="clustering.html"><a href="clustering.html#loading-required-package-iterators"><i class="fa fa-check"></i><b>4.91</b> Loading required package: iterators</a></li>
+<li class="chapter" data-level="4.92" data-path="clustering.html"><a href="clustering.html#loading-required-package-parallel"><i class="fa fa-check"></i><b>4.92</b> Loading required package: parallel</a></li>
+<li class="chapter" data-level="4.93" data-path="clustering.html"><a href="clustering.html#section-38"><i class="fa fa-check"></i><b>4.93</b> <span>1</span> 8</a></li>
+<li class="chapter" data-level="4.94" data-path="clustering.html"><a href="clustering.html#section-39"><i class="fa fa-check"></i><b>4.94</b> </a></li>
+<li class="chapter" data-level="4.95" data-path="clustering.html"><a href="clustering.html#tissue-1-2-3-4-5-6-7"><i class="fa fa-check"></i><b>4.95</b> tissue 1 2 3 4 5 6 7</a></li>
+<li class="chapter" data-level="4.96" data-path="clustering.html"><a href="clustering.html#cerebellum-33-5-0-0-0-0-0"><i class="fa fa-check"></i><b>4.96</b> cerebellum 33 5 0 0 0 0 0</a></li>
+<li class="chapter" data-level="4.97" data-path="clustering.html"><a href="clustering.html#colon-0-0-0-0-0-34-0"><i class="fa fa-check"></i><b>4.97</b> colon 0 0 0 0 0 34 0</a></li>
+<li class="chapter" data-level="4.98" data-path="clustering.html"><a href="clustering.html#endometrium-0-0-15-0-0-0-0"><i class="fa fa-check"></i><b>4.98</b> endometrium 0 0 15 0 0 0 0</a></li>
+<li class="chapter" data-level="4.99" data-path="clustering.html"><a href="clustering.html#hippocampus-0-31-0-0-0-0-0"><i class="fa fa-check"></i><b>4.99</b> hippocampus 0 31 0 0 0 0 0</a></li>
+<li class="chapter" data-level="4.100" data-path="clustering.html"><a href="clustering.html#kidney-0-0-0-39-0-0-0"><i class="fa fa-check"></i><b>4.100</b> kidney 0 0 0 39 0 0 0</a></li>
+<li class="chapter" data-level="4.101" data-path="clustering.html"><a href="clustering.html#liver-0-0-0-0-26-0-0"><i class="fa fa-check"></i><b>4.101</b> liver 0 0 0 0 26 0 0</a></li>
+<li class="chapter" data-level="4.102" data-path="clustering.html"><a href="clustering.html#placenta-0-0-0-0-0-0-6"><i class="fa fa-check"></i><b>4.102</b> placenta 0 0 0 0 0 0 6</a></li>
+<li class="chapter" data-level="4.103" data-path="clustering.html"><a href="clustering.html#section-40"><i class="fa fa-check"></i><b>4.103</b> </a></li>
+<li class="chapter" data-level="4.104" data-path="clustering.html"><a href="clustering.html#tissue-1-2-3-4-5-6-7-1"><i class="fa fa-check"></i><b>4.104</b> tissue 1 2 3 4 5 6 7</a></li>
+<li class="chapter" data-level="4.105" data-path="clustering.html"><a href="clustering.html#cerebellum-33-5-0-0-0-0-0-1"><i class="fa fa-check"></i><b>4.105</b> cerebellum 33 5 0 0 0 0 0</a></li>
+<li class="chapter" data-level="4.106" data-path="clustering.html"><a href="clustering.html#colon-0-0-0-0-0-34-0-1"><i class="fa fa-check"></i><b>4.106</b> colon 0 0 0 0 0 34 0</a></li>
+<li class="chapter" data-level="4.107" data-path="clustering.html"><a href="clustering.html#endometrium-0-0-15-0-0-0-0-1"><i class="fa fa-check"></i><b>4.107</b> endometrium 0 0 15 0 0 0 0</a></li>
+<li class="chapter" data-level="4.108" data-path="clustering.html"><a href="clustering.html#hippocampus-0-31-0-0-0-0-0-1"><i class="fa fa-check"></i><b>4.108</b> hippocampus 0 31 0 0 0 0 0</a></li>
+<li class="chapter" data-level="4.109" data-path="clustering.html"><a href="clustering.html#kidney-0-0-0-39-0-0-0-1"><i class="fa fa-check"></i><b>4.109</b> kidney 0 0 0 39 0 0 0</a></li>
+<li class="chapter" data-level="4.110" data-path="clustering.html"><a href="clustering.html#liver-0-0-0-0-26-0-0-1"><i class="fa fa-check"></i><b>4.110</b> liver 0 0 0 0 26 0 0</a></li>
+<li class="chapter" data-level="4.111" data-path="clustering.html"><a href="clustering.html#placenta-0-0-0-0-0-0-6-1"><i class="fa fa-check"></i><b>4.111</b> placenta 0 0 0 0 0 0 6</a>
+<ul>
+<li class="chapter" data-level="4.111.1" data-path="clustering.html"><a href="clustering.html#dbscan-2"><i class="fa fa-check"></i><b>4.111.1</b> DBSCAN</a></li>
+</ul></li>
+<li class="chapter" data-level="4.112" data-path="clustering.html"><a href="clustering.html#tissue-2"><i class="fa fa-check"></i><b>4.112</b> tissue</a></li>
+<li class="chapter" data-level="4.113" data-path="clustering.html"><a href="clustering.html#cerebellum-colon-endometrium-hippocampus-kidney-liver-2"><i class="fa fa-check"></i><b>4.113</b> cerebellum colon endometrium hippocampus kidney liver</a></li>
+<li class="chapter" data-level="4.114" data-path="clustering.html"><a href="clustering.html#section-41"><i class="fa fa-check"></i><b>4.114</b> 38 34 15 31 39 26</a></li>
+<li class="chapter" data-level="4.115" data-path="clustering.html"><a href="clustering.html#placenta-2"><i class="fa fa-check"></i><b>4.115</b> placenta</a></li>
+<li class="chapter" data-level="4.116" data-path="clustering.html"><a href="clustering.html#section-42"><i class="fa fa-check"></i><b>4.116</b> 6</a></li>
+<li class="chapter" data-level="4.117" data-path="clustering.html"><a href="clustering.html#section-43"><i class="fa fa-check"></i><b>4.117</b> </a></li>
+<li class="chapter" data-level="4.118" data-path="clustering.html"><a href="clustering.html#section-44"><i class="fa fa-check"></i><b>4.118</b> 0 1 2 3 4 5 6</a></li>
+<li class="chapter" data-level="4.119" data-path="clustering.html"><a href="clustering.html#section-45"><i class="fa fa-check"></i><b>4.119</b> 12 37 62 34 24 15 5</a></li>
+<li class="chapter" data-level="4.120" data-path="clustering.html"><a href="clustering.html#section-46"><i class="fa fa-check"></i><b>4.120</b> </a></li>
+<li class="chapter" data-level="4.121" data-path="clustering.html"><a href="clustering.html#tissue-0-1-2-3-4-5-6"><i class="fa fa-check"></i><b>4.121</b> tissue 0 1 2 3 4 5 6</a></li>
+<li class="chapter" data-level="4.122" data-path="clustering.html"><a href="clustering.html#cerebellum-2-0-31-0-0-0-5"><i class="fa fa-check"></i><b>4.122</b> cerebellum 2 0 31 0 0 0 5</a></li>
+<li class="chapter" data-level="4.123" data-path="clustering.html"><a href="clustering.html#colon-0-0-0-34-0-0-0"><i class="fa fa-check"></i><b>4.123</b> colon 0 0 0 34 0 0 0</a></li>
+<li class="chapter" data-level="4.124" data-path="clustering.html"><a href="clustering.html#endometrium-0-0-0-0-0-15-0"><i class="fa fa-check"></i><b>4.124</b> endometrium 0 0 0 0 0 15 0</a></li>
+<li class="chapter" data-level="4.125" data-path="clustering.html"><a href="clustering.html#hippocampus-0-0-31-0-0-0-0"><i class="fa fa-check"></i><b>4.125</b> hippocampus 0 0 31 0 0 0 0</a></li>
+<li class="chapter" data-level="4.126" data-path="clustering.html"><a href="clustering.html#kidney-2-37-0-0-0-0-0"><i class="fa fa-check"></i><b>4.126</b> kidney 2 37 0 0 0 0 0</a></li>
+<li class="chapter" data-level="4.127" data-path="clustering.html"><a href="clustering.html#liver-2-0-0-0-24-0-0"><i class="fa fa-check"></i><b>4.127</b> liver 2 0 0 0 24 0 0</a></li>
+<li class="chapter" data-level="4.128" data-path="clustering.html"><a href="clustering.html#placenta-6-0-0-0-0-0-0"><i class="fa fa-check"></i><b>4.128</b> placenta 6 0 0 0 0 0 0</a></li>
+<li class="chapter" data-level="4.129" data-path="clustering.html"><a href="clustering.html#exercises"><i class="fa fa-check"></i><b>4.129</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="4.129.1" data-path="clustering.html"><a href="clustering.html#clusteringEx1"><i class="fa fa-check"></i><b>4.129.1</b> Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="4.130" data-path="clustering.html"><a href="clustering.html#section-47"><i class="fa fa-check"></i><b>4.130</b> </a></li>
+<li class="chapter" data-level="4.131" data-path="clustering.html"><a href="clustering.html#attaching-package-ebimage"><i class="fa fa-check"></i><b>4.131</b> Attaching package: ‘EBImage’</a></li>
+<li class="chapter" data-level="4.132" data-path="clustering.html"><a href="clustering.html#the-following-object-is-masked-from-packagedendextend"><i class="fa fa-check"></i><b>4.132</b> The following object is masked from ‘package:dendextend’:</a></li>
+<li class="chapter" data-level="4.133" data-path="clustering.html"><a href="clustering.html#section-48"><i class="fa fa-check"></i><b>4.133</b> </a></li>
+<li class="chapter" data-level="4.134" data-path="clustering.html"><a href="clustering.html#rotate"><i class="fa fa-check"></i><b>4.134</b> rotate</a></li>
+<li class="chapter" data-level="4.135" data-path="clustering.html"><a href="clustering.html#section-49"><i class="fa fa-check"></i><b>4.135</b> <span>1</span> 528 393 3</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html"><i class="fa fa-check"></i><b>5</b> Nearest neighbours</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#introduction-1"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#classification-simulated-data"><i class="fa fa-check"></i><b>5.2</b> Classification: simulated data</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#knn-function"><i class="fa fa-check"></i><b>5.2.1</b> knn function</a></li>
+<li class="chapter" data-level="5.2.2" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#plotting-decision-boundaries"><i class="fa fa-check"></i><b>5.2.2</b> Plotting decision boundaries</a></li>
+<li class="chapter" data-level="5.2.3" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#bias-variance-tradeoff"><i class="fa fa-check"></i><b>5.2.3</b> Bias-variance tradeoff</a></li>
+<li class="chapter" data-level="5.2.4" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#choosing-k"><i class="fa fa-check"></i><b>5.2.4</b> Choosing <em>k</em></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#example-on-the-iris-dataset"><i class="fa fa-check"></i><b>5.3</b> Example on the Iris dataset</a></li>
+<li class="chapter" data-level="5.4" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#knn-cell-segmentation"><i class="fa fa-check"></i><b>5.4</b> Classification: cell segmentation</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#cell-segmentation-data-set"><i class="fa fa-check"></i><b>5.4.1</b> Cell segmentation data set</a></li>
+<li class="chapter" data-level="5.4.2" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#data-splitting"><i class="fa fa-check"></i><b>5.4.2</b> Data splitting</a></li>
+<li class="chapter" data-level="5.4.3" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#identification-of-data-quality-issues"><i class="fa fa-check"></i><b>5.4.3</b> Identification of data quality issues</a></li>
+<li class="chapter" data-level="5.4.4" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#fit-model"><i class="fa fa-check"></i><b>5.4.4</b> Fit model</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#knn-regression"><i class="fa fa-check"></i><b>5.5</b> Regression</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#partition-data"><i class="fa fa-check"></i><b>5.5.1</b> Partition data</a></li>
+<li class="chapter" data-level="5.5.2" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#data-pre-processing"><i class="fa fa-check"></i><b>5.5.2</b> Data pre-processing</a></li>
+<li class="chapter" data-level="5.5.3" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#search-for-optimum-k"><i class="fa fa-check"></i><b>5.5.3</b> Search for optimum <em>k</em></a></li>
+<li class="chapter" data-level="5.5.4" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#use-model-to-make-predictions"><i class="fa fa-check"></i><b>5.5.4</b> Use model to make predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#exercises-1"><i class="fa fa-check"></i><b>5.6</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#knnEx1"><i class="fa fa-check"></i><b>5.6.1</b> Exercise 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="svm.html"><a href="svm.html"><i class="fa fa-check"></i><b>6</b> Support vector machines</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="svm.html"><a href="svm.html#introduction-2"><i class="fa fa-check"></i><b>6.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="svm.html"><a href="svm.html#maximum-margin-classifier"><i class="fa fa-check"></i><b>6.1.1</b> Maximum margin classifier</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="svm.html"><a href="svm.html#support-vector-classifier"><i class="fa fa-check"></i><b>6.2</b> Support vector classifier</a></li>
+<li class="chapter" data-level="6.3" data-path="svm.html"><a href="svm.html#support-vector-machine"><i class="fa fa-check"></i><b>6.3</b> Support Vector Machine</a></li>
+<li class="chapter" data-level="6.4" data-path="svm.html"><a href="svm.html#example---training-a-classifier"><i class="fa fa-check"></i><b>6.4</b> Example - training a classifier</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="svm.html"><a href="svm.html#setup-environment"><i class="fa fa-check"></i><b>6.4.1</b> Setup environment</a></li>
+<li class="chapter" data-level="6.4.2" data-path="svm.html"><a href="svm.html#partition-data-1"><i class="fa fa-check"></i><b>6.4.2</b> Partition data</a></li>
+<li class="chapter" data-level="6.4.3" data-path="svm.html"><a href="svm.html#visualize-training-data"><i class="fa fa-check"></i><b>6.4.3</b> Visualize training data</a></li>
+<li class="chapter" data-level="6.4.4" data-path="svm.html"><a href="svm.html#prediction-performance-measures"><i class="fa fa-check"></i><b>6.4.4</b> Prediction performance measures</a></li>
+<li class="chapter" data-level="6.4.5" data-path="svm.html"><a href="svm.html#plot-decision-boundary"><i class="fa fa-check"></i><b>6.4.5</b> Plot decision boundary</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="svm.html"><a href="svm.html#defining-your-own-model-type-to-use-in-caret"><i class="fa fa-check"></i><b>6.5</b> Defining your own model type to use in caret</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="svm.html"><a href="svm.html#model-cross-validation-and-tuning"><i class="fa fa-check"></i><b>6.5.1</b> Model cross-validation and tuning</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="svm.html"><a href="svm.html#iris-example"><i class="fa fa-check"></i><b>6.6</b> Iris example</a></li>
+<li class="chapter" data-level="6.7" data-path="svm.html"><a href="svm.html#cell-segmentation-example"><i class="fa fa-check"></i><b>6.7</b> Cell segmentation example</a></li>
+<li class="chapter" data-level="6.8" data-path="svm.html"><a href="svm.html#example---regression"><i class="fa fa-check"></i><b>6.8</b> Example - regression</a></li>
+<li class="chapter" data-level="6.9" data-path="svm.html"><a href="svm.html#further-reading"><i class="fa fa-check"></i><b>6.9</b> Further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="decision-trees.html"><a href="decision-trees.html"><i class="fa fa-check"></i><b>7</b> Decision trees and random forests</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="decision-trees.html"><a href="decision-trees.html#decision-trees-1"><i class="fa fa-check"></i><b>7.1</b> Decision Trees</a></li>
+<li class="chapter" data-level="7.2" data-path="decision-trees.html"><a href="decision-trees.html#example-code-with-categorical-data"><i class="fa fa-check"></i><b>7.2</b> Example code with categorical data</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="decision-trees.html"><a href="decision-trees.html#loading-packages-and-data"><i class="fa fa-check"></i><b>7.2.1</b> Loading packages and data</a></li>
+<li class="chapter" data-level="7.2.2" data-path="decision-trees.html"><a href="decision-trees.html#data-slicing"><i class="fa fa-check"></i><b>7.2.2</b> Data Slicing</a></li>
+<li class="chapter" data-level="7.2.3" data-path="decision-trees.html"><a href="decision-trees.html#data-preprocessing"><i class="fa fa-check"></i><b>7.2.3</b> Data Preprocessing</a></li>
+<li class="chapter" data-level="7.2.4" data-path="decision-trees.html"><a href="decision-trees.html#training-decisions-trees"><i class="fa fa-check"></i><b>7.2.4</b> Training Decisions Trees</a></li>
+<li class="chapter" data-level="7.2.5" data-path="decision-trees.html"><a href="decision-trees.html#plotting-the-decision-trees"><i class="fa fa-check"></i><b>7.2.5</b> Plotting the decision trees</a></li>
+<li class="chapter" data-level="7.2.6" data-path="decision-trees.html"><a href="decision-trees.html#prediction"><i class="fa fa-check"></i><b>7.2.6</b> Prediction</a></li>
+<li class="chapter" data-level="7.2.7" data-path="decision-trees.html"><a href="decision-trees.html#implementing-decision-trees-directly"><i class="fa fa-check"></i><b>7.2.7</b> Implementing Decision Trees directly</a></li>
+<li class="chapter" data-level="7.2.8" data-path="decision-trees.html"><a href="decision-trees.html#iris-example-for-decision-trees"><i class="fa fa-check"></i><b>7.2.8</b> Iris example for Decision Trees</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="decision-trees.html"><a href="decision-trees.html#cell-segmentation-examples"><i class="fa fa-check"></i><b>7.3</b> Cell segmentation examples</a></li>
+<li class="chapter" data-level="7.4" data-path="decision-trees.html"><a href="decision-trees.html#regression-example---blood-brain-barrier"><i class="fa fa-check"></i><b>7.4</b> Regression example - Blood Brain Barrier</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="decision-trees.html"><a href="decision-trees.html#decision-tree"><i class="fa fa-check"></i><b>7.4.1</b> Decision tree</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="decision-trees.html"><a href="decision-trees.html#random-forest"><i class="fa fa-check"></i><b>7.5</b> Random Forest</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="decision-trees.html"><a href="decision-trees.html#iris-example-for-random-forests"><i class="fa fa-check"></i><b>7.5.1</b> Iris example for Random Forests</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="decision-trees.html"><a href="decision-trees.html#cell-segmentation-examples-1"><i class="fa fa-check"></i><b>7.6</b> Cell segmentation examples</a></li>
+<li class="chapter" data-level="7.7" data-path="decision-trees.html"><a href="decision-trees.html#regression-example---blood-brain-barrier-1"><i class="fa fa-check"></i><b>7.7</b> Regression example - Blood Brain Barrier</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="decision-trees.html"><a href="decision-trees.html#random-forest-1"><i class="fa fa-check"></i><b>7.7.1</b> Random forest</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="use-case-1.html"><a href="use-case-1.html"><i class="fa fa-check"></i><b>8</b> Use case 1</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="use-case-1.html"><a href="use-case-1.html#introduction-3"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="use-case-1.html"><a href="use-case-1.html#problem-automated-detection-of-malaria"><i class="fa fa-check"></i><b>8.2</b> Problem: automated detection of malaria</a></li>
+<li class="chapter" data-level="8.3" data-path="use-case-1.html"><a href="use-case-1.html#challenges"><i class="fa fa-check"></i><b>8.3</b> Challenges</a></li>
+<li class="chapter" data-level="8.4" data-path="use-case-1.html"><a href="use-case-1.html#getting-started"><i class="fa fa-check"></i><b>8.4</b> Getting started</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="use-case-1.html"><a href="use-case-1.html#load-data"><i class="fa fa-check"></i><b>8.4.1</b> Load data</a></li>
+<li class="chapter" data-level="8.4.2" data-path="use-case-1.html"><a href="use-case-1.html#model-comparison"><i class="fa fa-check"></i><b>8.4.2</b> Model comparison</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="use-case-1.html"><a href="use-case-1.html#solutions"><i class="fa fa-check"></i><b>8.5</b> Solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="linear-models.html"><a href="linear-models.html"><i class="fa fa-check"></i><b>9</b> Linear models and matrix algebra</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="linear-models.html"><a href="linear-models.html#linear-models-1"><i class="fa fa-check"></i><b>9.1</b> Linear models</a></li>
+<li class="chapter" data-level="9.2" data-path="linear-models.html"><a href="linear-models.html#matrix-algebra"><i class="fa fa-check"></i><b>9.2</b> Matrix algebra</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Linear regression and logistic regression</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="logistic-regression.html"><a href="logistic-regression.html#regression"><i class="fa fa-check"></i><b>10.1</b> Regression</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="logistic-regression.html"><a href="logistic-regression.html#linear-regression"><i class="fa fa-check"></i><b>10.1.1</b> Linear regression</a></li>
+<li class="chapter" data-level="10.1.2" data-path="logistic-regression.html"><a href="logistic-regression.html#polynomial-regression"><i class="fa fa-check"></i><b>10.1.2</b> Polynomial regression</a></li>
+<li class="chapter" data-level="10.1.3" data-path="logistic-regression.html"><a href="logistic-regression.html#distributions-of-fits"><i class="fa fa-check"></i><b>10.1.3</b> Distributions of fits</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="logistic-regression.html"><a href="logistic-regression.html#classification"><i class="fa fa-check"></i><b>10.2</b> Classification</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="logistic-regression.html"><a href="logistic-regression.html#logistic-regression"><i class="fa fa-check"></i><b>10.2.1</b> Logistic regression</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="logistic-regression.html"><a href="logistic-regression.html#resources"><i class="fa fa-check"></i><b>10.3</b> Resources</a></li>
+<li class="chapter" data-level="10.4" data-path="logistic-regression.html"><a href="logistic-regression.html#exercises-2"><i class="fa fa-check"></i><b>10.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ann.html"><a href="ann.html"><i class="fa fa-check"></i><b>11</b> Artificial neural networks</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="ann.html"><a href="ann.html#neural-networks"><i class="fa fa-check"></i><b>11.1</b> Neural Networks</a></li>
+<li class="chapter" data-level="11.2" data-path="ann.html"><a href="ann.html#exercises-3"><i class="fa fa-check"></i><b>11.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="use-case-2.html"><a href="use-case-2.html"><i class="fa fa-check"></i><b>12</b> Use case 2</a></li>
+<li class="chapter" data-level="13" data-path="mlnn.html"><a href="mlnn.html"><i class="fa fa-check"></i><b>13</b> Deep Learning</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="mlnn.html"><a href="mlnn.html#multilayer-neural-networks"><i class="fa fa-check"></i><b>13.1</b> Multilayer Neural Networks</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="mlnn.html"><a href="mlnn.html#reading-in-images"><i class="fa fa-check"></i><b>13.1.1</b> Reading in images</a></li>
+<li class="chapter" data-level="13.1.2" data-path="mlnn.html"><a href="mlnn.html#constructing-layers-in-kerasr"><i class="fa fa-check"></i><b>13.1.2</b> Constructing layers in kerasR</a></li>
+<li class="chapter" data-level="13.1.3" data-path="mlnn.html"><a href="mlnn.html#rick-and-morty-classifier-using-deep-learning"><i class="fa fa-check"></i><b>13.1.3</b> Rick and Morty classifier using Deep Learning</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="mlnn.html"><a href="mlnn.html#convolutional-neural-networks"><i class="fa fa-check"></i><b>13.2</b> Convolutional neural networks</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="mlnn.html"><a href="mlnn.html#checking-the-models"><i class="fa fa-check"></i><b>13.2.1</b> Checking the models</a></li>
+<li class="chapter" data-level="13.2.2" data-path="mlnn.html"><a href="mlnn.html#data-augmentation"><i class="fa fa-check"></i><b>13.2.2</b> Data augmentation</a></li>
+<li class="chapter" data-level="13.2.3" data-path="mlnn.html"><a href="mlnn.html#asking-more-precise-questions"><i class="fa fa-check"></i><b>13.2.3</b> Asking more precise questions</a></li>
+<li class="chapter" data-level="13.2.4" data-path="mlnn.html"><a href="mlnn.html#more-complex-networks"><i class="fa fa-check"></i><b>13.2.4</b> More complex networks</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="mlnn.html"><a href="mlnn.html#further-reading-1"><i class="fa fa-check"></i><b>13.3</b> Further reading</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="logistic-regression.html"><a href="logistic-regression.html#resources"><i class="fa fa-check"></i><b>A</b> Resources</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>A.1</b> Python</a></li>
+<li class="chapter" data-level="A.2" data-path="resources.html"><a href="resources.html#machine-learning-data-set-repositories"><i class="fa fa-check"></i><b>A.2</b> Machine learning data set repositories</a>
+<ul>
+<li class="chapter" data-level="A.2.1" data-path="resources.html"><a href="resources.html#mldata"><i class="fa fa-check"></i><b>A.2.1</b> MLDATA</a></li>
+<li class="chapter" data-level="A.2.2" data-path="resources.html"><a href="resources.html#uci-machine-learning-repository"><i class="fa fa-check"></i><b>A.2.2</b> UCI Machine Learning Repository</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="solutions-dimensionality-reduction.html"><a href="solutions-dimensionality-reduction.html"><i class="fa fa-check"></i><b>B</b> Solutions - Dimensionality reduction</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="solutions-dimensionality-reduction.html"><a href="solutions-dimensionality-reduction.html#exercise-1."><i class="fa fa-check"></i><b>B.1</b> Exercise 1.</a></li>
+<li class="chapter" data-level="B.2" data-path="solutions-dimensionality-reduction.html"><a href="solutions-dimensionality-reduction.html#exercise-2."><i class="fa fa-check"></i><b>B.2</b> Exercise 2.</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="solutions-clustering.html"><a href="solutions-clustering.html"><i class="fa fa-check"></i><b>C</b> Solutions ch. 4 - Clustering</a>
+<ul>
+<li class="chapter" data-level="C.1" data-path="solutions-clustering.html"><a href="solutions-clustering.html#exercise-1"><i class="fa fa-check"></i><b>C.1</b> Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="D" data-path="solutions-nearest-neighbours.html"><a href="solutions-nearest-neighbours.html"><i class="fa fa-check"></i><b>D</b> Solutions ch. 7 - Nearest neighbours</a>
+<ul>
+<li class="chapter" data-level="D.1" data-path="solutions-nearest-neighbours.html"><a href="solutions-nearest-neighbours.html#exercise-1-1"><i class="fa fa-check"></i><b>D.1</b> Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="E" data-path="solutions-svm.html"><a href="solutions-svm.html"><i class="fa fa-check"></i><b>E</b> Solutions ch. 6 - Support vector machines</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="solutions-svm.html"><a href="solutions-svm.html#exercise-1-2"><i class="fa fa-check"></i><b>E.1</b> Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="F" data-path="solutions-decision-trees.html"><a href="solutions-decision-trees.html"><i class="fa fa-check"></i><b>F</b> Solutions ch. 9 - Decision trees and random forests</a>
+<ul>
+<li class="chapter" data-level="F.1" data-path="solutions-decision-trees.html"><a href="solutions-decision-trees.html#exercise-1-3"><i class="fa fa-check"></i><b>F.1</b> Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="G" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html"><i class="fa fa-check"></i><b>G</b> Solutions chapter 8 - use case 1</a>
+<ul>
+<li class="chapter" data-level="G.1" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#preparation"><i class="fa fa-check"></i><b>G.1</b> Preparation</a>
+<ul>
+<li class="chapter" data-level="G.1.1" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#load-required-libraries"><i class="fa fa-check"></i><b>G.1.1</b> Load required libraries</a></li>
+<li class="chapter" data-level="G.1.2" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#define-svm-model"><i class="fa fa-check"></i><b>G.1.2</b> Define SVM model</a></li>
+<li class="chapter" data-level="G.1.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#setup-parallel-processing"><i class="fa fa-check"></i><b>G.1.3</b> Setup parallel processing</a></li>
+<li class="chapter" data-level="G.1.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#load-data-1"><i class="fa fa-check"></i><b>G.1.4</b> Load data</a></li>
+</ul></li>
+<li class="chapter" data-level="G.2" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#assess-data-quality"><i class="fa fa-check"></i><b>G.2</b> Assess data quality</a>
+<ul>
+<li class="chapter" data-level="G.2.1" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#zero-and-near-zero-variance-predictors-1"><i class="fa fa-check"></i><b>G.2.1</b> Zero and near-zero variance predictors</a></li>
+<li class="chapter" data-level="G.2.2" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#are-all-predictors-on-the-same-scale"><i class="fa fa-check"></i><b>G.2.2</b> Are all predictors on the same scale?</a></li>
+<li class="chapter" data-level="G.2.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#redundancy-from-correlated-variables"><i class="fa fa-check"></i><b>G.2.3</b> Redundancy from correlated variables</a></li>
+<li class="chapter" data-level="G.2.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#skewness-1"><i class="fa fa-check"></i><b>G.2.4</b> Skewness</a></li>
+</ul></li>
+<li class="chapter" data-level="G.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#infection-status-two-class-problem"><i class="fa fa-check"></i><b>G.3</b> Infection status (two-class problem)</a>
+<ul>
+<li class="chapter" data-level="G.3.1" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#model-training-and-parameter-tuning"><i class="fa fa-check"></i><b>G.3.1</b> Model training and parameter tuning</a></li>
+<li class="chapter" data-level="G.3.2" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#knn"><i class="fa fa-check"></i><b>G.3.2</b> KNN</a></li>
+<li class="chapter" data-level="G.3.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#svm-1"><i class="fa fa-check"></i><b>G.3.3</b> SVM</a></li>
+<li class="chapter" data-level="G.3.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#decision-tree-1"><i class="fa fa-check"></i><b>G.3.4</b> Decision tree</a></li>
+<li class="chapter" data-level="G.3.5" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#random-forest-2"><i class="fa fa-check"></i><b>G.3.5</b> Random forest</a></li>
+<li class="chapter" data-level="G.3.6" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#compare-models"><i class="fa fa-check"></i><b>G.3.6</b> Compare models</a></li>
+<li class="chapter" data-level="G.3.7" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#predict-test-set-using-our-best-model"><i class="fa fa-check"></i><b>G.3.7</b> Predict test set using our best model</a></li>
+<li class="chapter" data-level="G.3.8" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#roc-curve"><i class="fa fa-check"></i><b>G.3.8</b> ROC curve</a></li>
+</ul></li>
+<li class="chapter" data-level="G.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#discrimination-of-infective-stages-multi-class-problem"><i class="fa fa-check"></i><b>G.4</b> Discrimination of infective stages (multi-class problem)</a>
+<ul>
+<li class="chapter" data-level="G.4.1" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#define-cross-validation-procedure"><i class="fa fa-check"></i><b>G.4.1</b> Define cross-validation procedure</a></li>
+<li class="chapter" data-level="G.4.2" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#knn-1"><i class="fa fa-check"></i><b>G.4.2</b> KNN</a></li>
+<li class="chapter" data-level="G.4.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#svm-2"><i class="fa fa-check"></i><b>G.4.3</b> SVM</a></li>
+<li class="chapter" data-level="G.4.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#decision-tree-2"><i class="fa fa-check"></i><b>G.4.4</b> Decision tree</a></li>
+<li class="chapter" data-level="G.4.5" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#random-forest-3"><i class="fa fa-check"></i><b>G.4.5</b> Random forest</a></li>
+<li class="chapter" data-level="G.4.6" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#compare-models-1"><i class="fa fa-check"></i><b>G.4.6</b> Compare models</a></li>
+<li class="chapter" data-level="G.4.7" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#predict-test-set-using-our-best-model-1"><i class="fa fa-check"></i><b>G.4.7</b> Predict test set using our best model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="H" data-path="solutions-linear-models.html"><a href="solutions-linear-models.html"><i class="fa fa-check"></i><b>H</b> Solutions ch. 3 - Linear models and matrix algebra</a>
+<ul>
+<li class="chapter" data-level="H.1" data-path="solutions-linear-models.html"><a href="solutions-linear-models.html#example-2"><i class="fa fa-check"></i><b>H.1</b> Example 2</a></li>
+<li class="chapter" data-level="H.2" data-path="solutions-linear-models.html"><a href="solutions-linear-models.html#example-2-1"><i class="fa fa-check"></i><b>H.2</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="I" data-path="solutions-logistic-regression.html"><a href="solutions-logistic-regression.html"><i class="fa fa-check"></i><b>I</b> Solutions ch. 4 - Linear and non-linear (logistic) regression</a></li>
+<li class="chapter" data-level="J" data-path="solutions-ann.html"><a href="solutions-ann.html"><i class="fa fa-check"></i><b>J</b> Solutions ch. 10 - Artificial neural networks</a>
+<ul>
+<li class="chapter" data-level="J.1" data-path="solutions-ann.html"><a href="solutions-ann.html#exercise-1-4"><i class="fa fa-check"></i><b>J.1</b> Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="K" data-path="use-case-2-solutions.html"><a href="use-case-2-solutions.html"><i class="fa fa-check"></i><b>K</b> Solutions for use case 2</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">An Introduction to Machine Learning</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="page-not-found" class="section level1">
+<h1>Page not found</h1>
+<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
+<p>You may want to try searching to find the page's new location, or use
+the table of contents to find the page you are looking for.</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
