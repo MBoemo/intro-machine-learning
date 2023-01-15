@@ -310,7 +310,7 @@ We can use the same pipeline for the Iris dataset but we need to remember to sca
 ```{r load iris rf,message=F}
 library(datasets)
 data(iris) ##loads the dataset, which can be accessed under the variable name iris
-?iris ##opens the documentation for the dataset
+## ?iris opens the documentation for the dataset
 summary(iris) ##presents the 5 figure summary of the dataset
 str(iris) ##presents the structure of the iris dataframe
 ```
@@ -656,7 +656,7 @@ We can use the same pipeline for the Iris dataset but we need to remember to sca
 ```{r load iris dtree,message=F}
 library(datasets)
 data(iris) ##loads the dataset, which can be accessed under the variable name iris
-?iris ##opens the documentation for the dataset
+## ?iris opens the documentation for the dataset
 summary(iris) ##presents the 5 figure summary of the dataset
 str(iris) ##presents the structure of the iris dataframe
 ```

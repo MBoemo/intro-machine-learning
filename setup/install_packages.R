@@ -4,8 +4,12 @@
 cran_packages <- c("ggplot2",
 "GGally",
 "ggdendro",
+"ggfortify",
+"gmodels",
 "RColorBrewer",
 "dendextend",
+"C50",
+"AppliedPredictiveModeling",
 "gplots",
 "doMC",
 "doParallel",
@@ -44,7 +48,8 @@ cran_packages <- c("ggplot2",
 "boot",
 "faraway",
 "CVST",
-"readr"
+"readr",
+"tidyverse"
 )
 
 
@@ -53,7 +58,7 @@ cran_packages <- c("ggplot2",
 bioc_packages <- c("EBImage")
 
 # install CRAN packages
-install.packages(cran_packages, repos='http://mirrors.ebi.ac.uk/CRAN/')
+install.packages(cran_packages)
 
 # install bioconductor packages
 source("https://bioconductor.org/biocLite.R")

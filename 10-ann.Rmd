@@ -163,7 +163,6 @@ library(corrplot)
 ```{r}
 set.seed(500)
 
-install.packages("AppliedPredictiveModeling")
 library(AppliedPredictiveModeling)
 data(abalone)
 data <- abalone

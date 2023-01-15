@@ -6,12 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>10 Linear regression and logistic regression | An Introduction to Machine Learning</title>
   <meta name="description" content="Course materials for An Introduction to Machine Learning" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
   <meta property="og:title" content="10 Linear regression and logistic regression | An Introduction to Machine Learning" />
   <meta property="og:type" content="book" />
-  
-  <meta property="og:image" content="figures/cover_image.png" />
+  <meta property="og:image" content="/figures/cover_image.png" />
   <meta property="og:description" content="Course materials for An Introduction to Machine Learning" />
   <meta name="github-repo" content="bioinformatics-training/intro-machine-learning-2019" />
 
@@ -19,12 +18,12 @@
   <meta name="twitter:title" content="10 Linear regression and logistic regression | An Introduction to Machine Learning" />
   
   <meta name="twitter:description" content="Course materials for An Introduction to Machine Learning" />
-  <meta name="twitter:image" content="figures/cover_image.png" />
+  <meta name="twitter:image" content="/figures/cover_image.png" />
 
 <meta name="author" content="Sudhakaran Prabakaran, Matt Wayland and Chris Penfold" />
 
 
-<meta name="date" content="2020-10-07" />
+<meta name="date" content="2023-01-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,8 @@
   
 <link rel="prev" href="linear-models.html"/>
 <link rel="next" href="ann.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,7 +49,9 @@
 
 
 
-
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -115,6 +117,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 </head>
 
 <body>
@@ -140,19 +143,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-machine-learning"><i class="fa fa-check"></i><b>2.1</b> What is machine learning?</a></li>
 <li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#aspects-of-ml"><i class="fa fa-check"></i><b>2.2</b> Aspects of ML</a></li>
 <li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#what-actually-happened-under-the-hood"><i class="fa fa-check"></i><b>2.3</b> What actually happened under the hood</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#introduction-to-caret"><i class="fa fa-check"></i><b>2.4</b> Introduction to CARET</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="intro.html"><a href="intro.html#preprocessing-with-the-iris-dataset"><i class="fa fa-check"></i><b>2.4.1</b> Preprocessing with the Iris dataset</a></li>
+<li class="chapter" data-level="2.4.2" data-path="intro.html"><a href="intro.html#training-different-types-of-models"><i class="fa fa-check"></i><b>2.4.2</b> Training different types of models</a></li>
+<li class="chapter" data-level="2.4.3" data-path="intro.html"><a href="intro.html#cross-validation"><i class="fa fa-check"></i><b>2.4.3</b> Cross-validation</a></li>
+<li class="chapter" data-level="2.4.4" data-path="intro.html"><a href="intro.html#optimising-hyperparameters"><i class="fa fa-check"></i><b>2.4.4</b> Optimising hyperparameters</a></li>
+<li class="chapter" data-level="2.4.5" data-path="intro.html"><a href="intro.html#using-dummy-variables-with-the-sacramento-dataset"><i class="fa fa-check"></i><b>2.4.5</b> Using dummy variables with the Sacramento dataset</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html"><i class="fa fa-check"></i><b>3</b> Dimensionality reduction</a><ul>
 <li class="chapter" data-level="3.1" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#linear-dimensionality-reduction"><i class="fa fa-check"></i><b>3.1</b> Linear Dimensionality Reduction</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#interpreting-the-principle-component-axes"><i class="fa fa-check"></i><b>3.1.1</b> Interpreting the Principle Component Axes</a></li>
 <li class="chapter" data-level="3.1.2" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#horseshoe-effect"><i class="fa fa-check"></i><b>3.1.2</b> Horseshoe effect</a></li>
 <li class="chapter" data-level="3.1.3" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#pca-analysis-of-mammalian-development"><i class="fa fa-check"></i><b>3.1.3</b> PCA analysis of mammalian development</a></li>
+<li class="chapter" data-level="3.1.4" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#biological-interpretation"><i class="fa fa-check"></i><b>3.1.4</b> Biological interpretation</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#exercise-2.3."><i class="fa fa-check"></i><b>3.2</b> Exercise 2.3.</a></li>
-<li class="chapter" data-level="3.3" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#nonlinear-dimensionality-reduction"><i class="fa fa-check"></i><b>3.3</b> Nonlinear Dimensionality Reduction</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#stochasticity"><i class="fa fa-check"></i><b>3.3.1</b> Stochasticity</a></li>
-<li class="chapter" data-level="3.3.2" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#analysis-of-mammalian-development"><i class="fa fa-check"></i><b>3.3.2</b> Analysis of mammalian development</a></li>
+<li class="chapter" data-level="3.2" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#nonlinear-dimensionality-reduction"><i class="fa fa-check"></i><b>3.2</b> Nonlinear Dimensionality Reduction</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#nonlinear-warping"><i class="fa fa-check"></i><b>3.2.1</b> Nonlinear warping</a></li>
+<li class="chapter" data-level="3.2.2" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#stochasticity"><i class="fa fa-check"></i><b>3.2.2</b> Stochasticity</a></li>
+<li class="chapter" data-level="3.2.3" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#analysis-of-mammalian-development"><i class="fa fa-check"></i><b>3.2.3</b> Analysis of mammalian development</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#other-dimensionality-reduction-techniques"><i class="fa fa-check"></i><b>3.4</b> Other dimensionality reduction techniques</a></li>
+<li class="chapter" data-level="3.3" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#other-dimensionality-reduction-techniques"><i class="fa fa-check"></i><b>3.3</b> Other dimensionality reduction techniques</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>4</b> Clustering</a><ul>
 <li class="chapter" data-level="4.1" data-path="clustering.html"><a href="clustering.html#introduction"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
@@ -190,7 +201,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html"><i class="fa fa-check"></i><b>5</b> Nearest neighbours</a><ul>
-<li class="chapter" data-level="5.1" data-path="clustering.html"><a href="clustering.html#introduction"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.1" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#introduction-1"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
 <li class="chapter" data-level="5.2" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#classification-simulated-data"><i class="fa fa-check"></i><b>5.2</b> Classification: simulated data</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#knn-function"><i class="fa fa-check"></i><b>5.2.1</b> knn function</a></li>
 <li class="chapter" data-level="5.2.2" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#plotting-decision-boundaries"><i class="fa fa-check"></i><b>5.2.2</b> Plotting decision boundaries</a></li>
@@ -210,38 +221,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5.3" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#search-for-optimum-k"><i class="fa fa-check"></i><b>5.5.3</b> Search for optimum <em>k</em></a></li>
 <li class="chapter" data-level="5.5.4" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#use-model-to-make-predictions"><i class="fa fa-check"></i><b>5.5.4</b> Use model to make predictions</a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="clustering.html"><a href="clustering.html#exercises"><i class="fa fa-check"></i><b>5.6</b> Exercises</a><ul>
+<li class="chapter" data-level="5.6" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#exercises-1"><i class="fa fa-check"></i><b>5.6</b> Exercises</a><ul>
 <li class="chapter" data-level="5.6.1" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#knnEx1"><i class="fa fa-check"></i><b>5.6.1</b> Exercise 1</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="svm.html"><a href="svm.html"><i class="fa fa-check"></i><b>6</b> Support vector machines</a><ul>
-<li class="chapter" data-level="6.1" data-path="clustering.html"><a href="clustering.html#introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a><ul>
+<li class="chapter" data-level="6.1" data-path="svm.html"><a href="svm.html#introduction-2"><i class="fa fa-check"></i><b>6.1</b> Introduction</a><ul>
 <li class="chapter" data-level="6.1.1" data-path="svm.html"><a href="svm.html#maximum-margin-classifier"><i class="fa fa-check"></i><b>6.1.1</b> Maximum margin classifier</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="svm.html"><a href="svm.html#support-vector-classifier"><i class="fa fa-check"></i><b>6.2</b> Support vector classifier</a></li>
 <li class="chapter" data-level="6.3" data-path="svm.html"><a href="svm.html#support-vector-machine"><i class="fa fa-check"></i><b>6.3</b> Support Vector Machine</a></li>
 <li class="chapter" data-level="6.4" data-path="svm.html"><a href="svm.html#example---training-a-classifier"><i class="fa fa-check"></i><b>6.4</b> Example - training a classifier</a><ul>
 <li class="chapter" data-level="6.4.1" data-path="svm.html"><a href="svm.html#setup-environment"><i class="fa fa-check"></i><b>6.4.1</b> Setup environment</a></li>
-<li class="chapter" data-level="6.4.2" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#partition-data"><i class="fa fa-check"></i><b>6.4.2</b> Partition data</a></li>
+<li class="chapter" data-level="6.4.2" data-path="svm.html"><a href="svm.html#partition-data-1"><i class="fa fa-check"></i><b>6.4.2</b> Partition data</a></li>
 <li class="chapter" data-level="6.4.3" data-path="svm.html"><a href="svm.html#visualize-training-data"><i class="fa fa-check"></i><b>6.4.3</b> Visualize training data</a></li>
-<li class="chapter" data-level="6.4.4" data-path="svm.html"><a href="svm.html#define-a-custom-model"><i class="fa fa-check"></i><b>6.4.4</b> Define a custom model</a></li>
-<li class="chapter" data-level="6.4.5" data-path="svm.html"><a href="svm.html#model-cross-validation-and-tuning"><i class="fa fa-check"></i><b>6.4.5</b> Model cross-validation and tuning</a></li>
-<li class="chapter" data-level="6.4.6" data-path="svm.html"><a href="svm.html#prediction-performance-measures"><i class="fa fa-check"></i><b>6.4.6</b> Prediction performance measures</a></li>
-<li class="chapter" data-level="6.4.7" data-path="svm.html"><a href="svm.html#plot-decision-boundary"><i class="fa fa-check"></i><b>6.4.7</b> Plot decision boundary</a></li>
+<li class="chapter" data-level="6.4.4" data-path="svm.html"><a href="svm.html#prediction-performance-measures"><i class="fa fa-check"></i><b>6.4.4</b> Prediction performance measures</a></li>
+<li class="chapter" data-level="6.4.5" data-path="svm.html"><a href="svm.html#plot-decision-boundary"><i class="fa fa-check"></i><b>6.4.5</b> Plot decision boundary</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="svm.html"><a href="svm.html#example---regression"><i class="fa fa-check"></i><b>6.5</b> Example - regression</a></li>
-<li class="chapter" data-level="6.6" data-path="svm.html"><a href="svm.html#further-reading"><i class="fa fa-check"></i><b>6.6</b> Further reading</a></li>
-<li class="chapter" data-level="6.7" data-path="clustering.html"><a href="clustering.html#exercises"><i class="fa fa-check"></i><b>6.7</b> Exercises</a><ul>
-<li class="chapter" data-level="6.7.1" data-path="svm.html"><a href="svm.html#exercise-1"><i class="fa fa-check"></i><b>6.7.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="6.5" data-path="svm.html"><a href="svm.html#defining-your-own-model-type-to-use-in-caret"><i class="fa fa-check"></i><b>6.5</b> Defining your own model type to use in caret</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="svm.html"><a href="svm.html#model-cross-validation-and-tuning"><i class="fa fa-check"></i><b>6.5.1</b> Model cross-validation and tuning</a></li>
 </ul></li>
+<li class="chapter" data-level="6.6" data-path="svm.html"><a href="svm.html#iris-example"><i class="fa fa-check"></i><b>6.6</b> Iris example</a></li>
+<li class="chapter" data-level="6.7" data-path="svm.html"><a href="svm.html#cell-segmentation-example"><i class="fa fa-check"></i><b>6.7</b> Cell segmentation example</a></li>
+<li class="chapter" data-level="6.8" data-path="svm.html"><a href="svm.html#example---regression"><i class="fa fa-check"></i><b>6.8</b> Example - regression</a></li>
+<li class="chapter" data-level="6.9" data-path="svm.html"><a href="svm.html#further-reading"><i class="fa fa-check"></i><b>6.9</b> Further reading</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="decision-trees.html"><a href="decision-trees.html"><i class="fa fa-check"></i><b>7</b> Decision trees and random forests</a><ul>
 <li class="chapter" data-level="7.1" data-path="decision-trees.html"><a href="decision-trees.html#decision-trees-1"><i class="fa fa-check"></i><b>7.1</b> Decision Trees</a></li>
-<li class="chapter" data-level="7.2" data-path="decision-trees.html"><a href="decision-trees.html#random-forest"><i class="fa fa-check"></i><b>7.2</b> Random Forest</a></li>
-<li class="chapter" data-level="7.3" data-path="clustering.html"><a href="clustering.html#exercises"><i class="fa fa-check"></i><b>7.3</b> Exercises</a></li>
+<li class="chapter" data-level="7.2" data-path="decision-trees.html"><a href="decision-trees.html#example-code-with-categorical-data"><i class="fa fa-check"></i><b>7.2</b> Example code with categorical data</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="decision-trees.html"><a href="decision-trees.html#loading-packages-and-data"><i class="fa fa-check"></i><b>7.2.1</b> Loading packages and data</a></li>
+<li class="chapter" data-level="7.2.2" data-path="decision-trees.html"><a href="decision-trees.html#data-slicing"><i class="fa fa-check"></i><b>7.2.2</b> Data Slicing</a></li>
+<li class="chapter" data-level="7.2.3" data-path="decision-trees.html"><a href="decision-trees.html#data-preprocessing"><i class="fa fa-check"></i><b>7.2.3</b> Data Preprocessing</a></li>
+<li class="chapter" data-level="7.2.4" data-path="decision-trees.html"><a href="decision-trees.html#training-decisions-trees"><i class="fa fa-check"></i><b>7.2.4</b> Training Decisions Trees</a></li>
+<li class="chapter" data-level="7.2.5" data-path="decision-trees.html"><a href="decision-trees.html#plotting-the-decision-trees"><i class="fa fa-check"></i><b>7.2.5</b> Plotting the decision trees</a></li>
+<li class="chapter" data-level="7.2.6" data-path="decision-trees.html"><a href="decision-trees.html#prediction"><i class="fa fa-check"></i><b>7.2.6</b> Prediction</a></li>
+<li class="chapter" data-level="7.2.7" data-path="decision-trees.html"><a href="decision-trees.html#implementing-decision-trees-directly"><i class="fa fa-check"></i><b>7.2.7</b> Implementing Decision Trees directly</a></li>
+<li class="chapter" data-level="7.2.8" data-path="decision-trees.html"><a href="decision-trees.html#iris-example-for-decision-trees"><i class="fa fa-check"></i><b>7.2.8</b> Iris example for Decision Trees</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="decision-trees.html"><a href="decision-trees.html#cell-segmentation-examples"><i class="fa fa-check"></i><b>7.3</b> Cell segmentation examples</a></li>
+<li class="chapter" data-level="7.4" data-path="decision-trees.html"><a href="decision-trees.html#regression-example---blood-brain-barrier"><i class="fa fa-check"></i><b>7.4</b> Regression example - Blood Brain Barrier</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="decision-trees.html"><a href="decision-trees.html#decision-tree"><i class="fa fa-check"></i><b>7.4.1</b> Decision tree</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="decision-trees.html"><a href="decision-trees.html#random-forest"><i class="fa fa-check"></i><b>7.5</b> Random Forest</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="decision-trees.html"><a href="decision-trees.html#iris-example-for-random-forests"><i class="fa fa-check"></i><b>7.5.1</b> Iris example for Random Forests</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="decision-trees.html"><a href="decision-trees.html#cell-segmentation-examples-1"><i class="fa fa-check"></i><b>7.6</b> Cell segmentation examples</a></li>
+<li class="chapter" data-level="7.7" data-path="decision-trees.html"><a href="decision-trees.html#regression-example---blood-brain-barrier-1"><i class="fa fa-check"></i><b>7.7</b> Regression example - Blood Brain Barrier</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="decision-trees.html"><a href="decision-trees.html#random-forest-1"><i class="fa fa-check"></i><b>7.7.1</b> Random forest</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="use-case-1.html"><a href="use-case-1.html"><i class="fa fa-check"></i><b>8</b> Use case 1</a><ul>
-<li class="chapter" data-level="8.1" data-path="clustering.html"><a href="clustering.html#introduction"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.1" data-path="use-case-1.html"><a href="use-case-1.html#introduction-3"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
 <li class="chapter" data-level="8.2" data-path="use-case-1.html"><a href="use-case-1.html#problem-automated-detection-of-malaria"><i class="fa fa-check"></i><b>8.2</b> Problem: automated detection of malaria</a></li>
 <li class="chapter" data-level="8.3" data-path="use-case-1.html"><a href="use-case-1.html#challenges"><i class="fa fa-check"></i><b>8.3</b> Challenges</a></li>
 <li class="chapter" data-level="8.4" data-path="use-case-1.html"><a href="use-case-1.html#getting-started"><i class="fa fa-check"></i><b>8.4</b> Getting started</a><ul>
@@ -280,7 +310,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.2.2" data-path="mlnn.html"><a href="mlnn.html#asking-more-precise-questions"><i class="fa fa-check"></i><b>13.2.2</b> Asking more precise questions</a></li>
 <li class="chapter" data-level="13.2.3" data-path="mlnn.html"><a href="mlnn.html#more-complex-networks"><i class="fa fa-check"></i><b>13.2.3</b> More complex networks</a></li>
 </ul></li>
-<li class="chapter" data-level="13.3" data-path="svm.html"><a href="svm.html#further-reading"><i class="fa fa-check"></i><b>13.3</b> Further reading</a></li>
+<li class="chapter" data-level="13.3" data-path="mlnn.html"><a href="mlnn.html#further-reading-1"><i class="fa fa-check"></i><b>13.3</b> Further reading</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="logistic-regression.html"><a href="logistic-regression.html#resources"><i class="fa fa-check"></i><b>A</b> Resources</a><ul>
@@ -290,41 +320,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="A.2.2" data-path="resources.html"><a href="resources.html#uci-machine-learning-repository"><i class="fa fa-check"></i><b>A.2.2</b> UCI Machine Learning Repository</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="solutions-dimensionality-reduction.html"><a href="solutions-dimensionality-reduction.html"><i class="fa fa-check"></i><b>B</b> Solutions ch. 2 - Dimensionality reduction</a><ul>
-<li class="chapter" data-level="B.1" data-path="solutions-dimensionality-reduction.html"><a href="solutions-dimensionality-reduction.html#exercise-2.5."><i class="fa fa-check"></i><b>B.1</b> Exercise 2.5.</a></li>
-<li class="chapter" data-level="B.2" data-path="solutions-dimensionality-reduction.html"><a href="solutions-dimensionality-reduction.html#exercise-2.6."><i class="fa fa-check"></i><b>B.2</b> Exercise 2.6.</a></li>
+<li class="chapter" data-level="B" data-path="solutions-dimensionality-reduction.html"><a href="solutions-dimensionality-reduction.html"><i class="fa fa-check"></i><b>B</b> Solutions - Dimensionality reduction</a><ul>
+<li class="chapter" data-level="B.1" data-path="solutions-dimensionality-reduction.html"><a href="solutions-dimensionality-reduction.html#exercise-1."><i class="fa fa-check"></i><b>B.1</b> Exercise 1.</a></li>
+<li class="chapter" data-level="B.2" data-path="solutions-dimensionality-reduction.html"><a href="solutions-dimensionality-reduction.html#exercise-2."><i class="fa fa-check"></i><b>B.2</b> Exercise 2.</a></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="solutions-clustering.html"><a href="solutions-clustering.html"><i class="fa fa-check"></i><b>C</b> Solutions ch. 4 - Clustering</a><ul>
-<li class="chapter" data-level="C.1" data-path="svm.html"><a href="svm.html#exercise-1"><i class="fa fa-check"></i><b>C.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="C.1" data-path="solutions-clustering.html"><a href="solutions-clustering.html#exercise-1"><i class="fa fa-check"></i><b>C.1</b> Exercise 1</a></li>
 </ul></li>
 <li class="chapter" data-level="D" data-path="solutions-nearest-neighbours.html"><a href="solutions-nearest-neighbours.html"><i class="fa fa-check"></i><b>D</b> Solutions ch. 7 - Nearest neighbours</a><ul>
-<li class="chapter" data-level="D.1" data-path="svm.html"><a href="svm.html#exercise-1"><i class="fa fa-check"></i><b>D.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="D.1" data-path="solutions-nearest-neighbours.html"><a href="solutions-nearest-neighbours.html#exercise-1-1"><i class="fa fa-check"></i><b>D.1</b> Exercise 1</a></li>
 </ul></li>
 <li class="chapter" data-level="E" data-path="solutions-svm.html"><a href="solutions-svm.html"><i class="fa fa-check"></i><b>E</b> Solutions ch. 6 - Support vector machines</a><ul>
-<li class="chapter" data-level="E.1" data-path="svm.html"><a href="svm.html#exercise-1"><i class="fa fa-check"></i><b>E.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="E.1" data-path="solutions-svm.html"><a href="solutions-svm.html#exercise-1-2"><i class="fa fa-check"></i><b>E.1</b> Exercise 1</a></li>
 </ul></li>
 <li class="chapter" data-level="F" data-path="solutions-decision-trees.html"><a href="solutions-decision-trees.html"><i class="fa fa-check"></i><b>F</b> Solutions ch. 9 - Decision trees and random forests</a><ul>
-<li class="chapter" data-level="F.1" data-path="svm.html"><a href="svm.html#exercise-1"><i class="fa fa-check"></i><b>F.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="F.1" data-path="solutions-decision-trees.html"><a href="solutions-decision-trees.html#exercise-1-3"><i class="fa fa-check"></i><b>F.1</b> Exercise 1</a></li>
 </ul></li>
 <li class="chapter" data-level="G" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html"><i class="fa fa-check"></i><b>G</b> Solutions chapter 8 - use case 1</a><ul>
 <li class="chapter" data-level="G.1" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#preparation"><i class="fa fa-check"></i><b>G.1</b> Preparation</a><ul>
 <li class="chapter" data-level="G.1.1" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#load-required-libraries"><i class="fa fa-check"></i><b>G.1.1</b> Load required libraries</a></li>
 <li class="chapter" data-level="G.1.2" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#define-svm-model"><i class="fa fa-check"></i><b>G.1.2</b> Define SVM model</a></li>
 <li class="chapter" data-level="G.1.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#setup-parallel-processing"><i class="fa fa-check"></i><b>G.1.3</b> Setup parallel processing</a></li>
-<li class="chapter" data-level="G.1.4" data-path="use-case-1.html"><a href="use-case-1.html#load-data"><i class="fa fa-check"></i><b>G.1.4</b> Load data</a></li>
+<li class="chapter" data-level="G.1.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#load-data-1"><i class="fa fa-check"></i><b>G.1.4</b> Load data</a></li>
 </ul></li>
 <li class="chapter" data-level="G.2" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#assess-data-quality"><i class="fa fa-check"></i><b>G.2</b> Assess data quality</a><ul>
-<li class="chapter" data-level="G.2.1" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#zero-and-near-zero-variance-predictors"><i class="fa fa-check"></i><b>G.2.1</b> Zero and near-zero variance predictors</a></li>
+<li class="chapter" data-level="G.2.1" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#zero-and-near-zero-variance-predictors-1"><i class="fa fa-check"></i><b>G.2.1</b> Zero and near-zero variance predictors</a></li>
 <li class="chapter" data-level="G.2.2" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#are-all-predictors-on-the-same-scale"><i class="fa fa-check"></i><b>G.2.2</b> Are all predictors on the same scale?</a></li>
 <li class="chapter" data-level="G.2.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#redundancy-from-correlated-variables"><i class="fa fa-check"></i><b>G.2.3</b> Redundancy from correlated variables</a></li>
-<li class="chapter" data-level="G.2.4" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#skewness"><i class="fa fa-check"></i><b>G.2.4</b> Skewness</a></li>
+<li class="chapter" data-level="G.2.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#skewness-1"><i class="fa fa-check"></i><b>G.2.4</b> Skewness</a></li>
 </ul></li>
 <li class="chapter" data-level="G.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#infection-status-two-class-problem"><i class="fa fa-check"></i><b>G.3</b> Infection status (two-class problem)</a><ul>
 <li class="chapter" data-level="G.3.1" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#model-training-and-parameter-tuning"><i class="fa fa-check"></i><b>G.3.1</b> Model training and parameter tuning</a></li>
 <li class="chapter" data-level="G.3.2" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#knn"><i class="fa fa-check"></i><b>G.3.2</b> KNN</a></li>
-<li class="chapter" data-level="G.3.3" data-path="svm.html"><a href="svm.html#svm"><i class="fa fa-check"></i><b>G.3.3</b> SVM</a></li>
-<li class="chapter" data-level="G.3.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#decision-tree"><i class="fa fa-check"></i><b>G.3.4</b> Decision tree</a></li>
-<li class="chapter" data-level="G.3.5" data-path="decision-trees.html"><a href="decision-trees.html#random-forest"><i class="fa fa-check"></i><b>G.3.5</b> Random forest</a></li>
+<li class="chapter" data-level="G.3.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#svm-1"><i class="fa fa-check"></i><b>G.3.3</b> SVM</a></li>
+<li class="chapter" data-level="G.3.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#decision-tree-1"><i class="fa fa-check"></i><b>G.3.4</b> Decision tree</a></li>
+<li class="chapter" data-level="G.3.5" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#random-forest-2"><i class="fa fa-check"></i><b>G.3.5</b> Random forest</a></li>
 <li class="chapter" data-level="G.3.6" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#compare-models"><i class="fa fa-check"></i><b>G.3.6</b> Compare models</a></li>
 <li class="chapter" data-level="G.3.7" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#predict-test-set-using-our-best-model"><i class="fa fa-check"></i><b>G.3.7</b> Predict test set using our best model</a></li>
 <li class="chapter" data-level="G.3.8" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#roc-curve"><i class="fa fa-check"></i><b>G.3.8</b> ROC curve</a></li>
@@ -332,9 +362,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="G.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#discrimination-of-infective-stages-multi-class-problem"><i class="fa fa-check"></i><b>G.4</b> Discrimination of infective stages (multi-class problem)</a><ul>
 <li class="chapter" data-level="G.4.1" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#define-cross-validation-procedure"><i class="fa fa-check"></i><b>G.4.1</b> Define cross-validation procedure</a></li>
 <li class="chapter" data-level="G.4.2" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#knn-1"><i class="fa fa-check"></i><b>G.4.2</b> KNN</a></li>
-<li class="chapter" data-level="G.4.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#svm-1"><i class="fa fa-check"></i><b>G.4.3</b> SVM</a></li>
-<li class="chapter" data-level="G.4.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#decision-tree-1"><i class="fa fa-check"></i><b>G.4.4</b> Decision tree</a></li>
-<li class="chapter" data-level="G.4.5" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#random-forest-1"><i class="fa fa-check"></i><b>G.4.5</b> Random forest</a></li>
+<li class="chapter" data-level="G.4.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#svm-2"><i class="fa fa-check"></i><b>G.4.3</b> SVM</a></li>
+<li class="chapter" data-level="G.4.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#decision-tree-2"><i class="fa fa-check"></i><b>G.4.4</b> Decision tree</a></li>
+<li class="chapter" data-level="G.4.5" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#random-forest-3"><i class="fa fa-check"></i><b>G.4.5</b> Random forest</a></li>
 <li class="chapter" data-level="G.4.6" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#compare-models-1"><i class="fa fa-check"></i><b>G.4.6</b> Compare models</a></li>
 <li class="chapter" data-level="G.4.7" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#predict-test-set-using-our-best-model-1"><i class="fa fa-check"></i><b>G.4.7</b> Predict test set using our best model</a></li>
 </ul></li>
@@ -345,7 +375,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="I" data-path="solutions-logistic-regression.html"><a href="solutions-logistic-regression.html"><i class="fa fa-check"></i><b>I</b> Solutions ch. 4 - Linear and non-linear (logistic) regression</a></li>
 <li class="chapter" data-level="J" data-path="solutions-ann.html"><a href="solutions-ann.html"><i class="fa fa-check"></i><b>J</b> Solutions ch. 10 - Artificial neural networks</a><ul>
-<li class="chapter" data-level="J.1" data-path="svm.html"><a href="svm.html#exercise-1"><i class="fa fa-check"></i><b>J.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="J.1" data-path="solutions-ann.html"><a href="solutions-ann.html#exercise-1-4"><i class="fa fa-check"></i><b>J.1</b> Exercise 1</a></li>
 </ul></li>
 <li class="chapter" data-level="K" data-path="use-case-2-solutions.html"><a href="use-case-2-solutions.html"><i class="fa fa-check"></i><b>K</b> Solutions for use case 2</a></li>
 </ul>
@@ -365,23 +395,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="logistic-regression" class="section level1">
-<h1><span class="header-section-number">10</span> Linear regression and logistic regression</h1>
+<div id="logistic-regression" class="section level1 hasAnchor">
+<h1><span class="header-section-number">10</span> Linear regression and logistic regression<a href="logistic-regression.html#logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Supervised learning refers to the general task of identifying how a set of annotated input data maps to a set of outcomes. In other words, it’s about learning <em>functions</em> from a labelled set of data, and using those functions for prediction. The labelled data typically consists of a matched pair of observations <span class="math inline">\(\{\mathbf{X},\mathbf{y}\}\)</span>, where <span class="math inline">\(\mathbf{X}\)</span> (the <em>input variables</em>) usually denotes a matrix of (real-valued) explanatory variables, with <span class="math inline">\(\mathbf{X}_i\)</span> denoting the <span class="math inline">\(i\)</span>th column which contains observations for the <span class="math inline">\(i\)</span>th variable, and <span class="math inline">\(\mathbf{y} = (y_1,\ldots,y_n)^\top\)</span> (the <em>output variable</em>) denotes a vector of observations for a variable of interest[^The input variables need not be real values vectors, and could instead represent any measurement including graphs, text etc.]. Depending on the nature of the output variable, supervised learning is generally split into <strong>regression</strong> and <strong>classification</strong> tasks.</p>
 <p>Within a regression setting, we aim to identify how the input variables map to the (continuous-valued) output variable(s). A simple example would involve measuring the population size of a bacterial culture, <span class="math inline">\(\mathbf{y} = (N_1,\ldots,N_n)^\top\)</span>, at a set of time points, <span class="math inline">\(\mathbf{X} = (t_1,\ldots,t_n)^\top\)</span>, and learning the function that maps from <span class="math inline">\(\mathbf{X}\)</span> to <span class="math inline">\(\mathbf{y}\)</span>. Doing so should reveal something about the physical nature of the system, such as identifying the existence of distinct phases of growth. Correctly identifying these functions would also allow us to predict the output variable, <span class="math inline">\(\mathbf{y}^* = (N_i^*,\ldots,N_k^*)^\top\)</span>, at a new set of times, <span class="math inline">\(\mathbf{X}^* = (t_i,\ldots,t_k)^\top\)</span>.</p>
 <p>Classification algorithms, on the other hand, deal with discrete-valued outputs. Here each observation in <span class="math inline">\(\mathbf{y} = (y_1,\ldots,y_n)\)</span> can take on only a finite number of values. For example, we may have a measurment that indicates “infected” versus “uninfected”, which can be represented in binary, <span class="math inline">\(y_i \in [0,1]\)</span>. More generally we have data that falls into <span class="math inline">\(K\)</span> classes e.g., “group 1” through to “group K”. As with regression, the aim is to identify how the (potentially continuous-valued) input variables map to the discrete set of class labels, and ultimately, assign labels to a new set of observations. Notable examples would be to identify how the expression levels of particular set of marker genes are predictive of a discrete phenotype.</p>
 <p>In section <a href="logistic-regression.html#regression">10.1</a> we briefly recap linear regression. We demonstrate the use of regression to predict gene expression values as a function of time, and how this can be used to inform us about the nature of the data, and as a way to make decisions about whether there are changed in gene expression over time.</p>
 <p>In section <a href="logistic-regression.html#classification">10.2</a> we introduce logistic regression (section <a href="logistic-regression.html#logistic-regression">10</a>), and demonstrate how such approaches can be used to predict pathogen infection status in <em>Arabidopsis thaliana</em>. By doing so we identify key marker genes indicative of pathogen growth.</p>
 <p>Finally, we note the limitations of linear classification algorithms, and introduce nonlinear approaches based on Gaussian processes in section <a href="#gp-classification"><strong>??</strong></a>.</p>
-<div id="regression" class="section level2">
-<h2><span class="header-section-number">10.1</span> Regression</h2>
+<div id="regression" class="section level2 hasAnchor">
+<h2><span class="header-section-number">10.1</span> Regression<a href="logistic-regression.html#regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this section, we will introduce regression. To do so will make use of an existing dataset which captures the gene expression levels in the model plant <em>Arabidopsis thaliana</em> following innoculation with <em>Botrytis cinerea</em> <span class="citation">(Windram et al. <a href="#ref-windram2012arabidopsis">2012</a>)</span>, a necrotrophic pathogen considered to be one of the most important fungal plant pathogens due to its ability to cause disease in a range of plants. Specifically this dataset is a time series measuring the gene expression of 100 or so genes in <em>Arabidopsis</em> leaves following inoculation with <em>Botrytis cinerea</em> over a <span class="math inline">\(48\)</span> hour time window at <span class="math inline">\(2\)</span> hourly intervals. Whilst this example is distinctly biological in motivation the methods we discuss should be general and applicable to other collections of time series data.</p>
 <p>The dataset is available from GEO (GSE39597) but a pre-processed version has been deposited in the {data} folder. The pre-processed data contains the expression levels of a set of <span class="math inline">\(163\)</span> marker genes in tab delimited format. The fist row contains gene IDs for the marker genes (the individual input variables). Column <span class="math inline">\(2\)</span> contains the time points of observations, with column <span class="math inline">\(3\)</span> containing a binary indication of infection status, evalutated according to the prescence of <em>Botrytis cinerea</em> Tubulin protein. All subsequent columns indicate (<span class="math inline">\(\log_2\)</span>) normalised <em>Arabidopsis</em> gene expression values from microarrays (V4 TAIR V9 spotted cDNA array). The expression dataset itself contains two time series: the first <span class="math inline">\(24\)</span> observations represent measurements of <em>Arabidopsis</em> gene expression in a control time series (uninfected), from <span class="math inline">\(2h\)</span> through <span class="math inline">\(48h\)</span> at <span class="math inline">\(2\)</span>-hourly intervals, and therefore capture dynamic aspects natural plant processes, including circadian rhythms; the second set of <span class="math inline">\(24\)</span> observations represents an infected dataset, again commencing <span class="math inline">\(2h\)</span> after inoculation with <em>Botyris cinerea</em> through to <span class="math inline">\(48h\)</span>.</p>
 <p>Within this section our output variable will typically be the expression level of a particular gene of interest, denoted <span class="math inline">\(\mathbf{y} =(y_1,\ldots,y_n)^\top\)</span>, with the explanatory variable being time, <span class="math inline">\(\mathbf{X} =(t_1,\ldots,t_n)^\top\)</span>. We can read the dataset into {R} as follows:</p>
-<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb528-1" data-line-number="1">D &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data/Arabidopsis/Arabidopsis_Botrytis_transpose_3.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb667-1" data-line-number="1">D &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data/Arabidopsis/Arabidopsis_Botrytis_transpose_3.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</a></code></pre></div>
 <p>We can also extract out the names of the variables (gene names), and the unique vector of measurment times:</p>
-<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb529-1" data-line-number="1">genenames &lt;-<span class="st"> </span><span class="kw">colnames</span>(D)</a>
-<a class="sourceLine" id="cb529-2" data-line-number="2">Xs &lt;-<span class="st"> </span>D<span class="op">$</span>Time[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb668-1" data-line-number="1">genenames &lt;-<span class="st"> </span><span class="kw">colnames</span>(D)</a>
+<a class="sourceLine" id="cb668-2" data-line-number="2">Xs &lt;-<span class="st"> </span>D<span class="op">$</span>Time[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>]</a></code></pre></div>
 <p>Exercise 9.1. Plot the gene expression profiles to familiarise yourself with the data. No, really, plot the data. This is always the first thing you should be doing with your datasets - look at them.</p>
 <p>The aim of this module is to give you hands on experience with linear and logistic regression and cover a number of other concepts from machine learning. The main points are:</p>
 <ol style="list-style-type: decimal">
@@ -395,13 +425,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>We will get an idea of how to partition data into training and test sets, and how in doing so we may distuinguish between different models.</li>
 <li>We will start to get an intuition for how regression tasks may be used to predict values an new locations, and why choosing the right kind of model is important.</li>
 </ol>
-<div id="linear-regression" class="section level3">
-<h3><span class="header-section-number">10.1.1</span> Linear regression</h3>
+<div id="linear-regression" class="section level3 hasAnchor">
+<h3><span class="header-section-number">10.1.1</span> Linear regression<a href="logistic-regression.html#linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Recall that one of the simplest forms of regression, linear regression, assumes that the variable of interest, <span class="math inline">\(y\)</span>, depends on an explanatory variable, <span class="math inline">\(x\)</span>, via:</p>
 <p><span class="math inline">\(y = m x + c.\)</span></p>
 <p>For a typical set of data, we have a vector of observations, <span class="math inline">\(\mathbf{y} = (y_1,y_2,\ldots,y_n)\)</span> with a corresponding set of explanatory variables. For now we can assume that the explanatory variable is scalar, for example time (in hours), such that we have a set of observations, <span class="math inline">\(\mathbf{X} = (t_1,t_2,\ldots,t_n)\)</span>. Using linear regression we aim to infer the parameters <span class="math inline">\(m\)</span> and <span class="math inline">\(c\)</span>, which will tell us something about the relationship between the two variables, and allow us to make predictions at a new set of locations, <span class="math inline">\(\mathbf{X}*\)</span>.</p>
 <p>Within {R}, linear regression can be implemented via the {lm} function. In the example below, we perform linear regression for the gene expression of AT2G28890 as a function of time, using the infection time series only (hence we use only the first <span class="math inline">\(24\)</span> datapoints):</p>
-<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb530-1" data-line-number="1"><span class="kw">lm</span>(AT2G28890<span class="op">~</span>Time, <span class="dt">data =</span> D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),])</a></code></pre></div>
+<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb669-1" data-line-number="1"><span class="kw">lm</span>(AT2G28890<span class="op">~</span>Time, <span class="dt">data =</span> D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),])</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = AT2G28890 ~ Time, data = D[25:nrow(D), ])
@@ -410,18 +440,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## (Intercept)         Time  
 ##    10.14010     -0.04997</code></pre>
 <p>Linear regression is also implemented within the {caret} package, allowing us to make use of its various other utilities. In fact, within {caret}, linear regression is performed by calling the function {lm}. In the example, below, we perform linear regression for gene AT2G28890, and predict the expression pattern for that gene using the {predict} function:</p>
-<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb532-1" data-line-number="1"><span class="kw">library</span>(caret)</a></code></pre></div>
-<pre><code>## Loading required package: lattice</code></pre>
+<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb671-1" data-line-number="1"><span class="kw">library</span>(caret)</a></code></pre></div>
 <pre><code>## Loading required package: ggplot2</code></pre>
-<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb535-1" data-line-number="1"><span class="kw">library</span>(mlbench)</a>
-<a class="sourceLine" id="cb535-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb535-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb535-4" data-line-number="4">geneindex &lt;-<span class="st"> </span><span class="kw">which</span>(genenames<span class="op">==</span><span class="st">&quot;AT2G28890&quot;</span>)</a>
-<a class="sourceLine" id="cb535-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb535-6" data-line-number="6">lrfit &lt;-<span class="st"> </span><span class="kw">train</span>(y<span class="op">~</span>., <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>Xs,<span class="dt">y=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex]), <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a>
-<a class="sourceLine" id="cb535-7" data-line-number="7">predictedValues&lt;-<span class="kw">predict</span>(lrfit)</a></code></pre></div>
+<pre><code>## Loading required package: lattice</code></pre>
+<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb674-1" data-line-number="1"><span class="kw">library</span>(mlbench)</a>
+<a class="sourceLine" id="cb674-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb674-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb674-4" data-line-number="4">geneindex &lt;-<span class="st"> </span><span class="kw">which</span>(genenames<span class="op">==</span><span class="st">&quot;AT2G28890&quot;</span>)</a>
+<a class="sourceLine" id="cb674-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb674-6" data-line-number="6">lrfit &lt;-<span class="st"> </span><span class="kw">train</span>(y<span class="op">~</span>., <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>Xs,<span class="dt">y=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex]), <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a>
+<a class="sourceLine" id="cb674-7" data-line-number="7">predictedValues&lt;-<span class="kw">predict</span>(lrfit)</a></code></pre></div>
 <p>A summary of the model, including parameters, can be printed out to screen using the {summary} function:</p>
-<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb536-1" data-line-number="1"><span class="kw">summary</span>(lrfit)</a></code></pre></div>
+<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb675-1" data-line-number="1"><span class="kw">summary</span>(lrfit)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = .outcome ~ ., data = dat)
@@ -438,94 +468,94 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 0.3317 on 22 degrees of freedom
-## Multiple R-squared:  0.826,	Adjusted R-squared:  0.8181 
+## Multiple R-squared:  0.826,  Adjusted R-squared:  0.8181 
 ## F-statistic: 104.4 on 1 and 22 DF,  p-value: 8.136e-10</code></pre>
 <p>Finally, we can fit a linear model to the control dataset, and plot the inferred results alongside the observation data:</p>
-<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb538-1" data-line-number="1">lrfit2 &lt;-<span class="st"> </span><span class="kw">train</span>(y<span class="op">~</span>., <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>Xs,<span class="dt">y=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex]), <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a>
-<a class="sourceLine" id="cb538-2" data-line-number="2">predictedValues2&lt;-<span class="kw">predict</span>(lrfit2)</a>
-<a class="sourceLine" id="cb538-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb538-4" data-line-number="4"><span class="kw">plot</span>(Xs,D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex],<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="kw">min</span>(D[,geneindex])<span class="op">-</span><span class="fl">0.2</span>, <span class="kw">max</span>(D[,geneindex]<span class="op">+</span><span class="fl">0.2</span>)),<span class="dt">main=</span>genenames[geneindex])</a>
-<a class="sourceLine" id="cb538-5" data-line-number="5"><span class="kw">points</span>(Xs,D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex],<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
-<a class="sourceLine" id="cb538-6" data-line-number="6"><span class="kw">points</span>(Xs,predictedValues,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>)</a>
-<a class="sourceLine" id="cb538-7" data-line-number="7"><span class="kw">points</span>(Xs,predictedValues2,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb677-1" data-line-number="1">lrfit2 &lt;-<span class="st"> </span><span class="kw">train</span>(y<span class="op">~</span>., <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>Xs,<span class="dt">y=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex]), <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a>
+<a class="sourceLine" id="cb677-2" data-line-number="2">predictedValues2&lt;-<span class="kw">predict</span>(lrfit2)</a>
+<a class="sourceLine" id="cb677-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb677-4" data-line-number="4"><span class="kw">plot</span>(Xs,D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex],<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="kw">min</span>(D[,geneindex])<span class="op">-</span><span class="fl">0.2</span>, <span class="kw">max</span>(D[,geneindex]<span class="op">+</span><span class="fl">0.2</span>)),<span class="dt">main=</span>genenames[geneindex])</a>
+<a class="sourceLine" id="cb677-5" data-line-number="5"><span class="kw">points</span>(Xs,D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex],<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb677-6" data-line-number="6"><span class="kw">points</span>(Xs,predictedValues,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>)</a>
+<a class="sourceLine" id="cb677-7" data-line-number="7"><span class="kw">points</span>(Xs,predictedValues2,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <p><img src="09-logistic-regression-gaussian-processes_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>First take some time to understand what we are doing here. There is little point in copying and pasting the code and moving on, this achieves nothing, other than to demonstrate that one can copy and paste. Whilst the above model appeared to do resonably well at capturing the general trends in the datset, if we look at the control data (in red), you may notice that, visually, there appears to be more structure to the data than indicated by the model fit. Indeed, if we look AT2G28890 up on <a href="http://viridiplantae.ibvf.csic.es/circadiaNet/genes/atha/AT2G28890.html">CircadianNET</a>, we will see it is likely circadian in nature (<span class="math inline">\(p&lt;5\times10^{-5}\)</span>) suggesting there may be some rhythmicity to it in order to better accomodate the nature of the data we may need something more complicated.</p>
 </div>
-<div id="polynomial-regression" class="section level3">
-<h3><span class="header-section-number">10.1.2</span> Polynomial regression</h3>
+<div id="polynomial-regression" class="section level3 hasAnchor">
+<h3><span class="header-section-number">10.1.2</span> Polynomial regression<a href="logistic-regression.html#polynomial-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In general, linear models will not be appropriate for a large variety of datasets, particularly when the variables of interest are nonlinear. We can instead try to fit more complex models, such as a quadratic function, which has the following form:</p>
 <p><span class="math inline">\(y = m_1 x + m_2 x^2 + c,\)</span></p>
 <p>where <span class="math inline">\(m = [m_1,m_2,c]\)</span> represent the parameters we’re interested in inferring. An <span class="math inline">\(n\)</span>th-order polynomial has the form:</p>
 <p><span class="math inline">\(y = \sum_{i=1}^{n} m_i x^i + c.\)</span></p>
 <p>where <span class="math inline">\(m = [m_1,\ldots,m_n,c]\)</span> are the free parameters. Within {R} we can infer more complex polynomials to the data using the {lm} package by calling the {poly} function when specififying the symbolic model. In the example below we fit a <span class="math inline">\(3\)</span>rd order polynomial (the order of the polynomial is specified via the {degree} variable):</p>
-<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb539-1" data-line-number="1">lrfit3 &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">3</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex]))</a></code></pre></div>
+<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb678-1" data-line-number="1">lrfit3 &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">3</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex]))</a></code></pre></div>
 <p>We can do this within {caret}: in the snippet, below, we fit <span class="math inline">\(3\)</span>rd order polynomials to the control and infected datasets, and plot the fits alongside the data.</p>
-<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb540-1" data-line-number="1">lrfit3 &lt;-<span class="st"> </span><span class="kw">train</span>(y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">3</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex]), <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a>
-<a class="sourceLine" id="cb540-2" data-line-number="2">lrfit4 &lt;-<span class="st"> </span><span class="kw">train</span>(y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">3</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex]), <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a>
-<a class="sourceLine" id="cb540-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb540-4" data-line-number="4"><span class="kw">plot</span>(Xs,D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex],<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="kw">min</span>(D[,geneindex])<span class="op">-</span><span class="fl">0.2</span>, <span class="kw">max</span>(D[,geneindex]<span class="op">+</span><span class="fl">0.2</span>)),<span class="dt">main=</span>genenames[geneindex])</a>
-<a class="sourceLine" id="cb540-5" data-line-number="5"><span class="kw">points</span>(Xs,D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex],<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
-<a class="sourceLine" id="cb540-6" data-line-number="6"><span class="kw">lines</span>(Xs,<span class="kw">fitted</span>(lrfit3),<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
-<a class="sourceLine" id="cb540-7" data-line-number="7"><span class="kw">lines</span>(Xs,<span class="kw">fitted</span>(lrfit4),<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb679-1" data-line-number="1">lrfit3 &lt;-<span class="st"> </span><span class="kw">train</span>(y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">3</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex]), <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a>
+<a class="sourceLine" id="cb679-2" data-line-number="2">lrfit4 &lt;-<span class="st"> </span><span class="kw">train</span>(y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">3</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex]), <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a>
+<a class="sourceLine" id="cb679-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb679-4" data-line-number="4"><span class="kw">plot</span>(Xs,D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex],<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="kw">min</span>(D[,geneindex])<span class="op">-</span><span class="fl">0.2</span>, <span class="kw">max</span>(D[,geneindex]<span class="op">+</span><span class="fl">0.2</span>)),<span class="dt">main=</span>genenames[geneindex])</a>
+<a class="sourceLine" id="cb679-5" data-line-number="5"><span class="kw">points</span>(Xs,D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex],<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb679-6" data-line-number="6"><span class="kw">lines</span>(Xs,<span class="kw">fitted</span>(lrfit3),<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb679-7" data-line-number="7"><span class="kw">lines</span>(Xs,<span class="kw">fitted</span>(lrfit4),<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>)</a></code></pre></div>
 <p><img src="09-logistic-regression-gaussian-processes_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>Note that, by eye, the fit appears to be a little better than for the linear regression model. Well, maybe! We can quantify the accuracy of the models by looking at the root-mean-square error (RMSE) on hold-out data (cross validation), defined as:</p>
 <p><span class="math inline">\(\mbox{RMSE} = \sqrt{\sum_{i=1}^n (\hat{y_i}-y_i)^2/n}\)</span></p>
 <p>where <span class="math inline">\(\hat{y_i}\)</span> is the predicted value and <span class="math inline">\(y_i\)</span> the observed value of the <span class="math inline">\(i\)</span>th (held out) datapoint. In previous sections we explicitly specified a set of training data and hold-out data (test data). If we do not specify this in {caret}, the data is split by default values.</p>
 <p>Exercise 9.4. What happens if we fit a much higher order polynomial? Try fitting a polynomial with degree = 20 and plotting the result. As we increase the model complexity the fit <em>appears</em> to match much more closely to the observed data. However, intuitively we feel this is wrong. Whilst it may be possible that the data was generated by such complex polynomials, it’s far more likely that we are overfitting the data. We can evaluate how good the model <em>really</em> is by holding some data back and looking at the RMSE from bootstrapped samples. Try splitting the data into training and test datasets, and fitting polynomials of increasing complexity. Plot the RMSE on the training and the test datasets as a function of degree. How does the RMSE compare? Which model seems to be best?</p>
 </div>
-<div id="distributions-of-fits" class="section level3">
-<h3><span class="header-section-number">10.1.3</span> Distributions of fits</h3>
+<div id="distributions-of-fits" class="section level3 hasAnchor">
+<h3><span class="header-section-number">10.1.3</span> Distributions of fits<a href="logistic-regression.html#distributions-of-fits" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In the previous section we explored fitting a polynomial function to the data. Recall that we can fit a <span class="math inline">\(4\)</span>th order polynomial to the control datasets as follows:</p>
-<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb541-1" data-line-number="1">lrfit3    &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">4</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex]))</a>
-<a class="sourceLine" id="cb541-2" data-line-number="2"><span class="kw">plot</span>(Xs,D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex],<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="kw">min</span>(D[,geneindex])<span class="op">-</span><span class="fl">0.2</span>, <span class="kw">max</span>(D[,geneindex]<span class="op">+</span><span class="fl">0.2</span>)),<span class="dt">main=</span>genenames[geneindex])</a>
-<a class="sourceLine" id="cb541-3" data-line-number="3"><span class="kw">lines</span>(Xs,<span class="kw">fitted</span>(lrfit3),<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb680-1" data-line-number="1">lrfit3    &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">4</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex]))</a>
+<a class="sourceLine" id="cb680-2" data-line-number="2"><span class="kw">plot</span>(Xs,D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex],<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="kw">min</span>(D[,geneindex])<span class="op">-</span><span class="fl">0.2</span>, <span class="kw">max</span>(D[,geneindex]<span class="op">+</span><span class="fl">0.2</span>)),<span class="dt">main=</span>genenames[geneindex])</a>
+<a class="sourceLine" id="cb680-3" data-line-number="3"><span class="kw">lines</span>(Xs,<span class="kw">fitted</span>(lrfit3),<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <p><img src="09-logistic-regression-gaussian-processes_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>It looks reasonable, but how does it compare to the following shown in blue?</p>
-<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb542-1" data-line-number="1">lrfit4 &lt;-<span class="st">  </span>lrfit3</a>
-<a class="sourceLine" id="cb542-2" data-line-number="2">lrfit4<span class="op">$</span>coefficients &lt;-<span class="st"> </span>lrfit4<span class="op">$</span>coefficients <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span><span class="op">*</span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="kw">length</span>(lrfit4<span class="op">$</span>coefficients)),<span class="kw">length</span>(lrfit4<span class="op">$</span>coefficients));</a>
-<a class="sourceLine" id="cb542-3" data-line-number="3">pred1&lt;-<span class="kw">predict</span>(lrfit4, <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex]))</a>
-<a class="sourceLine" id="cb542-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb542-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb542-6" data-line-number="6"><span class="kw">plot</span>(Xs,D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex],<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="kw">min</span>(D[,geneindex])<span class="op">-</span><span class="fl">0.2</span>, <span class="kw">max</span>(D[,geneindex]<span class="op">+</span><span class="fl">0.2</span>)),<span class="dt">main=</span>genenames[geneindex])</a>
-<a class="sourceLine" id="cb542-7" data-line-number="7"><span class="kw">lines</span>(Xs,<span class="kw">fitted</span>(lrfit3),<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
-<a class="sourceLine" id="cb542-8" data-line-number="8"><span class="kw">lines</span>(Xs,pred1,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb681-1" data-line-number="1">lrfit4 &lt;-<span class="st">  </span>lrfit3</a>
+<a class="sourceLine" id="cb681-2" data-line-number="2">lrfit4<span class="op">$</span>coefficients &lt;-<span class="st"> </span>lrfit4<span class="op">$</span>coefficients <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span><span class="op">*</span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="kw">length</span>(lrfit4<span class="op">$</span>coefficients)),<span class="kw">length</span>(lrfit4<span class="op">$</span>coefficients));</a>
+<a class="sourceLine" id="cb681-3" data-line-number="3">pred1&lt;-<span class="kw">predict</span>(lrfit4, <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex]))</a>
+<a class="sourceLine" id="cb681-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb681-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb681-6" data-line-number="6"><span class="kw">plot</span>(Xs,D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex],<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="kw">min</span>(D[,geneindex])<span class="op">-</span><span class="fl">0.2</span>, <span class="kw">max</span>(D[,geneindex]<span class="op">+</span><span class="fl">0.2</span>)),<span class="dt">main=</span>genenames[geneindex])</a>
+<a class="sourceLine" id="cb681-7" data-line-number="7"><span class="kw">lines</span>(Xs,<span class="kw">fitted</span>(lrfit3),<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb681-8" data-line-number="8"><span class="kw">lines</span>(Xs,pred1,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
 <p><img src="09-logistic-regression-gaussian-processes_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>Our new fit was generated by slightly perturbing the optimised parameters via the addition of a small amount of noise. We can see that the new fit is almost as good, and will have a very similar SSE[^This should give us some intuition on the notion of over-fitting. For example, if we make a small perturbation to the parameters of a simpler model, the function will not change all that much; if the simpler model is doing a resonable job of explaining the data, then there may be no necessity of fitting a more complex one. On the other hand, if we made a small perturbation to the parameters of a more complex polynomial, the function may look drastically different. To explain the data with the more complex model would therefore require very specific sets of parameters]. In general, inferring a single fit to a model is prone to overfitting. A much better approach is to instead fit a distribution over fits. We can generate samples from a linear model using the {coef} function. To do so we must use the {lm} function directly, and not via the {caret} package.</p>
-<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb543-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;arm&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb682-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;arm&quot;</span>)</a></code></pre></div>
 <pre><code>## Loading required package: MASS</code></pre>
 <pre><code>## Loading required package: Matrix</code></pre>
 <pre><code>## Loading required package: lme4</code></pre>
 <pre><code>## 
-## arm (Version 1.11-1, built: 2020-4-27)</code></pre>
-<pre><code>## Working directory is /home/ubuntu/Course_Materials/intro-machine-learning</code></pre>
-<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb549-1" data-line-number="1">lrfit4    &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">4</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex]))</a>
-<a class="sourceLine" id="cb549-2" data-line-number="2">simulate  &lt;-<span class="st"> </span><span class="kw">coef</span>(<span class="kw">sim</span>(lrfit4))</a>
-<a class="sourceLine" id="cb549-3" data-line-number="3">paramsamp &lt;-<span class="st"> </span><span class="kw">head</span>(simulate,<span class="dv">10</span>)</a></code></pre></div>
+## arm (Version 1.13-1, built: 2022-8-25)</code></pre>
+<pre><code>## Working directory is /rds/user/mb915/hpc-work/development/updatePractical/intro-machine-learning</code></pre>
+<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb688-1" data-line-number="1">lrfit4    &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">4</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex]))</a>
+<a class="sourceLine" id="cb688-2" data-line-number="2">simulate  &lt;-<span class="st"> </span><span class="kw">coef</span>(<span class="kw">sim</span>(lrfit4))</a>
+<a class="sourceLine" id="cb688-3" data-line-number="3">paramsamp &lt;-<span class="st"> </span><span class="kw">head</span>(simulate,<span class="dv">10</span>)</a></code></pre></div>
 <p>This will sample model parameters that are likely to be explaining the dataset, in this case we have produced <span class="math inline">\(10\)</span> different set of sample parameters. In the code, below, we plot these <span class="math inline">\(10\)</span> sample polynomials:</p>
-<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb550-1" data-line-number="1"><span class="kw">plot</span>(Xs,D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex],<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="kw">min</span>(D[,geneindex])<span class="op">-</span><span class="fl">0.2</span>, <span class="kw">max</span>(D[,geneindex]<span class="op">+</span><span class="fl">0.2</span>)),<span class="dt">main=</span>genenames[geneindex])</a>
-<a class="sourceLine" id="cb550-2" data-line-number="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)){</a>
-<a class="sourceLine" id="cb550-3" data-line-number="3">lrfit4<span class="op">$</span>coefficients &lt;-<span class="st"> </span>paramsamp[i,]</a>
-<a class="sourceLine" id="cb550-4" data-line-number="4">pred1&lt;-<span class="kw">predict</span>(lrfit4, <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex]))</a>
-<a class="sourceLine" id="cb550-5" data-line-number="5"><span class="kw">lines</span>(Xs,pred1,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
-<a class="sourceLine" id="cb550-6" data-line-number="6">}</a></code></pre></div>
+<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb689-1" data-line-number="1"><span class="kw">plot</span>(Xs,D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex],<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="kw">min</span>(D[,geneindex])<span class="op">-</span><span class="fl">0.2</span>, <span class="kw">max</span>(D[,geneindex]<span class="op">+</span><span class="fl">0.2</span>)),<span class="dt">main=</span>genenames[geneindex])</a>
+<a class="sourceLine" id="cb689-2" data-line-number="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)){</a>
+<a class="sourceLine" id="cb689-3" data-line-number="3">lrfit4<span class="op">$</span>coefficients &lt;-<span class="st"> </span>paramsamp[i,]</a>
+<a class="sourceLine" id="cb689-4" data-line-number="4">pred1&lt;-<span class="kw">predict</span>(lrfit4, <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex]))</a>
+<a class="sourceLine" id="cb689-5" data-line-number="5"><span class="kw">lines</span>(Xs,pred1,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb689-6" data-line-number="6">}</a></code></pre></div>
 <p><img src="09-logistic-regression-gaussian-processes_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>Alternatively, we can visualise the confidence bounds directly:</p>
-<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb551-1" data-line-number="1">lrfit4    &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">4</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex]))</a>
-<a class="sourceLine" id="cb551-2" data-line-number="2">pred1&lt;-<span class="kw">predict</span>(lrfit4, <span class="dt">interval=</span><span class="st">&quot;predict&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb690-1" data-line-number="1">lrfit4    &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">4</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex]))</a>
+<a class="sourceLine" id="cb690-2" data-line-number="2">pred1&lt;-<span class="kw">predict</span>(lrfit4, <span class="dt">interval=</span><span class="st">&quot;predict&quot;</span>)</a></code></pre></div>
 <pre><code>## Warning in predict.lm(lrfit4, interval = &quot;predict&quot;): predictions on current data refer to _future_ responses</code></pre>
-<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb553-1" data-line-number="1"><span class="kw">plot</span>(Xs,D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex],<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="kw">min</span>(D[,geneindex])<span class="op">-</span><span class="fl">0.2</span>, <span class="kw">max</span>(D[,geneindex]<span class="op">+</span><span class="fl">0.2</span>)),<span class="dt">main=</span>genenames[geneindex])</a>
-<a class="sourceLine" id="cb553-2" data-line-number="2"><span class="kw">lines</span>(Xs,pred1[,<span class="dv">1</span>],<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
-<a class="sourceLine" id="cb553-3" data-line-number="3"><span class="kw">lines</span>(Xs,pred1[,<span class="dv">2</span>],<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
-<a class="sourceLine" id="cb553-4" data-line-number="4"><span class="kw">lines</span>(Xs,pred1[,<span class="dv">3</span>],<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb692-1" data-line-number="1"><span class="kw">plot</span>(Xs,D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex],<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="kw">min</span>(D[,geneindex])<span class="op">-</span><span class="fl">0.2</span>, <span class="kw">max</span>(D[,geneindex]<span class="op">+</span><span class="fl">0.2</span>)),<span class="dt">main=</span>genenames[geneindex])</a>
+<a class="sourceLine" id="cb692-2" data-line-number="2"><span class="kw">lines</span>(Xs,pred1[,<span class="dv">1</span>],<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb692-3" data-line-number="3"><span class="kw">lines</span>(Xs,pred1[,<span class="dv">2</span>],<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb692-4" data-line-number="4"><span class="kw">lines</span>(Xs,pred1[,<span class="dv">3</span>],<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <p><img src="09-logistic-regression-gaussian-processes_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 </div>
 </div>
-<div id="classification" class="section level2">
-<h2><span class="header-section-number">10.2</span> Classification</h2>
+<div id="classification" class="section level2 hasAnchor">
+<h2><span class="header-section-number">10.2</span> Classification<a href="logistic-regression.html#classification" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Classification algorithms are a supervised learning techniques that assign data to categorical outputs. For example we may have a continuous input variable, <span class="math inline">\(X\)</span>, and want to learn how that variable maps to a discrete valued output, <span class="math inline">\(y\in [0,1]\)</span>, which might represent two distinct phenotypes “infected” versus “uninfected”.</p>
 <p>This section is split as follows: in section <a href="logistic-regression.html#logistic-regression">10</a> we introduce logistic regression, a simple classification algorithm based on linear models; and in section @ref(#gp-classification) we demonstrate the use of nonlinear classifiers based on Gaussian process, highlighting when GP classifiers are more appropriate.</p>
-<div id="logistic-regression" class="section level3">
-<h3><span class="header-section-number">10.2.1</span> Logistic regression</h3>
+<div id="logistic-regression" class="section level3 hasAnchor">
+<h3><span class="header-section-number">10.2.1</span> Logistic regression<a href="logistic-regression.html#logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The type of linear regression models we’ve been using up to this point deal with real-valued observation data, <span class="math inline">\(\mathbf{y}\)</span>, and are therefore not appropriate for classification. To deal with cases where <span class="math inline">\(\mathbf{y}\)</span> is a binary outcome, we instead fit a linear model to the logit (natural log) of the log-odds ratio:</p>
 <p><span class="math inline">\(\ln \biggl{(}\frac{p(x)}{1-p(x)}\biggr{)} = c + m_1 x_1.\)</span></p>
 <p>Although this model is not immediately intuitive, if we solve for <span class="math inline">\(p(x)\)</span> we get:</p>
@@ -535,45 +565,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In general, these models do not admit a closed form solution, but can be solved iteratively via maximum likelihood, that is by finding the values <span class="math inline">\((c,m_1)\)</span> that return the greatest value of <span class="math inline">\(\mathcal{L}(c,m_1)\)</span>. Within {caret}, logistic regression can applied using the {glm} function.</p>
 <p>To illustate this we will again make use of our plant dataset. Recall that the second column represents a binary variable indicative of infection status e.g., population growth of the <em>Botrytis cinerea</em> pathogen indicated by statistical enrichment of the <em>Botrytis</em> Tubulin versus the earliest time point.</p>
 <p>In the excercises, below, we will aim to learn a set of markers capable of predicting infection status using logistic regression. To begin with, let’s see if <em>time</em> is informative of infection status:</p>
-<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb554-1" data-line-number="1"><span class="kw">library</span>(pROC)</a></code></pre></div>
+<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb693-1" data-line-number="1"><span class="kw">library</span>(pROC)</a></code></pre></div>
 <pre><code>## Type &#39;citation(&quot;pROC&quot;)&#39; for a citation.</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;pROC&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:stats&#39;:
 ## 
 ##     cov, smooth, var</code></pre>
-<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb558-1" data-line-number="1"><span class="kw">library</span>(ROCR)</a>
-<a class="sourceLine" id="cb558-2" data-line-number="2"><span class="kw">options</span>(<span class="dt">warn=</span><span class="op">-</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb558-3" data-line-number="3">mod_fit &lt;-<span class="st"> </span><span class="kw">train</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x =</span> D<span class="op">$</span>Time, <span class="dt">y =</span> <span class="kw">as.factor</span>(D<span class="op">$</span>Class)), <span class="dt">method=</span><span class="st">&quot;glm&quot;</span>, <span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb697-1" data-line-number="1"><span class="kw">library</span>(ROCR)</a>
+<a class="sourceLine" id="cb697-2" data-line-number="2"><span class="kw">options</span>(<span class="dt">warn=</span><span class="op">-</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb697-3" data-line-number="3">mod_fit &lt;-<span class="st"> </span><span class="kw">train</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x =</span> D<span class="op">$</span>Time, <span class="dt">y =</span> <span class="kw">as.factor</span>(D<span class="op">$</span>Class)), <span class="dt">method=</span><span class="st">&quot;glm&quot;</span>, <span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>)</a></code></pre></div>
 <p>To evaluate the model, we will load in a second (related) dataset, containnig a new set of observations not seen by the model, and predict infection status.</p>
-<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb559-1" data-line-number="1">Dpred &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data/Arabidopsis/Arabidopsis_Botrytis_pred_transpose_3.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb559-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb559-3" data-line-number="3">prob &lt;-<span class="st"> </span><span class="kw">predict</span>(mod_fit, <span class="dt">newdata=</span><span class="kw">data.frame</span>(<span class="dt">x =</span> Dpred<span class="op">$</span>Time, <span class="dt">y =</span> <span class="kw">as.factor</span>(Dpred<span class="op">$</span>Class)), <span class="dt">type=</span><span class="st">&quot;prob&quot;</span>)</a>
-<a class="sourceLine" id="cb559-4" data-line-number="4">pred &lt;-<span class="st"> </span><span class="kw">prediction</span>(prob<span class="op">$</span><span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="kw">as.factor</span>(Dpred<span class="op">$</span>Class))</a></code></pre></div>
+<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb698-1" data-line-number="1">Dpred &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data/Arabidopsis/Arabidopsis_Botrytis_pred_transpose_3.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb698-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb698-3" data-line-number="3">prob &lt;-<span class="st"> </span><span class="kw">predict</span>(mod_fit, <span class="dt">newdata=</span><span class="kw">data.frame</span>(<span class="dt">x =</span> Dpred<span class="op">$</span>Time, <span class="dt">y =</span> <span class="kw">as.factor</span>(Dpred<span class="op">$</span>Class)), <span class="dt">type=</span><span class="st">&quot;prob&quot;</span>)</a>
+<a class="sourceLine" id="cb698-4" data-line-number="4">pred &lt;-<span class="st"> </span><span class="kw">prediction</span>(prob<span class="op">$</span><span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="kw">as.factor</span>(Dpred<span class="op">$</span>Class))</a></code></pre></div>
 <p>To evaluate how well the algorithm has done, we can calculate a variety of summary statistics. For example the number of true positives, true negatives, false positive and false negatives. A useful summary is to plot the ROC curve (false positive rate versus true positive rate) and calculate the area under the curve. For a perfect algorithm, the area under this curve (AUC) will be equal to <span class="math inline">\(1\)</span>, whereas random assignment would give an area of <span class="math inline">\(0.5\)</span>. In the example below, we will calculate the AUC for a logistic regression model:</p>
-<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb560-1" data-line-number="1">perf &lt;-<span class="st"> </span><span class="kw">performance</span>(pred, <span class="dt">measure =</span> <span class="st">&quot;tpr&quot;</span>, <span class="dt">x.measure =</span> <span class="st">&quot;fpr&quot;</span>)</a>
-<a class="sourceLine" id="cb560-2" data-line-number="2"><span class="kw">plot</span>(perf)</a></code></pre></div>
+<div class="sourceCode" id="cb699"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb699-1" data-line-number="1">perf &lt;-<span class="st"> </span><span class="kw">performance</span>(pred, <span class="dt">measure =</span> <span class="st">&quot;tpr&quot;</span>, <span class="dt">x.measure =</span> <span class="st">&quot;fpr&quot;</span>)</a>
+<a class="sourceLine" id="cb699-2" data-line-number="2"><span class="kw">plot</span>(perf)</a></code></pre></div>
 <p><img src="09-logistic-regression-gaussian-processes_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
-<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb561-1" data-line-number="1">auc &lt;-<span class="st"> </span><span class="kw">performance</span>(pred, <span class="dt">measure =</span> <span class="st">&quot;auc&quot;</span>)</a>
-<a class="sourceLine" id="cb561-2" data-line-number="2">auc &lt;-<span class="st"> </span>auc<span class="op">@</span>y.values[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb561-3" data-line-number="3">auc</a></code></pre></div>
+<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb700-1" data-line-number="1">auc &lt;-<span class="st"> </span><span class="kw">performance</span>(pred, <span class="dt">measure =</span> <span class="st">&quot;auc&quot;</span>)</a>
+<a class="sourceLine" id="cb700-2" data-line-number="2">auc &lt;-<span class="st"> </span>auc<span class="op">@</span>y.values[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb700-3" data-line-number="3">auc</a></code></pre></div>
 <pre><code>## [1] 0.6111111</code></pre>
 <p>Okay, so a score of <span class="math inline">\(0.61\)</span> is certainly better than random, but not particularly good. This is perhaps not surprising, as half the time series (the control) is uninfected over the entirety of the time series, whilst in the second times series <em>Botrytis</em> is able to infect from around time point 8 onwards. The slighty better than random performence therefore arises due the slight bias in the number of instances of each class.</p>
 <p>In the example, below, we instead try to regress infection status against individual gene expression levels. The idea is to identify genes that have expression values indicative of <em>Botrytis</em> infection: marker genes.</p>
-<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb563-1" data-line-number="1">aucscore &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">164</span>), <span class="dv">1</span>, <span class="dv">164</span>)</a>
-<a class="sourceLine" id="cb563-2" data-line-number="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq</span>(<span class="dv">3</span>,<span class="dv">164</span>)){</a>
-<a class="sourceLine" id="cb563-3" data-line-number="3">mod_fit &lt;-<span class="st"> </span><span class="kw">train</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x =</span> D[,i], <span class="dt">y =</span> <span class="kw">as.factor</span>(D<span class="op">$</span>Class)), <span class="dt">method=</span><span class="st">&quot;glm&quot;</span>, <span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>)</a>
-<a class="sourceLine" id="cb563-4" data-line-number="4">prob &lt;-<span class="st"> </span><span class="kw">predict</span>(mod_fit, <span class="dt">newdata=</span><span class="kw">data.frame</span>(<span class="dt">x =</span> Dpred[,i], <span class="dt">y =</span> <span class="kw">as.factor</span>(Dpred<span class="op">$</span>Class)), <span class="dt">type=</span><span class="st">&quot;prob&quot;</span>)</a>
-<a class="sourceLine" id="cb563-5" data-line-number="5">pred &lt;-<span class="st"> </span><span class="kw">prediction</span>(prob<span class="op">$</span><span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="kw">as.factor</span>(Dpred<span class="op">$</span>Class))</a>
-<a class="sourceLine" id="cb563-6" data-line-number="6">perf &lt;-<span class="st"> </span><span class="kw">performance</span>(pred, <span class="dt">measure =</span> <span class="st">&quot;tpr&quot;</span>, <span class="dt">x.measure =</span> <span class="st">&quot;fpr&quot;</span>)</a>
-<a class="sourceLine" id="cb563-7" data-line-number="7">auc &lt;-<span class="st"> </span><span class="kw">performance</span>(pred, <span class="dt">measure =</span> <span class="st">&quot;auc&quot;</span>)</a>
-<a class="sourceLine" id="cb563-8" data-line-number="8">aucscore[i] &lt;-<span class="st"> </span>auc<span class="op">@</span>y.values[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb563-9" data-line-number="9">}</a>
-<a class="sourceLine" id="cb563-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb563-11" data-line-number="11"><span class="kw">plot</span>(aucscore[<span class="dv">1</span>,<span class="dv">3</span><span class="op">:</span><span class="kw">ncol</span>(aucscore)],<span class="dt">ylab=</span><span class="st">&quot;AUC&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;gene index&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb702-1" data-line-number="1">aucscore &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">164</span>), <span class="dv">1</span>, <span class="dv">164</span>)</a>
+<a class="sourceLine" id="cb702-2" data-line-number="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq</span>(<span class="dv">3</span>,<span class="dv">164</span>)){</a>
+<a class="sourceLine" id="cb702-3" data-line-number="3">mod_fit &lt;-<span class="st"> </span><span class="kw">train</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x =</span> D[,i], <span class="dt">y =</span> <span class="kw">as.factor</span>(D<span class="op">$</span>Class)), <span class="dt">method=</span><span class="st">&quot;glm&quot;</span>, <span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>)</a>
+<a class="sourceLine" id="cb702-4" data-line-number="4">prob &lt;-<span class="st"> </span><span class="kw">predict</span>(mod_fit, <span class="dt">newdata=</span><span class="kw">data.frame</span>(<span class="dt">x =</span> Dpred[,i], <span class="dt">y =</span> <span class="kw">as.factor</span>(Dpred<span class="op">$</span>Class)), <span class="dt">type=</span><span class="st">&quot;prob&quot;</span>)</a>
+<a class="sourceLine" id="cb702-5" data-line-number="5">pred &lt;-<span class="st"> </span><span class="kw">prediction</span>(prob<span class="op">$</span><span class="st">`</span><span class="dt">1</span><span class="st">`</span>, <span class="kw">as.factor</span>(Dpred<span class="op">$</span>Class))</a>
+<a class="sourceLine" id="cb702-6" data-line-number="6">perf &lt;-<span class="st"> </span><span class="kw">performance</span>(pred, <span class="dt">measure =</span> <span class="st">&quot;tpr&quot;</span>, <span class="dt">x.measure =</span> <span class="st">&quot;fpr&quot;</span>)</a>
+<a class="sourceLine" id="cb702-7" data-line-number="7">auc &lt;-<span class="st"> </span><span class="kw">performance</span>(pred, <span class="dt">measure =</span> <span class="st">&quot;auc&quot;</span>)</a>
+<a class="sourceLine" id="cb702-8" data-line-number="8">aucscore[i] &lt;-<span class="st"> </span>auc<span class="op">@</span>y.values[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb702-9" data-line-number="9">}</a>
+<a class="sourceLine" id="cb702-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb702-11" data-line-number="11"><span class="kw">plot</span>(aucscore[<span class="dv">1</span>,<span class="dv">3</span><span class="op">:</span><span class="kw">ncol</span>(aucscore)],<span class="dt">ylab=</span><span class="st">&quot;AUC&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;gene index&quot;</span>)</a></code></pre></div>
 <p><img src="09-logistic-regression-gaussian-processes_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>We note that, several genes in the list apear to have AUC scores much greater than <span class="math inline">\(0.6\)</span>. We can take a look at some of the genes with high predictive power:</p>
-<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb564-1" data-line-number="1">genenames[<span class="kw">which</span>(aucscore<span class="op">&gt;</span><span class="fl">0.8</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb703"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb703-1" data-line-number="1">genenames[<span class="kw">which</span>(aucscore<span class="op">&gt;</span><span class="fl">0.8</span>)]</a></code></pre></div>
 <pre><code>##  [1] &quot;AT1G29990&quot; &quot;AT1G67170&quot; &quot;AT2G21380&quot; &quot;AT2G28890&quot; &quot;AT2G35500&quot; &quot;AT2G45660&quot;
 ##  [7] &quot;AT3G09980&quot; &quot;AT3G11590&quot; &quot;AT3G13720&quot; &quot;AT3G25710&quot; &quot;AT3G44720&quot; &quot;AT3G48150&quot;
 ## [13] &quot;AT4G00710&quot; &quot;AT4G02150&quot; &quot;AT4G16380&quot; &quot;AT4G19700&quot; &quot;AT4G26450&quot; &quot;AT4G28640&quot;
@@ -589,124 +619,124 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td>AT3G25710 | ATR1</td>
+<td>AT3G25710</td>
 <td>ATR1_ASWA1</td>
 </tr>
 <tr class="even">
-<td>AT4G19700 | ATR1</td>
+<td>AT4G19700</td>
 <td>ATR13_NOKS1</td>
 </tr>
 <tr class="odd">
-<td>AT4G34710 | ATR1</td>
+<td>AT4G34710</td>
 <td>ATR13_NOKS1</td>
 </tr>
 <tr class="even">
-<td>AT4G39050 | ATR1</td>
+<td>AT4G39050</td>
 <td>ATR13_NOKS1</td>
 </tr>
 <tr class="odd">
-<td>AT5G24660 | ATR1</td>
+<td>AT5G24660</td>
 <td>ATR13_NOKS1</td>
 </tr>
 <tr class="even">
-<td>AT4G00710 | AvrR</td>
+<td>AT4G00710</td>
 <td>AvrRpt2_Pto JL1065_CatalyticDead</td>
 </tr>
 <tr class="odd">
-<td>AT4G16380 | HARX</td>
+<td>AT4G16380</td>
 <td>HARXL44</td>
 </tr>
 <tr class="even">
-<td>AT2G45660 | HARX</td>
+<td>AT2G45660</td>
 <td>HARXL45</td>
 </tr>
 <tr class="odd">
-<td>AT5G11980 | HARX</td>
+<td>AT5G11980</td>
 <td>HARXL73</td>
 </tr>
 <tr class="even">
-<td>AT2G35500 | HARX</td>
+<td>AT2G35500</td>
 <td>HARXLL445</td>
 </tr>
 <tr class="odd">
-<td>AT1G67170 | HARX</td>
+<td>AT1G67170</td>
 <td>HARXLL470_WACO9</td>
 </tr>
 <tr class="even">
-<td>AT4G36970 | HARX</td>
+<td>AT4G36970</td>
 <td>HARXLL470_WACO9</td>
 </tr>
 <tr class="odd">
-<td>AT5G56250 | HARX</td>
+<td>AT5G56250</td>
 <td>HARXLL470_WACO9</td>
 </tr>
 <tr class="even">
-<td>AT3G09980 | HARX</td>
+<td>AT3G09980</td>
 <td>HARXLL516_WACO9</td>
 </tr>
 <tr class="odd">
-<td>AT5G50010 | HARX</td>
+<td>AT5G50010</td>
 <td>HARXLL60</td>
 </tr>
 <tr class="even">
-<td>AT3G44720 | HARX</td>
+<td>AT3G44720</td>
 <td>HARXLL73_2_WACO9</td>
 </tr>
 <tr class="odd">
-<td>AT5G22630 | HARX</td>
+<td>AT5G22630</td>
 <td>HARXLL73_2_WACO9</td>
 </tr>
 <tr class="even">
-<td>AT5G43700 | HopH</td>
+<td>AT5G43700</td>
 <td>HopH1_Psy B728A</td>
 </tr>
 </tbody>
 </table>
 <p>Table 3.1: Genes predictive of infection status of <em>Botrytis cinerea</em> whose proteins are targeted by effectors of a variety of pathogens</p>
 <p>Let’s take a look at what the data looks like. In this case we plot the training data labels and the fit from the logistic regression i.e., <span class="math inline">\(p(\mathbf{y}=1|\mathbf{x})\)</span>:</p>
-<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb566-1" data-line-number="1">bestpredictor &lt;-<span class="st"> </span><span class="kw">which</span>(aucscore<span class="op">==</span><span class="kw">max</span>(aucscore))</a>
-<a class="sourceLine" id="cb566-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb566-3" data-line-number="3">best_mod_fit &lt;-<span class="st"> </span><span class="kw">train</span>(y <span class="op">~</span>., <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x =</span> D[,bestpredictor], <span class="dt">y =</span> <span class="kw">as.factor</span>(D<span class="op">$</span>Class)), <span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>, <span class="dt">method=</span><span class="st">&quot;glm&quot;</span>)</a>
-<a class="sourceLine" id="cb566-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb566-5" data-line-number="5"><span class="kw">plot</span>(D[,bestpredictor],D<span class="op">$</span>Class,<span class="dt">xlab=</span>genenames[bestpredictor],<span class="dt">ylab=</span><span class="st">&quot;Class&quot;</span>)</a>
-<a class="sourceLine" id="cb566-6" data-line-number="6"><span class="kw">lines</span>(<span class="kw">seq</span>(<span class="kw">min</span>(D[,bestpredictor]),<span class="kw">max</span>(D[,bestpredictor]),<span class="dt">length=</span><span class="dv">200</span>),<span class="kw">predict</span>(best_mod_fit,<span class="dt">newdata=</span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="kw">min</span>(D[,bestpredictor]),<span class="kw">max</span>(D[,bestpredictor]),<span class="dt">length=</span><span class="dv">200</span>)),<span class="dt">type=</span><span class="st">&quot;prob&quot;</span>)[,<span class="dv">2</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb705-1" data-line-number="1">bestpredictor &lt;-<span class="st"> </span><span class="kw">which</span>(aucscore<span class="op">==</span><span class="kw">max</span>(aucscore))</a>
+<a class="sourceLine" id="cb705-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb705-3" data-line-number="3">best_mod_fit &lt;-<span class="st"> </span><span class="kw">train</span>(y <span class="op">~</span>., <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x =</span> D[,bestpredictor], <span class="dt">y =</span> <span class="kw">as.factor</span>(D<span class="op">$</span>Class)), <span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>, <span class="dt">method=</span><span class="st">&quot;glm&quot;</span>)</a>
+<a class="sourceLine" id="cb705-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb705-5" data-line-number="5"><span class="kw">plot</span>(D[,bestpredictor],D<span class="op">$</span>Class,<span class="dt">xlab=</span>genenames[bestpredictor],<span class="dt">ylab=</span><span class="st">&quot;Class&quot;</span>)</a>
+<a class="sourceLine" id="cb705-6" data-line-number="6"><span class="kw">lines</span>(<span class="kw">seq</span>(<span class="kw">min</span>(D[,bestpredictor]),<span class="kw">max</span>(D[,bestpredictor]),<span class="dt">length=</span><span class="dv">200</span>),<span class="kw">predict</span>(best_mod_fit,<span class="dt">newdata=</span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="kw">min</span>(D[,bestpredictor]),<span class="kw">max</span>(D[,bestpredictor]),<span class="dt">length=</span><span class="dv">200</span>)),<span class="dt">type=</span><span class="st">&quot;prob&quot;</span>)[,<span class="dv">2</span>])</a></code></pre></div>
 <p><img src="09-logistic-regression-gaussian-processes_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <p>In general linear regression and logistic regression represent useful tools for dissecting relationships amongst variables that are frequently used as tools to intepret complex datasets.</p>
 <p>There are some cases where linear approaches may not work so well. To illustrate this we will construct an artifical dataset in which low expression levels of a gene indicates no infection, with moderate levels indicating infection; very high levels of the gene, however, do not indicate infected status, but only arise artifically, due to e.g., inducible overexpression. For this dataset very high levels are thus labelled as uninfected. Below we construct this <em>in silico</em> dataset based loosley on the expression levels of AT3G44720.</p>
-<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb567-1" data-line-number="1">xtrain =<span class="st"> </span>D[,bestpredictor] </a>
-<a class="sourceLine" id="cb567-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb567-3" data-line-number="3">ytrain =<span class="st"> </span><span class="kw">as.numeric</span>(D<span class="op">$</span>Class)</a>
-<a class="sourceLine" id="cb567-4" data-line-number="4">ytrain[<span class="kw">which</span>(xtrain<span class="op">&gt;</span><span class="fl">12.5</span>)]=<span class="dv">0</span></a>
-<a class="sourceLine" id="cb567-5" data-line-number="5">ytrain[<span class="kw">which</span>(xtrain<span class="op">&lt;</span><span class="dv">10</span>)]=<span class="dv">0</span></a>
-<a class="sourceLine" id="cb567-6" data-line-number="6">ytrain =<span class="st"> </span><span class="kw">as.factor</span>(ytrain)</a>
-<a class="sourceLine" id="cb567-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb567-8" data-line-number="8">xpred =<span class="st"> </span>Dpred[,bestpredictor] </a>
-<a class="sourceLine" id="cb567-9" data-line-number="9">ypred =<span class="st"> </span><span class="kw">as.numeric</span>(Dpred<span class="op">$</span>Class)</a>
-<a class="sourceLine" id="cb567-10" data-line-number="10">ypred[<span class="kw">which</span>(xpred<span class="op">&gt;</span><span class="fl">12.5</span>)]=<span class="dv">0</span></a>
-<a class="sourceLine" id="cb567-11" data-line-number="11">ypred[<span class="kw">which</span>(xpred<span class="op">&lt;</span><span class="dv">10</span>)]=<span class="dv">0</span></a>
-<a class="sourceLine" id="cb567-12" data-line-number="12">ypred =<span class="st"> </span><span class="kw">as.factor</span>(ypred)</a></code></pre></div>
+<div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb706-1" data-line-number="1">xtrain =<span class="st"> </span>D[,bestpredictor] </a>
+<a class="sourceLine" id="cb706-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb706-3" data-line-number="3">ytrain =<span class="st"> </span><span class="kw">as.numeric</span>(D<span class="op">$</span>Class)</a>
+<a class="sourceLine" id="cb706-4" data-line-number="4">ytrain[<span class="kw">which</span>(xtrain<span class="op">&gt;</span><span class="fl">12.5</span>)]=<span class="dv">0</span></a>
+<a class="sourceLine" id="cb706-5" data-line-number="5">ytrain[<span class="kw">which</span>(xtrain<span class="op">&lt;</span><span class="dv">10</span>)]=<span class="dv">0</span></a>
+<a class="sourceLine" id="cb706-6" data-line-number="6">ytrain =<span class="st"> </span><span class="kw">as.factor</span>(ytrain)</a>
+<a class="sourceLine" id="cb706-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb706-8" data-line-number="8">xpred =<span class="st"> </span>Dpred[,bestpredictor] </a>
+<a class="sourceLine" id="cb706-9" data-line-number="9">ypred =<span class="st"> </span><span class="kw">as.numeric</span>(Dpred<span class="op">$</span>Class)</a>
+<a class="sourceLine" id="cb706-10" data-line-number="10">ypred[<span class="kw">which</span>(xpred<span class="op">&gt;</span><span class="fl">12.5</span>)]=<span class="dv">0</span></a>
+<a class="sourceLine" id="cb706-11" data-line-number="11">ypred[<span class="kw">which</span>(xpred<span class="op">&lt;</span><span class="dv">10</span>)]=<span class="dv">0</span></a>
+<a class="sourceLine" id="cb706-12" data-line-number="12">ypred =<span class="st"> </span><span class="kw">as.factor</span>(ypred)</a></code></pre></div>
 <p>Let’s fit a logistic model and visualise the result:</p>
-<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb568-1" data-line-number="1">mod_fit3 &lt;-<span class="st"> </span><span class="kw">train</span>(y <span class="op">~</span>., <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x =</span> xtrain, <span class="dt">y=</span> <span class="kw">as.factor</span>(ytrain)), <span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;glm&quot;</span>)</a>
-<a class="sourceLine" id="cb568-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb568-3" data-line-number="3"><span class="kw">plot</span>(xtrain,<span class="kw">as.numeric</span>(ytrain)<span class="op">-</span><span class="dv">1</span>,<span class="dt">xlab=</span><span class="st">&quot;Marker gene&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Class&quot;</span>)</a>
-<a class="sourceLine" id="cb568-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb568-5" data-line-number="5"><span class="kw">lines</span>(<span class="kw">seq</span>(<span class="kw">min</span>(xtrain),<span class="kw">max</span>(xtrain),<span class="dt">length=</span><span class="dv">200</span>),<span class="kw">predict</span>(mod_fit3,<span class="dt">newdata=</span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="kw">min</span>(xtrain),<span class="kw">max</span>(xtrain),<span class="dt">length=</span><span class="dv">200</span>),<span class="dt">y=</span> <span class="kw">matrix</span>(<span class="dv">200</span>,<span class="dv">1</span>,<span class="dv">1</span>)),<span class="dt">type=</span><span class="st">&quot;prob&quot;</span>)[,<span class="dv">2</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb707-1" data-line-number="1">mod_fit3 &lt;-<span class="st"> </span><span class="kw">train</span>(y <span class="op">~</span>., <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x =</span> xtrain, <span class="dt">y=</span> <span class="kw">as.factor</span>(ytrain)), <span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;glm&quot;</span>)</a>
+<a class="sourceLine" id="cb707-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb707-3" data-line-number="3"><span class="kw">plot</span>(xtrain,<span class="kw">as.numeric</span>(ytrain)<span class="op">-</span><span class="dv">1</span>,<span class="dt">xlab=</span><span class="st">&quot;Marker gene&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Class&quot;</span>)</a>
+<a class="sourceLine" id="cb707-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb707-5" data-line-number="5"><span class="kw">lines</span>(<span class="kw">seq</span>(<span class="kw">min</span>(xtrain),<span class="kw">max</span>(xtrain),<span class="dt">length=</span><span class="dv">200</span>),<span class="kw">predict</span>(mod_fit3,<span class="dt">newdata=</span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="kw">min</span>(xtrain),<span class="kw">max</span>(xtrain),<span class="dt">length=</span><span class="dv">200</span>),<span class="dt">y=</span> <span class="kw">matrix</span>(<span class="dv">200</span>,<span class="dv">1</span>,<span class="dv">1</span>)),<span class="dt">type=</span><span class="st">&quot;prob&quot;</span>)[,<span class="dv">2</span>])</a></code></pre></div>
 <p><img src="09-logistic-regression-gaussian-processes_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
-<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb569-1" data-line-number="1">mod_fit3<span class="op">$</span>results<span class="op">$</span>Accuracy</a></code></pre></div>
+<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb708-1" data-line-number="1">mod_fit3<span class="op">$</span>results<span class="op">$</span>Accuracy</a></code></pre></div>
 <pre><code>## [1] 0.8665855</code></pre>
 <p>We can see from the plot that the model fit is very poor. However, if we look at the accuracy (printed at the bottom) the result appears to be good. This is due to the skewed number of samples from each class: there are far more non infected samples than there are infected, which means that if the model predicts uninfected for every instance, it will be correct more than it’s incorrect. We can similary check the result on our test dataset:</p>
-<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb571-1" data-line-number="1">prob&lt;-<span class="kw">predict</span>(mod_fit3, <span class="dt">newdata=</span><span class="kw">data.frame</span>(<span class="dt">x =</span>xpred, <span class="dt">y =</span> <span class="kw">as.factor</span>(ypred)), <span class="dt">type=</span><span class="st">&quot;prob&quot;</span>)</a>
-<a class="sourceLine" id="cb571-2" data-line-number="2">pred &lt;-<span class="st"> </span><span class="kw">prediction</span>(prob[,<span class="dv">2</span>], ypred)</a>
-<a class="sourceLine" id="cb571-3" data-line-number="3">perf &lt;-<span class="st"> </span><span class="kw">performance</span>(pred, <span class="dt">measure =</span> <span class="st">&quot;tpr&quot;</span>, <span class="dt">x.measure =</span> <span class="st">&quot;fpr&quot;</span>)</a>
-<a class="sourceLine" id="cb571-4" data-line-number="4">auc &lt;-<span class="st"> </span><span class="kw">performance</span>(pred, <span class="dt">measure =</span> <span class="st">&quot;auc&quot;</span>)</a>
-<a class="sourceLine" id="cb571-5" data-line-number="5">auc &lt;-<span class="st"> </span>auc<span class="op">@</span>y.values[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb571-6" data-line-number="6">auc</a></code></pre></div>
+<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb710-1" data-line-number="1">prob&lt;-<span class="kw">predict</span>(mod_fit3, <span class="dt">newdata=</span><span class="kw">data.frame</span>(<span class="dt">x =</span>xpred, <span class="dt">y =</span> <span class="kw">as.factor</span>(ypred)), <span class="dt">type=</span><span class="st">&quot;prob&quot;</span>)</a>
+<a class="sourceLine" id="cb710-2" data-line-number="2">pred &lt;-<span class="st"> </span><span class="kw">prediction</span>(prob[,<span class="dv">2</span>], ypred)</a>
+<a class="sourceLine" id="cb710-3" data-line-number="3">perf &lt;-<span class="st"> </span><span class="kw">performance</span>(pred, <span class="dt">measure =</span> <span class="st">&quot;tpr&quot;</span>, <span class="dt">x.measure =</span> <span class="st">&quot;fpr&quot;</span>)</a>
+<a class="sourceLine" id="cb710-4" data-line-number="4">auc &lt;-<span class="st"> </span><span class="kw">performance</span>(pred, <span class="dt">measure =</span> <span class="st">&quot;auc&quot;</span>)</a>
+<a class="sourceLine" id="cb710-5" data-line-number="5">auc &lt;-<span class="st"> </span>auc<span class="op">@</span>y.values[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb710-6" data-line-number="6">auc</a></code></pre></div>
 <pre><code>## [1] 0.7104377</code></pre>
 <p>Nonlinearities can be problematic for linear regression too and a variety of approaches exist for tackling such problems: nolinear regression. These include approaches such as Gaussian process regression a powerful, but more mathematically involved form of regression that is beyond the scope of this module.</p>
 </div>
 </div>
-<div id="resources" class="section level2">
-<h2><span class="header-section-number">10.3</span> Resources</h2>
+<div id="resources" class="section level2 hasAnchor">
+<h2><span class="header-section-number">10.3</span> Resources<a href="logistic-regression.html#resources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A variety of examples using {caret} to perform regression and classification have been implemented
 <a href="https://github.com/tobigithub/caret-machine-learning">here</a>.</p>
 <p>=======
@@ -715,7 +745,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
-<h3><span class="header-section-number">K</span> Solutions for use case 2</h3>
+<h3><span class="header-section-number">K</span> Solutions for use case 2<a href="use-case-2-solutions.html#use-case-2-solutions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references">
 <div id="ref-windram2012arabidopsis">
 <p>Windram, Oliver, Priyadharshini Madhou, Stuart McHattie, Claire Hill, Richard Hickman, Emma Cooke, Dafyd J Jenkins, et al. 2012. “Arabidopsis Defense Against Botrytis Cinerea: Chronology and Regulation Deciphered by High-Resolution Temporal Transcriptomic Analysis.” <em>The Plant Cell</em> 24 (9). Am Soc Plant Biol: 3530–57.</p>
@@ -731,7 +761,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -750,6 +779,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -770,6 +800,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -783,7 +817,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

@@ -16,11 +16,11 @@ library(caret)
 ```
 
 ```
-## Loading required package: lattice
+## Loading required package: ggplot2
 ```
 
 ```
-## Loading required package: ggplot2
+## Loading required package: lattice
 ```
 
 ```r
@@ -44,7 +44,7 @@ library(corrplot)
 ```
 
 ```
-## corrplot 0.84 loaded
+## corrplot 0.92 loaded
 ```
 
 ```r
@@ -144,7 +144,7 @@ getDoParWorkers()
 ```
 
 ```
-## [1] 8
+## [1] 76
 ```
 
 ### Load data

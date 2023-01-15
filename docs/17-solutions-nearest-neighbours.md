@@ -18,11 +18,6 @@ library(caret)
 ## Loading required package: lattice
 ```
 
-```
-## Warning in system("timedatectl", intern = TRUE): running command 'timedatectl'
-## had status 1
-```
-
 ```r
 library(RColorBrewer)
 library(doMC)

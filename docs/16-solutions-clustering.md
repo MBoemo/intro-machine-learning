@@ -81,6 +81,10 @@ plot_tot_withinss <- function(kmeans_output){
 plot_tot_withinss(res)
 ```
 
+```
+## Warning: `qplot()` was deprecated in ggplot2 3.4.0.
+```
+
 <div class="figure" style="text-align: center">
 <img src="16-solutions-clustering_files/figure-html/imageAnalysisElbowPlot-1.png" alt="Variance within the clusters of pixels. Total within-cluster sum of squares plotted against k." width="80%" />
 <p class="caption">(\#fig:imageAnalysisElbowPlot)Variance within the clusters of pixels. Total within-cluster sum of squares plotted against k.</p>

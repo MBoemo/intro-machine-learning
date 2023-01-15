@@ -619,4 +619,4 @@ Exercise 2. Note that cells labelled as pre-implantation actually consists of a 
 
 A large number of alternative dimensionality reduction techniques exist with corresponding implementation in R. These include probabilistic extensions to PCA [pcaMethods](https://www.rdocumentation.org/packages/pcaMethods/versions/1.64.0), as well as other nonlinear dimensionality reduction techniques [Isomap](https://www.rdocumentation.org/packages/RDRToolbox/versions/1.22.0), as well as those based on Gaussian Processes ([GPLVM](https://github.com/SheffieldML/vargplvm.git); Lawrence 2004). Other packages such as [kernlab](https://cran.r-project.org/web/packages/kernlab/index.html) provide a general suite of tools for dimensionality reduction.
 
-Solutions to exercises can be found in 02-dimensionality-reduction_exercise-solutions.
+Solutions to exercises can be found in 15-dimensionality-reduction_exercise-solutions.

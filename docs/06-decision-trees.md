@@ -151,14 +151,6 @@ R package *caret* helps to perform various machine learning tasks including deci
 
 ```r
 library(caret)
-```
-
-```
-## Warning in system("timedatectl", intern = TRUE): running command 'timedatectl'
-## had status 1
-```
-
-```r
 library(rpart.plot)
 #download.file(url = "https://archive.ics.uci.edu/ml/machine-learning-databases/car/car.data",
 #              destfile = "data/car.data")
@@ -601,7 +593,7 @@ summary(c50_dtree)
 ## C5.0.default(x = car.training.factors[, 1:6], y = car.training.factors$class)
 ## 
 ## 
-## C5.0 [Release 2.07 GPL Edition]  	Fri Jul  1 10:00:00 2022
+## C5.0 [Release 2.07 GPL Edition]  	Sun Jan 15 21:32:04 2023
 ## -------------------------------
 ## 
 ## Class specified by attribute `outcome'
@@ -779,7 +771,7 @@ We can use the same pipeline for the Iris dataset but we need to remember to sca
 ```r
 library(datasets)
 data(iris) ##loads the dataset, which can be accessed under the variable name iris
-?iris ##opens the documentation for the dataset
+## ?iris opens the documentation for the dataset
 summary(iris) ##presents the 5 figure summary of the dataset
 ```
 
@@ -1406,6 +1398,10 @@ qplot(concRatioTest, test_pred) +
   theme_bw()
 ```
 
+```
+## Warning: `qplot()` was deprecated in ggplot2 3.4.0.
+```
+
 <div class="figure" style="text-align: center">
 <img src="06-decision-trees_files/figure-html/obsPredConcRatiosdt-1.png" alt="Concordance between observed concentration ratios and those predicted by decision tree." width="80%" />
 <p class="caption">(\#fig:obsPredConcRatiosdt)Concordance between observed concentration ratios and those predicted by decision tree.</p>
@@ -1585,7 +1581,7 @@ car_rf_fit$finalModel
 ```
 ## 
 ## Call:
-##  randomForest(x = x, y = y, ntree = 10, mtry = min(param$mtry,      ncol(x))) 
+##  randomForest(x = x, y = y, ntree = 10, mtry = param$mtry) 
 ##                Type of random forest: classification
 ##                      Number of trees: 10
 ## No. of variables tried at each split: 10
@@ -1659,7 +1655,7 @@ We can use the same pipeline for the Iris dataset but we need to remember to sca
 ```r
 library(datasets)
 data(iris) ##loads the dataset, which can be accessed under the variable name iris
-?iris ##opens the documentation for the dataset
+## ?iris opens the documentation for the dataset
 summary(iris) ##presents the 5 figure summary of the dataset
 ```
 
@@ -1731,6 +1727,86 @@ iris_rf <- train(
                 method = "rf",
                 preProc = c("corr","nzv","center", "scale","BoxCox")
 )
+```
+
+```
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+
+## Warning in randomForest.default(x, y, mtry = param$mtry, ...): invalid mtry:
+## reset to within valid range
+```
+
+```r
 iris_rf
 ```
 

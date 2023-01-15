@@ -161,14 +161,6 @@ Let us perform _k_-nn on the training set with _k_=1. We will use the **confusio
 
 ```r
 library(caret)
-```
-
-```
-## Warning in system("timedatectl", intern = TRUE): running command 'timedatectl'
-## had status 1
-```
-
-```r
 knn1train <- class::knn(train=xtrain, test=xtrain, cl=ytrain, k=1)
 confusionMatrix(knn1train, as.factor(ytrain))
 ```
@@ -361,6 +353,11 @@ ggplot(misclass_errors, aes(x=k, y=error, group=set)) +
         axis.title.x=element_text(face="italic", size=12))
 ```
 
+```
+## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.
+```
+
 <div class="figure" style="text-align: center">
 <img src="04-nearest-neighbours_files/figure-html/misclassErrorsFunK-1.png" alt="Misclassification errors as a function of neighbourhood size." width="100%" />
 <p class="caption">(\#fig:misclassErrorsFunK)Misclassification errors as a function of neighbourhood size.</p>
@@ -404,7 +401,7 @@ getDoParWorkers()
 ```
 
 ```
-## [1] 8
+## [1] 76
 ```
 
 The [caret](http://cran.r-project.org/web/packages/caret/index.html) function **train** is used to fit predictive models over different values of _k_. The function **trainControl** is used to specify a list of computational and resampling options, which will be passed to **train**. We will start by configuring our cross-validation procedure using **trainControl**.
@@ -1028,6 +1025,10 @@ Many of the predictors in the segmentation data set exhibit skewness, _i.e._ the
 qplot(segDataTrain$IntenCoocASMCh3, binwidth=0.1) + 
   xlab("IntenCoocASMCh3") +
   theme_bw()
+```
+
+```
+## Warning: `qplot()` was deprecated in ggplot2 3.4.0.
 ```
 
 <div class="figure" style="text-align: center">

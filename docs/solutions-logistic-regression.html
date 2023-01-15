@@ -4,27 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>I Solutions ch. 4 - Linear and non-linear (logistic) regression | An Introduction to Machine Learning</title>
+  <title>An Introduction to Machine Learning</title>
   <meta name="description" content="Course materials for An Introduction to Machine Learning" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="I Solutions ch. 4 - Linear and non-linear (logistic) regression | An Introduction to Machine Learning" />
+  <meta property="og:title" content="An Introduction to Machine Learning" />
   <meta property="og:type" content="book" />
-  
-  <meta property="og:image" content="figures/cover_image.png" />
+  <meta property="og:image" content="/figures/cover_image.png" />
   <meta property="og:description" content="Course materials for An Introduction to Machine Learning" />
   <meta name="github-repo" content="bioinformatics-training/intro-machine-learning-2019" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="I Solutions ch. 4 - Linear and non-linear (logistic) regression | An Introduction to Machine Learning" />
+  <meta name="twitter:title" content="An Introduction to Machine Learning" />
   
   <meta name="twitter:description" content="Course materials for An Introduction to Machine Learning" />
-  <meta name="twitter:image" content="figures/cover_image.png" />
+  <meta name="twitter:image" content="/figures/cover_image.png" />
 
 <meta name="author" content="Sudhakaran Prabakaran, Matt Wayland and Chris Penfold" />
 
 
-<meta name="date" content="2020-10-07" />
+<meta name="date" content="2023-01-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,8 @@
   
 <link rel="prev" href="solutions-linear-models.html"/>
 <link rel="next" href="solutions-ann.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,7 +49,9 @@
 
 
 
-
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -115,6 +117,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 </head>
 
 <body>
@@ -140,19 +143,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-machine-learning"><i class="fa fa-check"></i><b>2.1</b> What is machine learning?</a></li>
 <li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#aspects-of-ml"><i class="fa fa-check"></i><b>2.2</b> Aspects of ML</a></li>
 <li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#what-actually-happened-under-the-hood"><i class="fa fa-check"></i><b>2.3</b> What actually happened under the hood</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#introduction-to-caret"><i class="fa fa-check"></i><b>2.4</b> Introduction to CARET</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="intro.html"><a href="intro.html#preprocessing-with-the-iris-dataset"><i class="fa fa-check"></i><b>2.4.1</b> Preprocessing with the Iris dataset</a></li>
+<li class="chapter" data-level="2.4.2" data-path="intro.html"><a href="intro.html#training-different-types-of-models"><i class="fa fa-check"></i><b>2.4.2</b> Training different types of models</a></li>
+<li class="chapter" data-level="2.4.3" data-path="intro.html"><a href="intro.html#cross-validation"><i class="fa fa-check"></i><b>2.4.3</b> Cross-validation</a></li>
+<li class="chapter" data-level="2.4.4" data-path="intro.html"><a href="intro.html#optimising-hyperparameters"><i class="fa fa-check"></i><b>2.4.4</b> Optimising hyperparameters</a></li>
+<li class="chapter" data-level="2.4.5" data-path="intro.html"><a href="intro.html#using-dummy-variables-with-the-sacramento-dataset"><i class="fa fa-check"></i><b>2.4.5</b> Using dummy variables with the Sacramento dataset</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html"><i class="fa fa-check"></i><b>3</b> Dimensionality reduction</a><ul>
 <li class="chapter" data-level="3.1" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#linear-dimensionality-reduction"><i class="fa fa-check"></i><b>3.1</b> Linear Dimensionality Reduction</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#interpreting-the-principle-component-axes"><i class="fa fa-check"></i><b>3.1.1</b> Interpreting the Principle Component Axes</a></li>
 <li class="chapter" data-level="3.1.2" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#horseshoe-effect"><i class="fa fa-check"></i><b>3.1.2</b> Horseshoe effect</a></li>
 <li class="chapter" data-level="3.1.3" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#pca-analysis-of-mammalian-development"><i class="fa fa-check"></i><b>3.1.3</b> PCA analysis of mammalian development</a></li>
+<li class="chapter" data-level="3.1.4" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#biological-interpretation"><i class="fa fa-check"></i><b>3.1.4</b> Biological interpretation</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#exercise-2.3."><i class="fa fa-check"></i><b>3.2</b> Exercise 2.3.</a></li>
-<li class="chapter" data-level="3.3" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#nonlinear-dimensionality-reduction"><i class="fa fa-check"></i><b>3.3</b> Nonlinear Dimensionality Reduction</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#stochasticity"><i class="fa fa-check"></i><b>3.3.1</b> Stochasticity</a></li>
-<li class="chapter" data-level="3.3.2" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#analysis-of-mammalian-development"><i class="fa fa-check"></i><b>3.3.2</b> Analysis of mammalian development</a></li>
+<li class="chapter" data-level="3.2" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#nonlinear-dimensionality-reduction"><i class="fa fa-check"></i><b>3.2</b> Nonlinear Dimensionality Reduction</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#nonlinear-warping"><i class="fa fa-check"></i><b>3.2.1</b> Nonlinear warping</a></li>
+<li class="chapter" data-level="3.2.2" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#stochasticity"><i class="fa fa-check"></i><b>3.2.2</b> Stochasticity</a></li>
+<li class="chapter" data-level="3.2.3" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#analysis-of-mammalian-development"><i class="fa fa-check"></i><b>3.2.3</b> Analysis of mammalian development</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#other-dimensionality-reduction-techniques"><i class="fa fa-check"></i><b>3.4</b> Other dimensionality reduction techniques</a></li>
+<li class="chapter" data-level="3.3" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#other-dimensionality-reduction-techniques"><i class="fa fa-check"></i><b>3.3</b> Other dimensionality reduction techniques</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>4</b> Clustering</a><ul>
 <li class="chapter" data-level="4.1" data-path="clustering.html"><a href="clustering.html#introduction"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
@@ -190,7 +201,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html"><i class="fa fa-check"></i><b>5</b> Nearest neighbours</a><ul>
-<li class="chapter" data-level="5.1" data-path="clustering.html"><a href="clustering.html#introduction"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.1" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#introduction-1"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
 <li class="chapter" data-level="5.2" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#classification-simulated-data"><i class="fa fa-check"></i><b>5.2</b> Classification: simulated data</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#knn-function"><i class="fa fa-check"></i><b>5.2.1</b> knn function</a></li>
 <li class="chapter" data-level="5.2.2" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#plotting-decision-boundaries"><i class="fa fa-check"></i><b>5.2.2</b> Plotting decision boundaries</a></li>
@@ -210,38 +221,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5.3" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#search-for-optimum-k"><i class="fa fa-check"></i><b>5.5.3</b> Search for optimum <em>k</em></a></li>
 <li class="chapter" data-level="5.5.4" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#use-model-to-make-predictions"><i class="fa fa-check"></i><b>5.5.4</b> Use model to make predictions</a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="clustering.html"><a href="clustering.html#exercises"><i class="fa fa-check"></i><b>5.6</b> Exercises</a><ul>
+<li class="chapter" data-level="5.6" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#exercises-1"><i class="fa fa-check"></i><b>5.6</b> Exercises</a><ul>
 <li class="chapter" data-level="5.6.1" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#knnEx1"><i class="fa fa-check"></i><b>5.6.1</b> Exercise 1</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="svm.html"><a href="svm.html"><i class="fa fa-check"></i><b>6</b> Support vector machines</a><ul>
-<li class="chapter" data-level="6.1" data-path="clustering.html"><a href="clustering.html#introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a><ul>
+<li class="chapter" data-level="6.1" data-path="svm.html"><a href="svm.html#introduction-2"><i class="fa fa-check"></i><b>6.1</b> Introduction</a><ul>
 <li class="chapter" data-level="6.1.1" data-path="svm.html"><a href="svm.html#maximum-margin-classifier"><i class="fa fa-check"></i><b>6.1.1</b> Maximum margin classifier</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="svm.html"><a href="svm.html#support-vector-classifier"><i class="fa fa-check"></i><b>6.2</b> Support vector classifier</a></li>
 <li class="chapter" data-level="6.3" data-path="svm.html"><a href="svm.html#support-vector-machine"><i class="fa fa-check"></i><b>6.3</b> Support Vector Machine</a></li>
 <li class="chapter" data-level="6.4" data-path="svm.html"><a href="svm.html#example---training-a-classifier"><i class="fa fa-check"></i><b>6.4</b> Example - training a classifier</a><ul>
 <li class="chapter" data-level="6.4.1" data-path="svm.html"><a href="svm.html#setup-environment"><i class="fa fa-check"></i><b>6.4.1</b> Setup environment</a></li>
-<li class="chapter" data-level="6.4.2" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#partition-data"><i class="fa fa-check"></i><b>6.4.2</b> Partition data</a></li>
+<li class="chapter" data-level="6.4.2" data-path="svm.html"><a href="svm.html#partition-data-1"><i class="fa fa-check"></i><b>6.4.2</b> Partition data</a></li>
 <li class="chapter" data-level="6.4.3" data-path="svm.html"><a href="svm.html#visualize-training-data"><i class="fa fa-check"></i><b>6.4.3</b> Visualize training data</a></li>
-<li class="chapter" data-level="6.4.4" data-path="svm.html"><a href="svm.html#define-a-custom-model"><i class="fa fa-check"></i><b>6.4.4</b> Define a custom model</a></li>
-<li class="chapter" data-level="6.4.5" data-path="svm.html"><a href="svm.html#model-cross-validation-and-tuning"><i class="fa fa-check"></i><b>6.4.5</b> Model cross-validation and tuning</a></li>
-<li class="chapter" data-level="6.4.6" data-path="svm.html"><a href="svm.html#prediction-performance-measures"><i class="fa fa-check"></i><b>6.4.6</b> Prediction performance measures</a></li>
-<li class="chapter" data-level="6.4.7" data-path="svm.html"><a href="svm.html#plot-decision-boundary"><i class="fa fa-check"></i><b>6.4.7</b> Plot decision boundary</a></li>
+<li class="chapter" data-level="6.4.4" data-path="svm.html"><a href="svm.html#prediction-performance-measures"><i class="fa fa-check"></i><b>6.4.4</b> Prediction performance measures</a></li>
+<li class="chapter" data-level="6.4.5" data-path="svm.html"><a href="svm.html#plot-decision-boundary"><i class="fa fa-check"></i><b>6.4.5</b> Plot decision boundary</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="svm.html"><a href="svm.html#example---regression"><i class="fa fa-check"></i><b>6.5</b> Example - regression</a></li>
-<li class="chapter" data-level="6.6" data-path="svm.html"><a href="svm.html#further-reading"><i class="fa fa-check"></i><b>6.6</b> Further reading</a></li>
-<li class="chapter" data-level="6.7" data-path="clustering.html"><a href="clustering.html#exercises"><i class="fa fa-check"></i><b>6.7</b> Exercises</a><ul>
-<li class="chapter" data-level="6.7.1" data-path="svm.html"><a href="svm.html#exercise-1"><i class="fa fa-check"></i><b>6.7.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="6.5" data-path="svm.html"><a href="svm.html#defining-your-own-model-type-to-use-in-caret"><i class="fa fa-check"></i><b>6.5</b> Defining your own model type to use in caret</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="svm.html"><a href="svm.html#model-cross-validation-and-tuning"><i class="fa fa-check"></i><b>6.5.1</b> Model cross-validation and tuning</a></li>
 </ul></li>
+<li class="chapter" data-level="6.6" data-path="svm.html"><a href="svm.html#iris-example"><i class="fa fa-check"></i><b>6.6</b> Iris example</a></li>
+<li class="chapter" data-level="6.7" data-path="svm.html"><a href="svm.html#cell-segmentation-example"><i class="fa fa-check"></i><b>6.7</b> Cell segmentation example</a></li>
+<li class="chapter" data-level="6.8" data-path="svm.html"><a href="svm.html#example---regression"><i class="fa fa-check"></i><b>6.8</b> Example - regression</a></li>
+<li class="chapter" data-level="6.9" data-path="svm.html"><a href="svm.html#further-reading"><i class="fa fa-check"></i><b>6.9</b> Further reading</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="decision-trees.html"><a href="decision-trees.html"><i class="fa fa-check"></i><b>7</b> Decision trees and random forests</a><ul>
 <li class="chapter" data-level="7.1" data-path="decision-trees.html"><a href="decision-trees.html#decision-trees-1"><i class="fa fa-check"></i><b>7.1</b> Decision Trees</a></li>
-<li class="chapter" data-level="7.2" data-path="decision-trees.html"><a href="decision-trees.html#random-forest"><i class="fa fa-check"></i><b>7.2</b> Random Forest</a></li>
-<li class="chapter" data-level="7.3" data-path="clustering.html"><a href="clustering.html#exercises"><i class="fa fa-check"></i><b>7.3</b> Exercises</a></li>
+<li class="chapter" data-level="7.2" data-path="decision-trees.html"><a href="decision-trees.html#example-code-with-categorical-data"><i class="fa fa-check"></i><b>7.2</b> Example code with categorical data</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="decision-trees.html"><a href="decision-trees.html#loading-packages-and-data"><i class="fa fa-check"></i><b>7.2.1</b> Loading packages and data</a></li>
+<li class="chapter" data-level="7.2.2" data-path="decision-trees.html"><a href="decision-trees.html#data-slicing"><i class="fa fa-check"></i><b>7.2.2</b> Data Slicing</a></li>
+<li class="chapter" data-level="7.2.3" data-path="decision-trees.html"><a href="decision-trees.html#data-preprocessing"><i class="fa fa-check"></i><b>7.2.3</b> Data Preprocessing</a></li>
+<li class="chapter" data-level="7.2.4" data-path="decision-trees.html"><a href="decision-trees.html#training-decisions-trees"><i class="fa fa-check"></i><b>7.2.4</b> Training Decisions Trees</a></li>
+<li class="chapter" data-level="7.2.5" data-path="decision-trees.html"><a href="decision-trees.html#plotting-the-decision-trees"><i class="fa fa-check"></i><b>7.2.5</b> Plotting the decision trees</a></li>
+<li class="chapter" data-level="7.2.6" data-path="decision-trees.html"><a href="decision-trees.html#prediction"><i class="fa fa-check"></i><b>7.2.6</b> Prediction</a></li>
+<li class="chapter" data-level="7.2.7" data-path="decision-trees.html"><a href="decision-trees.html#implementing-decision-trees-directly"><i class="fa fa-check"></i><b>7.2.7</b> Implementing Decision Trees directly</a></li>
+<li class="chapter" data-level="7.2.8" data-path="decision-trees.html"><a href="decision-trees.html#iris-example-for-decision-trees"><i class="fa fa-check"></i><b>7.2.8</b> Iris example for Decision Trees</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="decision-trees.html"><a href="decision-trees.html#cell-segmentation-examples"><i class="fa fa-check"></i><b>7.3</b> Cell segmentation examples</a></li>
+<li class="chapter" data-level="7.4" data-path="decision-trees.html"><a href="decision-trees.html#regression-example---blood-brain-barrier"><i class="fa fa-check"></i><b>7.4</b> Regression example - Blood Brain Barrier</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="decision-trees.html"><a href="decision-trees.html#decision-tree"><i class="fa fa-check"></i><b>7.4.1</b> Decision tree</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="decision-trees.html"><a href="decision-trees.html#random-forest"><i class="fa fa-check"></i><b>7.5</b> Random Forest</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="decision-trees.html"><a href="decision-trees.html#iris-example-for-random-forests"><i class="fa fa-check"></i><b>7.5.1</b> Iris example for Random Forests</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="decision-trees.html"><a href="decision-trees.html#cell-segmentation-examples-1"><i class="fa fa-check"></i><b>7.6</b> Cell segmentation examples</a></li>
+<li class="chapter" data-level="7.7" data-path="decision-trees.html"><a href="decision-trees.html#regression-example---blood-brain-barrier-1"><i class="fa fa-check"></i><b>7.7</b> Regression example - Blood Brain Barrier</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="decision-trees.html"><a href="decision-trees.html#random-forest-1"><i class="fa fa-check"></i><b>7.7.1</b> Random forest</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="use-case-1.html"><a href="use-case-1.html"><i class="fa fa-check"></i><b>8</b> Use case 1</a><ul>
-<li class="chapter" data-level="8.1" data-path="clustering.html"><a href="clustering.html#introduction"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.1" data-path="use-case-1.html"><a href="use-case-1.html#introduction-3"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
 <li class="chapter" data-level="8.2" data-path="use-case-1.html"><a href="use-case-1.html#problem-automated-detection-of-malaria"><i class="fa fa-check"></i><b>8.2</b> Problem: automated detection of malaria</a></li>
 <li class="chapter" data-level="8.3" data-path="use-case-1.html"><a href="use-case-1.html#challenges"><i class="fa fa-check"></i><b>8.3</b> Challenges</a></li>
 <li class="chapter" data-level="8.4" data-path="use-case-1.html"><a href="use-case-1.html#getting-started"><i class="fa fa-check"></i><b>8.4</b> Getting started</a><ul>
@@ -280,7 +310,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.2.2" data-path="mlnn.html"><a href="mlnn.html#asking-more-precise-questions"><i class="fa fa-check"></i><b>13.2.2</b> Asking more precise questions</a></li>
 <li class="chapter" data-level="13.2.3" data-path="mlnn.html"><a href="mlnn.html#more-complex-networks"><i class="fa fa-check"></i><b>13.2.3</b> More complex networks</a></li>
 </ul></li>
-<li class="chapter" data-level="13.3" data-path="svm.html"><a href="svm.html#further-reading"><i class="fa fa-check"></i><b>13.3</b> Further reading</a></li>
+<li class="chapter" data-level="13.3" data-path="mlnn.html"><a href="mlnn.html#further-reading-1"><i class="fa fa-check"></i><b>13.3</b> Further reading</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="logistic-regression.html"><a href="logistic-regression.html#resources"><i class="fa fa-check"></i><b>A</b> Resources</a><ul>
@@ -290,41 +320,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="A.2.2" data-path="resources.html"><a href="resources.html#uci-machine-learning-repository"><i class="fa fa-check"></i><b>A.2.2</b> UCI Machine Learning Repository</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="solutions-dimensionality-reduction.html"><a href="solutions-dimensionality-reduction.html"><i class="fa fa-check"></i><b>B</b> Solutions ch. 2 - Dimensionality reduction</a><ul>
-<li class="chapter" data-level="B.1" data-path="solutions-dimensionality-reduction.html"><a href="solutions-dimensionality-reduction.html#exercise-2.5."><i class="fa fa-check"></i><b>B.1</b> Exercise 2.5.</a></li>
-<li class="chapter" data-level="B.2" data-path="solutions-dimensionality-reduction.html"><a href="solutions-dimensionality-reduction.html#exercise-2.6."><i class="fa fa-check"></i><b>B.2</b> Exercise 2.6.</a></li>
+<li class="chapter" data-level="B" data-path="solutions-dimensionality-reduction.html"><a href="solutions-dimensionality-reduction.html"><i class="fa fa-check"></i><b>B</b> Solutions - Dimensionality reduction</a><ul>
+<li class="chapter" data-level="B.1" data-path="solutions-dimensionality-reduction.html"><a href="solutions-dimensionality-reduction.html#exercise-1."><i class="fa fa-check"></i><b>B.1</b> Exercise 1.</a></li>
+<li class="chapter" data-level="B.2" data-path="solutions-dimensionality-reduction.html"><a href="solutions-dimensionality-reduction.html#exercise-2."><i class="fa fa-check"></i><b>B.2</b> Exercise 2.</a></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="solutions-clustering.html"><a href="solutions-clustering.html"><i class="fa fa-check"></i><b>C</b> Solutions ch. 4 - Clustering</a><ul>
-<li class="chapter" data-level="C.1" data-path="svm.html"><a href="svm.html#exercise-1"><i class="fa fa-check"></i><b>C.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="C.1" data-path="solutions-clustering.html"><a href="solutions-clustering.html#exercise-1"><i class="fa fa-check"></i><b>C.1</b> Exercise 1</a></li>
 </ul></li>
 <li class="chapter" data-level="D" data-path="solutions-nearest-neighbours.html"><a href="solutions-nearest-neighbours.html"><i class="fa fa-check"></i><b>D</b> Solutions ch. 7 - Nearest neighbours</a><ul>
-<li class="chapter" data-level="D.1" data-path="svm.html"><a href="svm.html#exercise-1"><i class="fa fa-check"></i><b>D.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="D.1" data-path="solutions-nearest-neighbours.html"><a href="solutions-nearest-neighbours.html#exercise-1-1"><i class="fa fa-check"></i><b>D.1</b> Exercise 1</a></li>
 </ul></li>
 <li class="chapter" data-level="E" data-path="solutions-svm.html"><a href="solutions-svm.html"><i class="fa fa-check"></i><b>E</b> Solutions ch. 6 - Support vector machines</a><ul>
-<li class="chapter" data-level="E.1" data-path="svm.html"><a href="svm.html#exercise-1"><i class="fa fa-check"></i><b>E.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="E.1" data-path="solutions-svm.html"><a href="solutions-svm.html#exercise-1-2"><i class="fa fa-check"></i><b>E.1</b> Exercise 1</a></li>
 </ul></li>
 <li class="chapter" data-level="F" data-path="solutions-decision-trees.html"><a href="solutions-decision-trees.html"><i class="fa fa-check"></i><b>F</b> Solutions ch. 9 - Decision trees and random forests</a><ul>
-<li class="chapter" data-level="F.1" data-path="svm.html"><a href="svm.html#exercise-1"><i class="fa fa-check"></i><b>F.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="F.1" data-path="solutions-decision-trees.html"><a href="solutions-decision-trees.html#exercise-1-3"><i class="fa fa-check"></i><b>F.1</b> Exercise 1</a></li>
 </ul></li>
 <li class="chapter" data-level="G" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html"><i class="fa fa-check"></i><b>G</b> Solutions chapter 8 - use case 1</a><ul>
 <li class="chapter" data-level="G.1" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#preparation"><i class="fa fa-check"></i><b>G.1</b> Preparation</a><ul>
 <li class="chapter" data-level="G.1.1" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#load-required-libraries"><i class="fa fa-check"></i><b>G.1.1</b> Load required libraries</a></li>
 <li class="chapter" data-level="G.1.2" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#define-svm-model"><i class="fa fa-check"></i><b>G.1.2</b> Define SVM model</a></li>
 <li class="chapter" data-level="G.1.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#setup-parallel-processing"><i class="fa fa-check"></i><b>G.1.3</b> Setup parallel processing</a></li>
-<li class="chapter" data-level="G.1.4" data-path="use-case-1.html"><a href="use-case-1.html#load-data"><i class="fa fa-check"></i><b>G.1.4</b> Load data</a></li>
+<li class="chapter" data-level="G.1.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#load-data-1"><i class="fa fa-check"></i><b>G.1.4</b> Load data</a></li>
 </ul></li>
 <li class="chapter" data-level="G.2" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#assess-data-quality"><i class="fa fa-check"></i><b>G.2</b> Assess data quality</a><ul>
-<li class="chapter" data-level="G.2.1" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#zero-and-near-zero-variance-predictors"><i class="fa fa-check"></i><b>G.2.1</b> Zero and near-zero variance predictors</a></li>
+<li class="chapter" data-level="G.2.1" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#zero-and-near-zero-variance-predictors-1"><i class="fa fa-check"></i><b>G.2.1</b> Zero and near-zero variance predictors</a></li>
 <li class="chapter" data-level="G.2.2" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#are-all-predictors-on-the-same-scale"><i class="fa fa-check"></i><b>G.2.2</b> Are all predictors on the same scale?</a></li>
 <li class="chapter" data-level="G.2.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#redundancy-from-correlated-variables"><i class="fa fa-check"></i><b>G.2.3</b> Redundancy from correlated variables</a></li>
-<li class="chapter" data-level="G.2.4" data-path="nearest-neighbours.html"><a href="nearest-neighbours.html#skewness"><i class="fa fa-check"></i><b>G.2.4</b> Skewness</a></li>
+<li class="chapter" data-level="G.2.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#skewness-1"><i class="fa fa-check"></i><b>G.2.4</b> Skewness</a></li>
 </ul></li>
 <li class="chapter" data-level="G.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#infection-status-two-class-problem"><i class="fa fa-check"></i><b>G.3</b> Infection status (two-class problem)</a><ul>
 <li class="chapter" data-level="G.3.1" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#model-training-and-parameter-tuning"><i class="fa fa-check"></i><b>G.3.1</b> Model training and parameter tuning</a></li>
 <li class="chapter" data-level="G.3.2" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#knn"><i class="fa fa-check"></i><b>G.3.2</b> KNN</a></li>
-<li class="chapter" data-level="G.3.3" data-path="svm.html"><a href="svm.html#svm"><i class="fa fa-check"></i><b>G.3.3</b> SVM</a></li>
-<li class="chapter" data-level="G.3.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#decision-tree"><i class="fa fa-check"></i><b>G.3.4</b> Decision tree</a></li>
-<li class="chapter" data-level="G.3.5" data-path="decision-trees.html"><a href="decision-trees.html#random-forest"><i class="fa fa-check"></i><b>G.3.5</b> Random forest</a></li>
+<li class="chapter" data-level="G.3.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#svm-1"><i class="fa fa-check"></i><b>G.3.3</b> SVM</a></li>
+<li class="chapter" data-level="G.3.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#decision-tree-1"><i class="fa fa-check"></i><b>G.3.4</b> Decision tree</a></li>
+<li class="chapter" data-level="G.3.5" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#random-forest-2"><i class="fa fa-check"></i><b>G.3.5</b> Random forest</a></li>
 <li class="chapter" data-level="G.3.6" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#compare-models"><i class="fa fa-check"></i><b>G.3.6</b> Compare models</a></li>
 <li class="chapter" data-level="G.3.7" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#predict-test-set-using-our-best-model"><i class="fa fa-check"></i><b>G.3.7</b> Predict test set using our best model</a></li>
 <li class="chapter" data-level="G.3.8" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#roc-curve"><i class="fa fa-check"></i><b>G.3.8</b> ROC curve</a></li>
@@ -332,9 +362,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="G.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#discrimination-of-infective-stages-multi-class-problem"><i class="fa fa-check"></i><b>G.4</b> Discrimination of infective stages (multi-class problem)</a><ul>
 <li class="chapter" data-level="G.4.1" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#define-cross-validation-procedure"><i class="fa fa-check"></i><b>G.4.1</b> Define cross-validation procedure</a></li>
 <li class="chapter" data-level="G.4.2" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#knn-1"><i class="fa fa-check"></i><b>G.4.2</b> KNN</a></li>
-<li class="chapter" data-level="G.4.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#svm-1"><i class="fa fa-check"></i><b>G.4.3</b> SVM</a></li>
-<li class="chapter" data-level="G.4.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#decision-tree-1"><i class="fa fa-check"></i><b>G.4.4</b> Decision tree</a></li>
-<li class="chapter" data-level="G.4.5" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#random-forest-1"><i class="fa fa-check"></i><b>G.4.5</b> Random forest</a></li>
+<li class="chapter" data-level="G.4.3" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#svm-2"><i class="fa fa-check"></i><b>G.4.3</b> SVM</a></li>
+<li class="chapter" data-level="G.4.4" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#decision-tree-2"><i class="fa fa-check"></i><b>G.4.4</b> Decision tree</a></li>
+<li class="chapter" data-level="G.4.5" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#random-forest-3"><i class="fa fa-check"></i><b>G.4.5</b> Random forest</a></li>
 <li class="chapter" data-level="G.4.6" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#compare-models-1"><i class="fa fa-check"></i><b>G.4.6</b> Compare models</a></li>
 <li class="chapter" data-level="G.4.7" data-path="use-case-1-solutions.html"><a href="use-case-1-solutions.html#predict-test-set-using-our-best-model-1"><i class="fa fa-check"></i><b>G.4.7</b> Predict test set using our best model</a></li>
 </ul></li>
@@ -345,7 +375,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="I" data-path="solutions-logistic-regression.html"><a href="solutions-logistic-regression.html"><i class="fa fa-check"></i><b>I</b> Solutions ch. 4 - Linear and non-linear (logistic) regression</a></li>
 <li class="chapter" data-level="J" data-path="solutions-ann.html"><a href="solutions-ann.html"><i class="fa fa-check"></i><b>J</b> Solutions ch. 10 - Artificial neural networks</a><ul>
-<li class="chapter" data-level="J.1" data-path="svm.html"><a href="svm.html#exercise-1"><i class="fa fa-check"></i><b>J.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="J.1" data-path="solutions-ann.html"><a href="solutions-ann.html#exercise-1-4"><i class="fa fa-check"></i><b>J.1</b> Exercise 1</a></li>
 </ul></li>
 <li class="chapter" data-level="K" data-path="use-case-2-solutions.html"><a href="use-case-2-solutions.html"><i class="fa fa-check"></i><b>K</b> Solutions for use case 2</a></li>
 </ul>
@@ -365,212 +395,212 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="solutions-logistic-regression" class="section level1">
-<h1><span class="header-section-number">I</span> Solutions ch. 4 - Linear and non-linear (logistic) regression</h1>
+<div id="solutions-logistic-regression" class="section level1 hasAnchor">
+<h1><span class="header-section-number">I</span> Solutions ch. 4 - Linear and non-linear (logistic) regression<a href="solutions-logistic-regression.html#solutions-logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Solutions to exercises of chapter <a href="logistic-regression.html#logistic-regression">10</a>.</p>
 <p>Exercise 9.1.</p>
-<div class="sourceCode" id="cb876"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb876-1" data-line-number="1"><span class="kw">options</span>(<span class="dt">warn=</span><span class="op">-</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb876-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb876-3" data-line-number="3">geneindex &lt;-<span class="st"> </span><span class="dv">36</span></a>
-<a class="sourceLine" id="cb876-4" data-line-number="4">D &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data/Arabidopsis/Arabidopsis_Botrytis_transpose_2.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb876-5" data-line-number="5">genenames &lt;-<span class="st"> </span><span class="kw">colnames</span>(D)</a>
-<a class="sourceLine" id="cb876-6" data-line-number="6">Xs &lt;-<span class="st"> </span>D<span class="op">$</span>Time[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>]</a>
-<a class="sourceLine" id="cb876-7" data-line-number="7"><span class="kw">plot</span>(Xs,(D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex]),<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="kw">min</span>(D[,geneindex])<span class="op">-</span><span class="fl">0.2</span>, <span class="kw">max</span>(D[,geneindex]<span class="op">+</span><span class="fl">0.2</span>)),<span class="dt">main=</span>genenames[geneindex],<span class="dt">xlab =</span> <span class="st">&quot;Time&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;log_2 expression&quot;</span>)</a>
-<a class="sourceLine" id="cb876-8" data-line-number="8"><span class="kw">points</span>(Xs,(D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex]),<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1013"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1013-1" data-line-number="1"><span class="kw">options</span>(<span class="dt">warn=</span><span class="op">-</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1013-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1013-3" data-line-number="3">geneindex &lt;-<span class="st"> </span><span class="dv">36</span></a>
+<a class="sourceLine" id="cb1013-4" data-line-number="4">D &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data/Arabidopsis/Arabidopsis_Botrytis_transpose_2.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1013-5" data-line-number="5">genenames &lt;-<span class="st"> </span><span class="kw">colnames</span>(D)</a>
+<a class="sourceLine" id="cb1013-6" data-line-number="6">Xs &lt;-<span class="st"> </span>D<span class="op">$</span>Time[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>]</a>
+<a class="sourceLine" id="cb1013-7" data-line-number="7"><span class="kw">plot</span>(Xs,(D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex]),<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="kw">min</span>(D[,geneindex])<span class="op">-</span><span class="fl">0.2</span>, <span class="kw">max</span>(D[,geneindex]<span class="op">+</span><span class="fl">0.2</span>)),<span class="dt">main=</span>genenames[geneindex],<span class="dt">xlab =</span> <span class="st">&quot;Time&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;log_2 expression&quot;</span>)</a>
+<a class="sourceLine" id="cb1013-8" data-line-number="8"><span class="kw">points</span>(Xs,(D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex]),<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <p><img src="22-solutions-logistic-regression-gaussian-processes_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <p>Exercise 9.2. The caret package has a variety of features that are of use in ML. In the previous example, above, we fitted a linear model to a gene to identify parameters and make predictions using all the data. A better approach would be to partition the data into a test We can make use of the caret functionality to split our data into training and test sets, which should allow us to gauge uncertainty in our parameters and the strength of the model.</p>
 <p>Exercise 9.3. Linear regression can generally be applied for any number of variables. A notable example, would be to regress the expression pattern of a gene against putative regulators.</p>
-<div class="sourceCode" id="cb877"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb877-1" data-line-number="1"><span class="kw">library</span>(caret)</a></code></pre></div>
-<pre><code>## Loading required package: lattice</code></pre>
+<div class="sourceCode" id="cb1014"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1014-1" data-line-number="1"><span class="kw">library</span>(caret)</a></code></pre></div>
 <pre><code>## Loading required package: ggplot2</code></pre>
-<div class="sourceCode" id="cb880"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb880-1" data-line-number="1">geneindex &lt;-<span class="st"> </span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb880-2" data-line-number="2">lrfit3 &lt;-<span class="st"> </span><span class="kw">train</span>(y<span class="op">~</span>., <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,<span class="dv">3</span><span class="op">:</span><span class="dv">10</span>],<span class="dt">y=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex]), <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a></code></pre></div>
+<pre><code>## Loading required package: lattice</code></pre>
+<div class="sourceCode" id="cb1017"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1017-1" data-line-number="1">geneindex &lt;-<span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb1017-2" data-line-number="2">lrfit3 &lt;-<span class="st"> </span><span class="kw">train</span>(y<span class="op">~</span>., <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,<span class="dv">3</span><span class="op">:</span><span class="dv">10</span>],<span class="dt">y=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex]), <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a></code></pre></div>
 <p>Excercise 9.4. Compare the RMSE for various polynomial models versus that of the linear models.</p>
-<div class="sourceCode" id="cb881"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb881-1" data-line-number="1">lrfit2 &lt;-<span class="st"> </span><span class="kw">train</span>(y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">1</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex]), <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a>
-<a class="sourceLine" id="cb881-2" data-line-number="2">lrfit3 &lt;-<span class="st"> </span><span class="kw">train</span>(y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">3</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex]), <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a>
-<a class="sourceLine" id="cb881-3" data-line-number="3">lrfit4 &lt;-<span class="st"> </span><span class="kw">train</span>(y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">20</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex]), <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a>
-<a class="sourceLine" id="cb881-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb881-5" data-line-number="5"><span class="kw">plot</span>(Xs,D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex],<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="kw">min</span>(D[,geneindex])<span class="op">-</span><span class="fl">0.2</span>, <span class="kw">max</span>(D[,geneindex]<span class="op">+</span><span class="fl">0.2</span>)),<span class="dt">main=</span>genenames[geneindex])</a>
-<a class="sourceLine" id="cb881-6" data-line-number="6"><span class="kw">lines</span>(Xs,<span class="kw">fitted</span>(lrfit2),<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</a>
-<a class="sourceLine" id="cb881-7" data-line-number="7"><span class="kw">lines</span>(Xs,<span class="kw">fitted</span>(lrfit3),<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
-<a class="sourceLine" id="cb881-8" data-line-number="8"><span class="kw">lines</span>(Xs,<span class="kw">fitted</span>(lrfit4),<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1018"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1018-1" data-line-number="1">lrfit2 &lt;-<span class="st"> </span><span class="kw">train</span>(y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">1</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex]), <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a>
+<a class="sourceLine" id="cb1018-2" data-line-number="2">lrfit3 &lt;-<span class="st"> </span><span class="kw">train</span>(y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">3</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex]), <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a>
+<a class="sourceLine" id="cb1018-3" data-line-number="3">lrfit4 &lt;-<span class="st"> </span><span class="kw">train</span>(y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dt">degree=</span><span class="dv">20</span>), <span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),<span class="dv">1</span>],<span class="dt">y=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex]), <span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a>
+<a class="sourceLine" id="cb1018-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb1018-5" data-line-number="5"><span class="kw">plot</span>(Xs,D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex],<span class="dt">type=</span><span class="st">&quot;p&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="kw">min</span>(D[,geneindex])<span class="op">-</span><span class="fl">0.2</span>, <span class="kw">max</span>(D[,geneindex]<span class="op">+</span><span class="fl">0.2</span>)),<span class="dt">main=</span>genenames[geneindex])</a>
+<a class="sourceLine" id="cb1018-6" data-line-number="6"><span class="kw">lines</span>(Xs,<span class="kw">fitted</span>(lrfit2),<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</a>
+<a class="sourceLine" id="cb1018-7" data-line-number="7"><span class="kw">lines</span>(Xs,<span class="kw">fitted</span>(lrfit3),<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb1018-8" data-line-number="8"><span class="kw">lines</span>(Xs,<span class="kw">fitted</span>(lrfit4),<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>)</a></code></pre></div>
 <p><img src="22-solutions-logistic-regression-gaussian-processes_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>We can look at the RMSE:</p>
-<div class="sourceCode" id="cb882"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb882-1" data-line-number="1"><span class="kw">barplot</span>(<span class="kw">c</span>(lrfit2<span class="op">$</span>results<span class="op">$</span>RMSE,lrfit3<span class="op">$</span>results<span class="op">$</span>RMSE,lrfit4<span class="op">$</span>results<span class="op">$</span>RMSE))</a></code></pre></div>
+<div class="sourceCode" id="cb1019"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1019-1" data-line-number="1"><span class="kw">barplot</span>(<span class="kw">c</span>(lrfit2<span class="op">$</span>results<span class="op">$</span>RMSE,lrfit3<span class="op">$</span>results<span class="op">$</span>RMSE,lrfit4<span class="op">$</span>results<span class="op">$</span>RMSE))</a></code></pre></div>
 <p><img src="22-solutions-logistic-regression-gaussian-processes_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>Excercise 9.4 (optional):</p>
 <p>Example covariance functions implemented from the <a href="http://www.cs.toronto.edu/~duvenaud/cookbook/">Kernel Cookbook</a>. Here we implement a rational quadratic covariance function:</p>
-<div class="sourceCode" id="cb883"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb883-1" data-line-number="1">covRQ &lt;-<span class="st"> </span><span class="cf">function</span>(X1,X2,<span class="dt">l=</span><span class="dv">1</span>,<span class="dt">sig=</span><span class="dv">1</span>,<span class="dt">a=</span><span class="dv">2</span>) {</a>
-<a class="sourceLine" id="cb883-2" data-line-number="2">  K &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(X1)<span class="op">*</span><span class="kw">length</span>(X2)), <span class="dt">nrow=</span><span class="kw">length</span>(X1))</a>
-<a class="sourceLine" id="cb883-3" data-line-number="3">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(K)) {</a>
-<a class="sourceLine" id="cb883-4" data-line-number="4">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(K)) {</a>
-<a class="sourceLine" id="cb883-5" data-line-number="5">      K[i,j] &lt;-<span class="st"> </span>sig<span class="op">^</span><span class="dv">2</span><span class="op">*</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="kw">abs</span>(X1[i]<span class="op">-</span>X2[j])<span class="op">^</span><span class="dv">2</span><span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>a<span class="op">*</span>l<span class="op">^</span><span class="dv">2</span>))    )<span class="op">^</span>a </a>
-<a class="sourceLine" id="cb883-6" data-line-number="6">    }</a>
-<a class="sourceLine" id="cb883-7" data-line-number="7">  }</a>
-<a class="sourceLine" id="cb883-8" data-line-number="8">  <span class="kw">return</span>(K)</a>
-<a class="sourceLine" id="cb883-9" data-line-number="9">}</a></code></pre></div>
+<div class="sourceCode" id="cb1020"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1020-1" data-line-number="1">covRQ &lt;-<span class="st"> </span><span class="cf">function</span>(X1,X2,<span class="dt">l=</span><span class="dv">1</span>,<span class="dt">sig=</span><span class="dv">1</span>,<span class="dt">a=</span><span class="dv">2</span>) {</a>
+<a class="sourceLine" id="cb1020-2" data-line-number="2">  K &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(X1)<span class="op">*</span><span class="kw">length</span>(X2)), <span class="dt">nrow=</span><span class="kw">length</span>(X1))</a>
+<a class="sourceLine" id="cb1020-3" data-line-number="3">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(K)) {</a>
+<a class="sourceLine" id="cb1020-4" data-line-number="4">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(K)) {</a>
+<a class="sourceLine" id="cb1020-5" data-line-number="5">      K[i,j] &lt;-<span class="st"> </span>sig<span class="op">^</span><span class="dv">2</span><span class="op">*</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="kw">abs</span>(X1[i]<span class="op">-</span>X2[j])<span class="op">^</span><span class="dv">2</span><span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>a<span class="op">*</span>l<span class="op">^</span><span class="dv">2</span>))    )<span class="op">^</span>a </a>
+<a class="sourceLine" id="cb1020-6" data-line-number="6">    }</a>
+<a class="sourceLine" id="cb1020-7" data-line-number="7">  }</a>
+<a class="sourceLine" id="cb1020-8" data-line-number="8">  <span class="kw">return</span>(K)</a>
+<a class="sourceLine" id="cb1020-9" data-line-number="9">}</a></code></pre></div>
 <p>Here we implement a periodic covariance function:</p>
-<div class="sourceCode" id="cb884"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb884-1" data-line-number="1">covPer &lt;-<span class="st"> </span><span class="cf">function</span>(X1,X2,<span class="dt">l=</span><span class="dv">1</span>,<span class="dt">sig=</span><span class="dv">1</span>,<span class="dt">p=</span><span class="dv">1</span>) {</a>
-<a class="sourceLine" id="cb884-2" data-line-number="2">  K &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(X1)<span class="op">*</span><span class="kw">length</span>(X2)), <span class="dt">nrow=</span><span class="kw">length</span>(X1))</a>
-<a class="sourceLine" id="cb884-3" data-line-number="3">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(K)) {</a>
-<a class="sourceLine" id="cb884-4" data-line-number="4">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(K)) {</a>
-<a class="sourceLine" id="cb884-5" data-line-number="5">      K[i,j] &lt;-<span class="st"> </span>sig<span class="op">^</span><span class="dv">2</span><span class="op">*</span><span class="kw">exp</span>(<span class="kw">sin</span>(pi<span class="op">*</span><span class="kw">abs</span>(X1[i]<span class="op">-</span>X2[j])<span class="op">/</span>p)<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>l<span class="op">^</span><span class="dv">2</span>) </a>
-<a class="sourceLine" id="cb884-6" data-line-number="6">    }</a>
-<a class="sourceLine" id="cb884-7" data-line-number="7">  }</a>
-<a class="sourceLine" id="cb884-8" data-line-number="8">  <span class="kw">return</span>(K)</a>
-<a class="sourceLine" id="cb884-9" data-line-number="9">}</a></code></pre></div>
+<div class="sourceCode" id="cb1021"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1021-1" data-line-number="1">covPer &lt;-<span class="st"> </span><span class="cf">function</span>(X1,X2,<span class="dt">l=</span><span class="dv">1</span>,<span class="dt">sig=</span><span class="dv">1</span>,<span class="dt">p=</span><span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb1021-2" data-line-number="2">  K &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(X1)<span class="op">*</span><span class="kw">length</span>(X2)), <span class="dt">nrow=</span><span class="kw">length</span>(X1))</a>
+<a class="sourceLine" id="cb1021-3" data-line-number="3">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(K)) {</a>
+<a class="sourceLine" id="cb1021-4" data-line-number="4">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(K)) {</a>
+<a class="sourceLine" id="cb1021-5" data-line-number="5">      K[i,j] &lt;-<span class="st"> </span>sig<span class="op">^</span><span class="dv">2</span><span class="op">*</span><span class="kw">exp</span>(<span class="kw">sin</span>(pi<span class="op">*</span><span class="kw">abs</span>(X1[i]<span class="op">-</span>X2[j])<span class="op">/</span>p)<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>l<span class="op">^</span><span class="dv">2</span>) </a>
+<a class="sourceLine" id="cb1021-6" data-line-number="6">    }</a>
+<a class="sourceLine" id="cb1021-7" data-line-number="7">  }</a>
+<a class="sourceLine" id="cb1021-8" data-line-number="8">  <span class="kw">return</span>(K)</a>
+<a class="sourceLine" id="cb1021-9" data-line-number="9">}</a></code></pre></div>
 <p>Exercise 9.5: Try fitting plotting the GP for the optimised values of the hyperparameters.</p>
 <p>We need to borrow the following snippets of code from the main text.</p>
-<div class="sourceCode" id="cb885"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb885-1" data-line-number="1"><span class="kw">require</span>(MASS)</a></code></pre></div>
+<div class="sourceCode" id="cb1022"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1022-1" data-line-number="1"><span class="kw">require</span>(MASS)</a></code></pre></div>
 <pre><code>## Loading required package: MASS</code></pre>
-<div class="sourceCode" id="cb887"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb887-1" data-line-number="1"><span class="kw">require</span>(plyr)</a></code></pre></div>
+<div class="sourceCode" id="cb1024"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1024-1" data-line-number="1"><span class="kw">require</span>(plyr)</a></code></pre></div>
 <pre><code>## Loading required package: plyr</code></pre>
-<div class="sourceCode" id="cb889"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb889-1" data-line-number="1"><span class="kw">require</span>(reshape2)</a></code></pre></div>
+<div class="sourceCode" id="cb1026"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1026-1" data-line-number="1"><span class="kw">require</span>(reshape2)</a></code></pre></div>
 <pre><code>## Loading required package: reshape2</code></pre>
-<div class="sourceCode" id="cb891"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb891-1" data-line-number="1"><span class="kw">require</span>(ggplot2)</a>
-<a class="sourceLine" id="cb891-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb891-3" data-line-number="3">covSE &lt;-<span class="st"> </span><span class="cf">function</span>(X1,X2,<span class="dt">l=</span><span class="dv">1</span>,<span class="dt">sig=</span><span class="dv">1</span>) {</a>
-<a class="sourceLine" id="cb891-4" data-line-number="4">  K &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(X1)<span class="op">*</span><span class="kw">length</span>(X2)), <span class="dt">nrow=</span><span class="kw">length</span>(X1))</a>
-<a class="sourceLine" id="cb891-5" data-line-number="5">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(K)) {</a>
-<a class="sourceLine" id="cb891-6" data-line-number="6">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(K)) {</a>
-<a class="sourceLine" id="cb891-7" data-line-number="7">      K[i,j] &lt;-<span class="st"> </span>sig<span class="op">^</span><span class="dv">2</span><span class="op">*</span><span class="kw">exp</span>(<span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>(<span class="kw">abs</span>(X1[i]<span class="op">-</span>X2[j]))<span class="op">^</span><span class="dv">2</span> <span class="op">/</span>l<span class="op">^</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb891-8" data-line-number="8">    }</a>
-<a class="sourceLine" id="cb891-9" data-line-number="9">  }</a>
-<a class="sourceLine" id="cb891-10" data-line-number="10">  <span class="kw">return</span>(K)</a>
-<a class="sourceLine" id="cb891-11" data-line-number="11">}</a></code></pre></div>
-<div class="sourceCode" id="cb892"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb892-1" data-line-number="1">x.star &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>,<span class="dt">len=</span><span class="dv">500</span>)</a>
-<a class="sourceLine" id="cb892-2" data-line-number="2">f &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">4</span>,<span class="op">-</span><span class="dv">3</span>,<span class="op">-</span><span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>),</a>
-<a class="sourceLine" id="cb892-3" data-line-number="3">                <span class="dt">y=</span><span class="kw">sin</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">4</span>,<span class="op">-</span><span class="dv">3</span>,<span class="op">-</span><span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>)))</a>
-<a class="sourceLine" id="cb892-4" data-line-number="4">x &lt;-<span class="st"> </span>f<span class="op">$</span>x</a>
-<a class="sourceLine" id="cb892-5" data-line-number="5">k.xx &lt;-<span class="st"> </span><span class="kw">covSE</span>(x,x)</a>
-<a class="sourceLine" id="cb892-6" data-line-number="6">k.xxs &lt;-<span class="st"> </span><span class="kw">covSE</span>(x,x.star)</a>
-<a class="sourceLine" id="cb892-7" data-line-number="7">k.xsx &lt;-<span class="st"> </span><span class="kw">covSE</span>(x.star,x)</a>
-<a class="sourceLine" id="cb892-8" data-line-number="8">k.xsxs &lt;-<span class="st"> </span><span class="kw">covSE</span>(x.star,x.star)</a>
-<a class="sourceLine" id="cb892-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb892-10" data-line-number="10">f.star.bar &lt;-<span class="st"> </span>k.xsx<span class="op">%*%</span><span class="kw">solve</span>(k.xx)<span class="op">%*%</span>f<span class="op">$</span>y  <span class="co">#Mean</span></a>
-<a class="sourceLine" id="cb892-11" data-line-number="11">cov.f.star &lt;-<span class="st"> </span>k.xsxs <span class="op">-</span><span class="st"> </span>k.xsx<span class="op">%*%</span><span class="kw">solve</span>(k.xx)<span class="op">%*%</span>k.xxs <span class="co">#Var</span></a>
-<a class="sourceLine" id="cb892-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb892-13" data-line-number="13">y1 &lt;-<span class="st"> </span><span class="kw">mvrnorm</span>(<span class="dv">1</span>, f.star.bar, cov.f.star)</a>
-<a class="sourceLine" id="cb892-14" data-line-number="14">y2 &lt;-<span class="st"> </span><span class="kw">mvrnorm</span>(<span class="dv">1</span>, f.star.bar, cov.f.star)</a>
-<a class="sourceLine" id="cb892-15" data-line-number="15">y3 &lt;-<span class="st"> </span><span class="kw">mvrnorm</span>(<span class="dv">1</span>, f.star.bar, cov.f.star)</a>
-<a class="sourceLine" id="cb892-16" data-line-number="16"><span class="kw">plot</span>(x.star,<span class="kw">sin</span>(x.star),<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">2.2</span>, <span class="fl">2.2</span>))</a>
-<a class="sourceLine" id="cb892-17" data-line-number="17"><span class="kw">points</span>(f,<span class="dt">type =</span> <span class="st">&#39;p&#39;</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</a>
-<a class="sourceLine" id="cb892-18" data-line-number="18"><span class="kw">lines</span>(x.star,y1,<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</a>
-<a class="sourceLine" id="cb892-19" data-line-number="19"><span class="kw">lines</span>(x.star,y2,<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</a>
-<a class="sourceLine" id="cb892-20" data-line-number="20"><span class="kw">lines</span>(x.star,y3,<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1028"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1028-1" data-line-number="1"><span class="kw">require</span>(ggplot2)</a>
+<a class="sourceLine" id="cb1028-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1028-3" data-line-number="3">covSE &lt;-<span class="st"> </span><span class="cf">function</span>(X1,X2,<span class="dt">l=</span><span class="dv">1</span>,<span class="dt">sig=</span><span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb1028-4" data-line-number="4">  K &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(X1)<span class="op">*</span><span class="kw">length</span>(X2)), <span class="dt">nrow=</span><span class="kw">length</span>(X1))</a>
+<a class="sourceLine" id="cb1028-5" data-line-number="5">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(K)) {</a>
+<a class="sourceLine" id="cb1028-6" data-line-number="6">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(K)) {</a>
+<a class="sourceLine" id="cb1028-7" data-line-number="7">      K[i,j] &lt;-<span class="st"> </span>sig<span class="op">^</span><span class="dv">2</span><span class="op">*</span><span class="kw">exp</span>(<span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>(<span class="kw">abs</span>(X1[i]<span class="op">-</span>X2[j]))<span class="op">^</span><span class="dv">2</span> <span class="op">/</span>l<span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb1028-8" data-line-number="8">    }</a>
+<a class="sourceLine" id="cb1028-9" data-line-number="9">  }</a>
+<a class="sourceLine" id="cb1028-10" data-line-number="10">  <span class="kw">return</span>(K)</a>
+<a class="sourceLine" id="cb1028-11" data-line-number="11">}</a></code></pre></div>
+<div class="sourceCode" id="cb1029"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1029-1" data-line-number="1">x.star &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>,<span class="dt">len=</span><span class="dv">500</span>)</a>
+<a class="sourceLine" id="cb1029-2" data-line-number="2">f &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">4</span>,<span class="op">-</span><span class="dv">3</span>,<span class="op">-</span><span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb1029-3" data-line-number="3">                <span class="dt">y=</span><span class="kw">sin</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">4</span>,<span class="op">-</span><span class="dv">3</span>,<span class="op">-</span><span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>)))</a>
+<a class="sourceLine" id="cb1029-4" data-line-number="4">x &lt;-<span class="st"> </span>f<span class="op">$</span>x</a>
+<a class="sourceLine" id="cb1029-5" data-line-number="5">k.xx &lt;-<span class="st"> </span><span class="kw">covSE</span>(x,x)</a>
+<a class="sourceLine" id="cb1029-6" data-line-number="6">k.xxs &lt;-<span class="st"> </span><span class="kw">covSE</span>(x,x.star)</a>
+<a class="sourceLine" id="cb1029-7" data-line-number="7">k.xsx &lt;-<span class="st"> </span><span class="kw">covSE</span>(x.star,x)</a>
+<a class="sourceLine" id="cb1029-8" data-line-number="8">k.xsxs &lt;-<span class="st"> </span><span class="kw">covSE</span>(x.star,x.star)</a>
+<a class="sourceLine" id="cb1029-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb1029-10" data-line-number="10">f.star.bar &lt;-<span class="st"> </span>k.xsx<span class="op">%*%</span><span class="kw">solve</span>(k.xx)<span class="op">%*%</span>f<span class="op">$</span>y  <span class="co">#Mean</span></a>
+<a class="sourceLine" id="cb1029-11" data-line-number="11">cov.f.star &lt;-<span class="st"> </span>k.xsxs <span class="op">-</span><span class="st"> </span>k.xsx<span class="op">%*%</span><span class="kw">solve</span>(k.xx)<span class="op">%*%</span>k.xxs <span class="co">#Var</span></a>
+<a class="sourceLine" id="cb1029-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb1029-13" data-line-number="13">y1 &lt;-<span class="st"> </span><span class="kw">mvrnorm</span>(<span class="dv">1</span>, f.star.bar, cov.f.star)</a>
+<a class="sourceLine" id="cb1029-14" data-line-number="14">y2 &lt;-<span class="st"> </span><span class="kw">mvrnorm</span>(<span class="dv">1</span>, f.star.bar, cov.f.star)</a>
+<a class="sourceLine" id="cb1029-15" data-line-number="15">y3 &lt;-<span class="st"> </span><span class="kw">mvrnorm</span>(<span class="dv">1</span>, f.star.bar, cov.f.star)</a>
+<a class="sourceLine" id="cb1029-16" data-line-number="16"><span class="kw">plot</span>(x.star,<span class="kw">sin</span>(x.star),<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">2.2</span>, <span class="fl">2.2</span>))</a>
+<a class="sourceLine" id="cb1029-17" data-line-number="17"><span class="kw">points</span>(f,<span class="dt">type =</span> <span class="st">&#39;p&#39;</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</a>
+<a class="sourceLine" id="cb1029-18" data-line-number="18"><span class="kw">lines</span>(x.star,y1,<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</a>
+<a class="sourceLine" id="cb1029-19" data-line-number="19"><span class="kw">lines</span>(x.star,y2,<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</a>
+<a class="sourceLine" id="cb1029-20" data-line-number="20"><span class="kw">lines</span>(x.star,y3,<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
 <p><img src="22-solutions-logistic-regression-gaussian-processes_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>Exercise 9.6: Try fitting plotting the GP for the optimised values of the hyperparameters.</p>
-<div class="sourceCode" id="cb893"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb893-1" data-line-number="1">calcML &lt;-<span class="st"> </span><span class="cf">function</span>(f,<span class="dt">l=</span><span class="dv">1</span>,<span class="dt">sig=</span><span class="dv">1</span>) {</a>
-<a class="sourceLine" id="cb893-2" data-line-number="2">  f2 &lt;-<span class="st"> </span><span class="kw">t</span>(f)</a>
-<a class="sourceLine" id="cb893-3" data-line-number="3">  yt &lt;-<span class="st"> </span>f2[<span class="dv">2</span>,]</a>
-<a class="sourceLine" id="cb893-4" data-line-number="4">  y  &lt;-<span class="st"> </span>f[,<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb893-5" data-line-number="5">  K &lt;-<span class="st"> </span><span class="kw">covSE</span>(f[,<span class="dv">1</span>],f[,<span class="dv">1</span>],l,sig)</a>
-<a class="sourceLine" id="cb893-6" data-line-number="6">  ML &lt;-<span class="st"> </span><span class="fl">-0.5</span><span class="op">*</span>yt<span class="op">%*%</span><span class="kw">ginv</span>(K<span class="fl">+0.1</span><span class="op">^</span><span class="dv">2</span><span class="op">*</span><span class="kw">diag</span>(<span class="kw">length</span>(y)))<span class="op">%*%</span>y <span class="fl">-0.5</span><span class="op">*</span><span class="kw">log</span>(<span class="kw">det</span>(K)) <span class="op">-</span>(<span class="kw">length</span>(f[,<span class="dv">1</span>])<span class="op">/</span><span class="dv">2</span>)<span class="op">*</span><span class="kw">log</span>(<span class="dv">2</span><span class="op">*</span>pi);</a>
-<a class="sourceLine" id="cb893-7" data-line-number="7">  <span class="kw">return</span>(ML)</a>
-<a class="sourceLine" id="cb893-8" data-line-number="8">}</a></code></pre></div>
-<div class="sourceCode" id="cb894"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb894-1" data-line-number="1"><span class="co">#install.packages(&quot;plot3D&quot;)</span></a>
-<a class="sourceLine" id="cb894-2" data-line-number="2"><span class="kw">library</span>(plot3D)</a>
-<a class="sourceLine" id="cb894-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb894-4" data-line-number="4">par &lt;-<span class="st"> </span><span class="kw">seq</span>(.<span class="dv">1</span>,<span class="dv">10</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb894-5" data-line-number="5">ML &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(par)<span class="op">^</span><span class="dv">2</span>), <span class="dt">nrow=</span><span class="kw">length</span>(par), <span class="dt">ncol=</span><span class="kw">length</span>(par))</a>
-<a class="sourceLine" id="cb894-6" data-line-number="6"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(par)) {</a>
-<a class="sourceLine" id="cb894-7" data-line-number="7">  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(par)) {</a>
-<a class="sourceLine" id="cb894-8" data-line-number="8">    ML[i,j] &lt;-<span class="st"> </span><span class="kw">calcML</span>(f,par[i],par[j])</a>
-<a class="sourceLine" id="cb894-9" data-line-number="9">  }</a>
-<a class="sourceLine" id="cb894-10" data-line-number="10">}</a>
-<a class="sourceLine" id="cb894-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb894-12" data-line-number="12">ind&lt;-<span class="kw">which</span>(ML<span class="op">==</span><span class="kw">max</span>(ML), <span class="dt">arr.ind=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb894-13" data-line-number="13">lmap&lt;-par[ind[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb894-14" data-line-number="14">varmap&lt;-par[ind[<span class="dv">2</span>]]</a></code></pre></div>
-<div class="sourceCode" id="cb895"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb895-1" data-line-number="1">x.star &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>,<span class="dt">len=</span><span class="dv">500</span>)</a>
-<a class="sourceLine" id="cb895-2" data-line-number="2">f &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">4</span>,<span class="op">-</span><span class="dv">3</span>,<span class="op">-</span><span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>),</a>
-<a class="sourceLine" id="cb895-3" data-line-number="3">                <span class="dt">y=</span><span class="kw">sin</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">4</span>,<span class="op">-</span><span class="dv">3</span>,<span class="op">-</span><span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>)))</a>
-<a class="sourceLine" id="cb895-4" data-line-number="4">x &lt;-<span class="st"> </span>f<span class="op">$</span>x</a>
-<a class="sourceLine" id="cb895-5" data-line-number="5">k.xx &lt;-<span class="st"> </span><span class="kw">covSE</span>(x,x,lmap,varmap)</a>
-<a class="sourceLine" id="cb895-6" data-line-number="6">k.xxs &lt;-<span class="st"> </span><span class="kw">covSE</span>(x,x.star,lmap,varmap)</a>
-<a class="sourceLine" id="cb895-7" data-line-number="7">k.xsx &lt;-<span class="st"> </span><span class="kw">covSE</span>(x.star,x,lmap,varmap)</a>
-<a class="sourceLine" id="cb895-8" data-line-number="8">k.xsxs &lt;-<span class="st"> </span><span class="kw">covSE</span>(x.star,x.star,lmap,varmap)</a>
-<a class="sourceLine" id="cb895-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb895-10" data-line-number="10">f.star.bar &lt;-<span class="st"> </span>k.xsx<span class="op">%*%</span><span class="kw">solve</span>(k.xx)<span class="op">%*%</span>f<span class="op">$</span>y  <span class="co">#Mean</span></a>
-<a class="sourceLine" id="cb895-11" data-line-number="11">cov.f.star &lt;-<span class="st"> </span>k.xsxs <span class="op">-</span><span class="st"> </span>k.xsx<span class="op">%*%</span><span class="kw">solve</span>(k.xx)<span class="op">%*%</span>k.xxs <span class="co">#Var</span></a>
-<a class="sourceLine" id="cb895-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb895-13" data-line-number="13"><span class="kw">plot</span>(x.star,<span class="kw">sin</span>(x.star),<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">2.2</span>, <span class="fl">2.2</span>))</a>
-<a class="sourceLine" id="cb895-14" data-line-number="14"><span class="kw">points</span>(f,<span class="dt">type=</span><span class="st">&#39;o&#39;</span>)</a>
-<a class="sourceLine" id="cb895-15" data-line-number="15"><span class="kw">lines</span>(x.star,f.star.bar,<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>)</a>
-<a class="sourceLine" id="cb895-16" data-line-number="16"><span class="kw">lines</span>(x.star,f.star.bar<span class="op">+</span><span class="dv">2</span><span class="op">*</span><span class="kw">sqrt</span>(<span class="kw">diag</span>(cov.f.star)),<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,<span class="dt">pch=</span><span class="dv">22</span>, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&quot;black&quot;</span>)</a>
-<a class="sourceLine" id="cb895-17" data-line-number="17"><span class="kw">lines</span>(x.star,f.star.bar<span class="dv">-2</span><span class="op">*</span><span class="kw">sqrt</span>(<span class="kw">diag</span>(cov.f.star)),<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,<span class="dt">pch=</span><span class="dv">22</span>, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&quot;black&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1030"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1030-1" data-line-number="1">calcML &lt;-<span class="st"> </span><span class="cf">function</span>(f,<span class="dt">l=</span><span class="dv">1</span>,<span class="dt">sig=</span><span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb1030-2" data-line-number="2">  f2 &lt;-<span class="st"> </span><span class="kw">t</span>(f)</a>
+<a class="sourceLine" id="cb1030-3" data-line-number="3">  yt &lt;-<span class="st"> </span>f2[<span class="dv">2</span>,]</a>
+<a class="sourceLine" id="cb1030-4" data-line-number="4">  y  &lt;-<span class="st"> </span>f[,<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb1030-5" data-line-number="5">  K &lt;-<span class="st"> </span><span class="kw">covSE</span>(f[,<span class="dv">1</span>],f[,<span class="dv">1</span>],l,sig)</a>
+<a class="sourceLine" id="cb1030-6" data-line-number="6">  ML &lt;-<span class="st"> </span><span class="fl">-0.5</span><span class="op">*</span>yt<span class="op">%*%</span><span class="kw">ginv</span>(K<span class="fl">+0.1</span><span class="op">^</span><span class="dv">2</span><span class="op">*</span><span class="kw">diag</span>(<span class="kw">length</span>(y)))<span class="op">%*%</span>y <span class="fl">-0.5</span><span class="op">*</span><span class="kw">log</span>(<span class="kw">det</span>(K)) <span class="op">-</span>(<span class="kw">length</span>(f[,<span class="dv">1</span>])<span class="op">/</span><span class="dv">2</span>)<span class="op">*</span><span class="kw">log</span>(<span class="dv">2</span><span class="op">*</span>pi);</a>
+<a class="sourceLine" id="cb1030-7" data-line-number="7">  <span class="kw">return</span>(ML)</a>
+<a class="sourceLine" id="cb1030-8" data-line-number="8">}</a></code></pre></div>
+<div class="sourceCode" id="cb1031"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1031-1" data-line-number="1"><span class="co">#install.packages(&quot;plot3D&quot;)</span></a>
+<a class="sourceLine" id="cb1031-2" data-line-number="2"><span class="kw">library</span>(plot3D)</a>
+<a class="sourceLine" id="cb1031-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1031-4" data-line-number="4">par &lt;-<span class="st"> </span><span class="kw">seq</span>(.<span class="dv">1</span>,<span class="dv">10</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb1031-5" data-line-number="5">ML &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(par)<span class="op">^</span><span class="dv">2</span>), <span class="dt">nrow=</span><span class="kw">length</span>(par), <span class="dt">ncol=</span><span class="kw">length</span>(par))</a>
+<a class="sourceLine" id="cb1031-6" data-line-number="6"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(par)) {</a>
+<a class="sourceLine" id="cb1031-7" data-line-number="7">  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(par)) {</a>
+<a class="sourceLine" id="cb1031-8" data-line-number="8">    ML[i,j] &lt;-<span class="st"> </span><span class="kw">calcML</span>(f,par[i],par[j])</a>
+<a class="sourceLine" id="cb1031-9" data-line-number="9">  }</a>
+<a class="sourceLine" id="cb1031-10" data-line-number="10">}</a>
+<a class="sourceLine" id="cb1031-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb1031-12" data-line-number="12">ind&lt;-<span class="kw">which</span>(ML<span class="op">==</span><span class="kw">max</span>(ML), <span class="dt">arr.ind=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1031-13" data-line-number="13">lmap&lt;-par[ind[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb1031-14" data-line-number="14">varmap&lt;-par[ind[<span class="dv">2</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb1032"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1032-1" data-line-number="1">x.star &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>,<span class="dt">len=</span><span class="dv">500</span>)</a>
+<a class="sourceLine" id="cb1032-2" data-line-number="2">f &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">4</span>,<span class="op">-</span><span class="dv">3</span>,<span class="op">-</span><span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb1032-3" data-line-number="3">                <span class="dt">y=</span><span class="kw">sin</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">4</span>,<span class="op">-</span><span class="dv">3</span>,<span class="op">-</span><span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>)))</a>
+<a class="sourceLine" id="cb1032-4" data-line-number="4">x &lt;-<span class="st"> </span>f<span class="op">$</span>x</a>
+<a class="sourceLine" id="cb1032-5" data-line-number="5">k.xx &lt;-<span class="st"> </span><span class="kw">covSE</span>(x,x,lmap,varmap)</a>
+<a class="sourceLine" id="cb1032-6" data-line-number="6">k.xxs &lt;-<span class="st"> </span><span class="kw">covSE</span>(x,x.star,lmap,varmap)</a>
+<a class="sourceLine" id="cb1032-7" data-line-number="7">k.xsx &lt;-<span class="st"> </span><span class="kw">covSE</span>(x.star,x,lmap,varmap)</a>
+<a class="sourceLine" id="cb1032-8" data-line-number="8">k.xsxs &lt;-<span class="st"> </span><span class="kw">covSE</span>(x.star,x.star,lmap,varmap)</a>
+<a class="sourceLine" id="cb1032-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb1032-10" data-line-number="10">f.star.bar &lt;-<span class="st"> </span>k.xsx<span class="op">%*%</span><span class="kw">solve</span>(k.xx)<span class="op">%*%</span>f<span class="op">$</span>y  <span class="co">#Mean</span></a>
+<a class="sourceLine" id="cb1032-11" data-line-number="11">cov.f.star &lt;-<span class="st"> </span>k.xsxs <span class="op">-</span><span class="st"> </span>k.xsx<span class="op">%*%</span><span class="kw">solve</span>(k.xx)<span class="op">%*%</span>k.xxs <span class="co">#Var</span></a>
+<a class="sourceLine" id="cb1032-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb1032-13" data-line-number="13"><span class="kw">plot</span>(x.star,<span class="kw">sin</span>(x.star),<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">2.2</span>, <span class="fl">2.2</span>))</a>
+<a class="sourceLine" id="cb1032-14" data-line-number="14"><span class="kw">points</span>(f,<span class="dt">type=</span><span class="st">&#39;o&#39;</span>)</a>
+<a class="sourceLine" id="cb1032-15" data-line-number="15"><span class="kw">lines</span>(x.star,f.star.bar,<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>)</a>
+<a class="sourceLine" id="cb1032-16" data-line-number="16"><span class="kw">lines</span>(x.star,f.star.bar<span class="op">+</span><span class="dv">2</span><span class="op">*</span><span class="kw">sqrt</span>(<span class="kw">diag</span>(cov.f.star)),<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,<span class="dt">pch=</span><span class="dv">22</span>, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&quot;black&quot;</span>)</a>
+<a class="sourceLine" id="cb1032-17" data-line-number="17"><span class="kw">lines</span>(x.star,f.star.bar<span class="dv">-2</span><span class="op">*</span><span class="kw">sqrt</span>(<span class="kw">diag</span>(cov.f.star)),<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,<span class="dt">pch=</span><span class="dv">22</span>, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&quot;black&quot;</span>)</a></code></pre></div>
 <p><img src="22-solutions-logistic-regression-gaussian-processes_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Excercise 9.7: Now try fitting a Gaussian process to one of the gene expression profiles in the Botrytis dataset.</p>
-<div class="sourceCode" id="cb896"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb896-1" data-line-number="1">covSEn &lt;-<span class="st"> </span><span class="cf">function</span>(X1,X2,<span class="dt">l=</span><span class="dv">1</span>,<span class="dt">sig=</span><span class="dv">1</span>,<span class="dt">sigman=</span><span class="fl">0.1</span>) {</a>
-<a class="sourceLine" id="cb896-2" data-line-number="2">  K &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(X1)<span class="op">*</span><span class="kw">length</span>(X2)), <span class="dt">nrow=</span><span class="kw">length</span>(X1))</a>
-<a class="sourceLine" id="cb896-3" data-line-number="3">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(K)) {</a>
-<a class="sourceLine" id="cb896-4" data-line-number="4">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(K)) {</a>
-<a class="sourceLine" id="cb896-5" data-line-number="5">      </a>
-<a class="sourceLine" id="cb896-6" data-line-number="6">      K[i,j] &lt;-<span class="st"> </span>sig<span class="op">^</span><span class="dv">2</span><span class="op">*</span><span class="kw">exp</span>(<span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>(<span class="kw">abs</span>(X1[i]<span class="op">-</span>X2[j]))<span class="op">^</span><span class="dv">2</span> <span class="op">/</span>l<span class="op">^</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb896-7" data-line-number="7">      </a>
-<a class="sourceLine" id="cb896-8" data-line-number="8">      <span class="cf">if</span> (i<span class="op">==</span>j){</a>
-<a class="sourceLine" id="cb896-9" data-line-number="9">      K[i,j] &lt;-<span class="st"> </span>K[i,j] <span class="op">+</span><span class="st"> </span>sigman<span class="op">^</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb896-10" data-line-number="10">      }</a>
-<a class="sourceLine" id="cb896-11" data-line-number="11">      </a>
-<a class="sourceLine" id="cb896-12" data-line-number="12">    }</a>
-<a class="sourceLine" id="cb896-13" data-line-number="13">  }</a>
-<a class="sourceLine" id="cb896-14" data-line-number="14">  <span class="kw">return</span>(K)</a>
-<a class="sourceLine" id="cb896-15" data-line-number="15">}</a></code></pre></div>
-<div class="sourceCode" id="cb897"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb897-1" data-line-number="1">geneindex &lt;-<span class="st"> </span><span class="dv">36</span></a>
-<a class="sourceLine" id="cb897-2" data-line-number="2">lmap &lt;-<span class="st"> </span><span class="fl">0.1</span></a>
-<a class="sourceLine" id="cb897-3" data-line-number="3">varmap &lt;-<span class="st"> </span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb897-4" data-line-number="4">x.star &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">len=</span><span class="dv">500</span>)</a>
-<a class="sourceLine" id="cb897-5" data-line-number="5">f &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),<span class="dv">1</span>]<span class="op">/</span><span class="dv">48</span>, <span class="dt">y=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex])</a>
-<a class="sourceLine" id="cb897-6" data-line-number="6">x &lt;-<span class="st"> </span>f<span class="op">$</span>x</a>
-<a class="sourceLine" id="cb897-7" data-line-number="7">k.xx &lt;-<span class="st"> </span><span class="kw">covSEn</span>(x,x,lmap,varmap,<span class="fl">0.2</span>)</a>
-<a class="sourceLine" id="cb897-8" data-line-number="8">k.xxs &lt;-<span class="st"> </span><span class="kw">covSEn</span>(x,x.star,lmap,varmap,<span class="fl">0.2</span>)</a>
-<a class="sourceLine" id="cb897-9" data-line-number="9">k.xsx &lt;-<span class="st"> </span><span class="kw">covSEn</span>(x.star,x,lmap,varmap,<span class="fl">0.2</span>)</a>
-<a class="sourceLine" id="cb897-10" data-line-number="10">k.xsxs &lt;-<span class="st"> </span><span class="kw">covSEn</span>(x.star,x.star,lmap,varmap,<span class="fl">0.2</span>)</a>
-<a class="sourceLine" id="cb897-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb897-12" data-line-number="12">f.star.bar &lt;-<span class="st"> </span>k.xsx<span class="op">%*%</span><span class="kw">solve</span>(k.xx)<span class="op">%*%</span>f<span class="op">$</span>y  <span class="co">#Mean</span></a>
-<a class="sourceLine" id="cb897-13" data-line-number="13">cov.f.star &lt;-<span class="st"> </span>k.xsxs <span class="op">-</span><span class="st"> </span>k.xsx<span class="op">%*%</span><span class="kw">solve</span>(k.xx)<span class="op">%*%</span>k.xxs <span class="co">#Var</span></a>
-<a class="sourceLine" id="cb897-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb897-15" data-line-number="15"><span class="kw">plot</span>(f,<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
-<a class="sourceLine" id="cb897-16" data-line-number="16"><span class="kw">points</span>(f,<span class="dt">type=</span><span class="st">&#39;o&#39;</span>)</a>
-<a class="sourceLine" id="cb897-17" data-line-number="17"><span class="kw">lines</span>(x.star,f.star.bar,<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>)</a>
-<a class="sourceLine" id="cb897-18" data-line-number="18"><span class="kw">lines</span>(x.star,f.star.bar<span class="op">+</span><span class="dv">2</span><span class="op">*</span><span class="kw">sqrt</span>(<span class="kw">diag</span>(cov.f.star)),<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,<span class="dt">pch=</span><span class="dv">22</span>, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&quot;black&quot;</span>)</a>
-<a class="sourceLine" id="cb897-19" data-line-number="19"><span class="kw">lines</span>(x.star,f.star.bar<span class="dv">-2</span><span class="op">*</span><span class="kw">sqrt</span>(<span class="kw">diag</span>(cov.f.star)),<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,<span class="dt">pch=</span><span class="dv">22</span>, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&quot;black&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1033"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1033-1" data-line-number="1">covSEn &lt;-<span class="st"> </span><span class="cf">function</span>(X1,X2,<span class="dt">l=</span><span class="dv">1</span>,<span class="dt">sig=</span><span class="dv">1</span>,<span class="dt">sigman=</span><span class="fl">0.1</span>) {</a>
+<a class="sourceLine" id="cb1033-2" data-line-number="2">  K &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(X1)<span class="op">*</span><span class="kw">length</span>(X2)), <span class="dt">nrow=</span><span class="kw">length</span>(X1))</a>
+<a class="sourceLine" id="cb1033-3" data-line-number="3">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(K)) {</a>
+<a class="sourceLine" id="cb1033-4" data-line-number="4">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(K)) {</a>
+<a class="sourceLine" id="cb1033-5" data-line-number="5">      </a>
+<a class="sourceLine" id="cb1033-6" data-line-number="6">      K[i,j] &lt;-<span class="st"> </span>sig<span class="op">^</span><span class="dv">2</span><span class="op">*</span><span class="kw">exp</span>(<span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>(<span class="kw">abs</span>(X1[i]<span class="op">-</span>X2[j]))<span class="op">^</span><span class="dv">2</span> <span class="op">/</span>l<span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb1033-7" data-line-number="7">      </a>
+<a class="sourceLine" id="cb1033-8" data-line-number="8">      <span class="cf">if</span> (i<span class="op">==</span>j){</a>
+<a class="sourceLine" id="cb1033-9" data-line-number="9">      K[i,j] &lt;-<span class="st"> </span>K[i,j] <span class="op">+</span><span class="st"> </span>sigman<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb1033-10" data-line-number="10">      }</a>
+<a class="sourceLine" id="cb1033-11" data-line-number="11">      </a>
+<a class="sourceLine" id="cb1033-12" data-line-number="12">    }</a>
+<a class="sourceLine" id="cb1033-13" data-line-number="13">  }</a>
+<a class="sourceLine" id="cb1033-14" data-line-number="14">  <span class="kw">return</span>(K)</a>
+<a class="sourceLine" id="cb1033-15" data-line-number="15">}</a></code></pre></div>
+<div class="sourceCode" id="cb1034"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1034-1" data-line-number="1">geneindex &lt;-<span class="st"> </span><span class="dv">36</span></a>
+<a class="sourceLine" id="cb1034-2" data-line-number="2">lmap &lt;-<span class="st"> </span><span class="fl">0.1</span></a>
+<a class="sourceLine" id="cb1034-3" data-line-number="3">varmap &lt;-<span class="st"> </span><span class="dv">5</span></a>
+<a class="sourceLine" id="cb1034-4" data-line-number="4">x.star &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">len=</span><span class="dv">500</span>)</a>
+<a class="sourceLine" id="cb1034-5" data-line-number="5">f &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),<span class="dv">1</span>]<span class="op">/</span><span class="dv">48</span>, <span class="dt">y=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex])</a>
+<a class="sourceLine" id="cb1034-6" data-line-number="6">x &lt;-<span class="st"> </span>f<span class="op">$</span>x</a>
+<a class="sourceLine" id="cb1034-7" data-line-number="7">k.xx &lt;-<span class="st"> </span><span class="kw">covSEn</span>(x,x,lmap,varmap,<span class="fl">0.2</span>)</a>
+<a class="sourceLine" id="cb1034-8" data-line-number="8">k.xxs &lt;-<span class="st"> </span><span class="kw">covSEn</span>(x,x.star,lmap,varmap,<span class="fl">0.2</span>)</a>
+<a class="sourceLine" id="cb1034-9" data-line-number="9">k.xsx &lt;-<span class="st"> </span><span class="kw">covSEn</span>(x.star,x,lmap,varmap,<span class="fl">0.2</span>)</a>
+<a class="sourceLine" id="cb1034-10" data-line-number="10">k.xsxs &lt;-<span class="st"> </span><span class="kw">covSEn</span>(x.star,x.star,lmap,varmap,<span class="fl">0.2</span>)</a>
+<a class="sourceLine" id="cb1034-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb1034-12" data-line-number="12">f.star.bar &lt;-<span class="st"> </span>k.xsx<span class="op">%*%</span><span class="kw">solve</span>(k.xx)<span class="op">%*%</span>f<span class="op">$</span>y  <span class="co">#Mean</span></a>
+<a class="sourceLine" id="cb1034-13" data-line-number="13">cov.f.star &lt;-<span class="st"> </span>k.xsxs <span class="op">-</span><span class="st"> </span>k.xsx<span class="op">%*%</span><span class="kw">solve</span>(k.xx)<span class="op">%*%</span>k.xxs <span class="co">#Var</span></a>
+<a class="sourceLine" id="cb1034-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb1034-15" data-line-number="15"><span class="kw">plot</span>(f,<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb1034-16" data-line-number="16"><span class="kw">points</span>(f,<span class="dt">type=</span><span class="st">&#39;o&#39;</span>)</a>
+<a class="sourceLine" id="cb1034-17" data-line-number="17"><span class="kw">lines</span>(x.star,f.star.bar,<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>)</a>
+<a class="sourceLine" id="cb1034-18" data-line-number="18"><span class="kw">lines</span>(x.star,f.star.bar<span class="op">+</span><span class="dv">2</span><span class="op">*</span><span class="kw">sqrt</span>(<span class="kw">diag</span>(cov.f.star)),<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,<span class="dt">pch=</span><span class="dv">22</span>, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&quot;black&quot;</span>)</a>
+<a class="sourceLine" id="cb1034-19" data-line-number="19"><span class="kw">lines</span>(x.star,f.star.bar<span class="dv">-2</span><span class="op">*</span><span class="kw">sqrt</span>(<span class="kw">diag</span>(cov.f.star)),<span class="dt">type =</span> <span class="st">&#39;l&#39;</span>,<span class="dt">pch=</span><span class="dv">22</span>, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&quot;black&quot;</span>)</a></code></pre></div>
 <p><img src="22-solutions-logistic-regression-gaussian-processes_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<div class="sourceCode" id="cb898"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb898-1" data-line-number="1">calcMLn &lt;-<span class="st"> </span><span class="cf">function</span>(f,<span class="dt">l=</span><span class="dv">1</span>,<span class="dt">sig=</span><span class="dv">1</span>,<span class="dt">sigman=</span><span class="fl">0.1</span>) {</a>
-<a class="sourceLine" id="cb898-2" data-line-number="2">  f2 &lt;-<span class="st"> </span><span class="kw">t</span>(f)</a>
-<a class="sourceLine" id="cb898-3" data-line-number="3">  yt &lt;-<span class="st"> </span>f2[<span class="dv">2</span>,]</a>
-<a class="sourceLine" id="cb898-4" data-line-number="4">  y  &lt;-<span class="st"> </span>f[,<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb898-5" data-line-number="5">  K &lt;-<span class="st"> </span><span class="kw">covSE</span>(f[,<span class="dv">1</span>],f[,<span class="dv">1</span>],l,sig)</a>
-<a class="sourceLine" id="cb898-6" data-line-number="6">  ML &lt;-<span class="st"> </span><span class="fl">-0.5</span><span class="op">*</span>yt<span class="op">%*%</span><span class="kw">ginv</span>(K<span class="op">+</span><span class="kw">diag</span>(<span class="kw">length</span>(y))<span class="op">*</span>sigman<span class="op">^</span><span class="dv">2</span>)<span class="op">%*%</span>y <span class="fl">-0.5</span><span class="op">*</span><span class="kw">log</span>(<span class="kw">det</span>(K<span class="op">+</span><span class="kw">diag</span>(<span class="kw">length</span>(y))<span class="op">*</span>sigman<span class="op">^</span><span class="dv">2</span>)) <span class="op">-</span>(<span class="kw">length</span>(f[,<span class="dv">1</span>])<span class="op">/</span><span class="dv">2</span>)<span class="op">*</span><span class="kw">log</span>(<span class="dv">2</span><span class="op">*</span>pi);</a>
-<a class="sourceLine" id="cb898-7" data-line-number="7">  <span class="kw">return</span>(ML)</a>
-<a class="sourceLine" id="cb898-8" data-line-number="8">}</a></code></pre></div>
+<div class="sourceCode" id="cb1035"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1035-1" data-line-number="1">calcMLn &lt;-<span class="st"> </span><span class="cf">function</span>(f,<span class="dt">l=</span><span class="dv">1</span>,<span class="dt">sig=</span><span class="dv">1</span>,<span class="dt">sigman=</span><span class="fl">0.1</span>) {</a>
+<a class="sourceLine" id="cb1035-2" data-line-number="2">  f2 &lt;-<span class="st"> </span><span class="kw">t</span>(f)</a>
+<a class="sourceLine" id="cb1035-3" data-line-number="3">  yt &lt;-<span class="st"> </span>f2[<span class="dv">2</span>,]</a>
+<a class="sourceLine" id="cb1035-4" data-line-number="4">  y  &lt;-<span class="st"> </span>f[,<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb1035-5" data-line-number="5">  K &lt;-<span class="st"> </span><span class="kw">covSE</span>(f[,<span class="dv">1</span>],f[,<span class="dv">1</span>],l,sig)</a>
+<a class="sourceLine" id="cb1035-6" data-line-number="6">  ML &lt;-<span class="st"> </span><span class="fl">-0.5</span><span class="op">*</span>yt<span class="op">%*%</span><span class="kw">ginv</span>(K<span class="op">+</span><span class="kw">diag</span>(<span class="kw">length</span>(y))<span class="op">*</span>sigman<span class="op">^</span><span class="dv">2</span>)<span class="op">%*%</span>y <span class="fl">-0.5</span><span class="op">*</span><span class="kw">log</span>(<span class="kw">det</span>(K<span class="op">+</span><span class="kw">diag</span>(<span class="kw">length</span>(y))<span class="op">*</span>sigman<span class="op">^</span><span class="dv">2</span>)) <span class="op">-</span>(<span class="kw">length</span>(f[,<span class="dv">1</span>])<span class="op">/</span><span class="dv">2</span>)<span class="op">*</span><span class="kw">log</span>(<span class="dv">2</span><span class="op">*</span>pi);</a>
+<a class="sourceLine" id="cb1035-7" data-line-number="7">  <span class="kw">return</span>(ML)</a>
+<a class="sourceLine" id="cb1035-8" data-line-number="8">}</a></code></pre></div>
 <p>Exercise 9.8 (optional): Write a function for determining differential expression for two genes. Hint: we are interested in comparing two models, and using Bayes’ Factor to determine if the genes are differentially expressed.</p>
-<div class="sourceCode" id="cb899"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb899-1" data-line-number="1">f &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),<span class="dv">1</span>]<span class="op">/</span><span class="dv">48</span>, <span class="dt">y=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex])</a>
-<a class="sourceLine" id="cb899-2" data-line-number="2">par &lt;-<span class="st"> </span><span class="kw">seq</span>(.<span class="dv">1</span>,<span class="dv">10</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb899-3" data-line-number="3">ML &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(par)<span class="op">^</span><span class="dv">2</span>), <span class="dt">nrow=</span><span class="kw">length</span>(par), <span class="dt">ncol=</span><span class="kw">length</span>(par))</a>
-<a class="sourceLine" id="cb899-4" data-line-number="4"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(par)) {</a>
-<a class="sourceLine" id="cb899-5" data-line-number="5">  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(par)) {</a>
-<a class="sourceLine" id="cb899-6" data-line-number="6">    ML[i,j] &lt;-<span class="st"> </span><span class="kw">calcMLn</span>(f,par[i],par[j],<span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb899-7" data-line-number="7">  }</a>
-<a class="sourceLine" id="cb899-8" data-line-number="8">}</a>
-<a class="sourceLine" id="cb899-9" data-line-number="9"><span class="kw">persp3D</span>(<span class="dt">z =</span> ML,<span class="dt">theta =</span> <span class="dv">120</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1036"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1036-1" data-line-number="1">f &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),<span class="dv">1</span>]<span class="op">/</span><span class="dv">48</span>, <span class="dt">y=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex])</a>
+<a class="sourceLine" id="cb1036-2" data-line-number="2">par &lt;-<span class="st"> </span><span class="kw">seq</span>(.<span class="dv">1</span>,<span class="dv">10</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb1036-3" data-line-number="3">ML &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(par)<span class="op">^</span><span class="dv">2</span>), <span class="dt">nrow=</span><span class="kw">length</span>(par), <span class="dt">ncol=</span><span class="kw">length</span>(par))</a>
+<a class="sourceLine" id="cb1036-4" data-line-number="4"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(par)) {</a>
+<a class="sourceLine" id="cb1036-5" data-line-number="5">  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(par)) {</a>
+<a class="sourceLine" id="cb1036-6" data-line-number="6">    ML[i,j] &lt;-<span class="st"> </span><span class="kw">calcMLn</span>(f,par[i],par[j],<span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb1036-7" data-line-number="7">  }</a>
+<a class="sourceLine" id="cb1036-8" data-line-number="8">}</a>
+<a class="sourceLine" id="cb1036-9" data-line-number="9"><span class="kw">persp3D</span>(<span class="dt">z =</span> ML,<span class="dt">theta =</span> <span class="dv">120</span>)</a></code></pre></div>
 <p><img src="22-solutions-logistic-regression-gaussian-processes_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
-<div class="sourceCode" id="cb900"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb900-1" data-line-number="1">ind&lt;-<span class="kw">which</span>(ML<span class="op">==</span><span class="kw">max</span>(ML), <span class="dt">arr.ind=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1037"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1037-1" data-line-number="1">ind&lt;-<span class="kw">which</span>(ML<span class="op">==</span><span class="kw">max</span>(ML), <span class="dt">arr.ind=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Now let’s calculate the BF.</p>
-<div class="sourceCode" id="cb901"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb901-1" data-line-number="1">lmap &lt;-<span class="st"> </span>par[ind[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb901-2" data-line-number="2">varmap &lt;-<span class="st"> </span>par[ind[<span class="dv">2</span>]]</a>
-<a class="sourceLine" id="cb901-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb901-4" data-line-number="4">f1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,<span class="dv">1</span>]<span class="op">/</span><span class="dv">48</span>, <span class="dt">y=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex])</a>
-<a class="sourceLine" id="cb901-5" data-line-number="5">f2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),<span class="dv">1</span>]<span class="op">/</span><span class="dv">48</span>, <span class="dt">y=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex])</a>
-<a class="sourceLine" id="cb901-6" data-line-number="6">f3 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[,<span class="dv">1</span>]<span class="op">/</span><span class="dv">48</span>, <span class="dt">y=</span>D[,geneindex])</a>
-<a class="sourceLine" id="cb901-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb901-8" data-line-number="8">MLs &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dt">nrow=</span><span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb901-9" data-line-number="9">MLs[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">calcMLn</span>(f1,lmap,varmap,<span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb901-10" data-line-number="10">MLs[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">calcMLn</span>(f2,lmap,varmap,<span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb901-11" data-line-number="11">MLs[<span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">calcMLn</span>(f3,lmap,varmap,<span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb901-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb901-13" data-line-number="13">BF &lt;-<span class="st"> </span>(MLs[<span class="dv">1</span>]<span class="op">+</span>MLs[<span class="dv">2</span>]) <span class="op">-</span>MLs[<span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb901-14" data-line-number="14">BF</a></code></pre></div>
+<div class="sourceCode" id="cb1038"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1038-1" data-line-number="1">lmap &lt;-<span class="st"> </span>par[ind[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb1038-2" data-line-number="2">varmap &lt;-<span class="st"> </span>par[ind[<span class="dv">2</span>]]</a>
+<a class="sourceLine" id="cb1038-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1038-4" data-line-number="4">f1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,<span class="dv">1</span>]<span class="op">/</span><span class="dv">48</span>, <span class="dt">y=</span>D[<span class="dv">1</span><span class="op">:</span><span class="dv">24</span>,geneindex])</a>
+<a class="sourceLine" id="cb1038-5" data-line-number="5">f2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),<span class="dv">1</span>]<span class="op">/</span><span class="dv">48</span>, <span class="dt">y=</span>D[<span class="dv">25</span><span class="op">:</span><span class="kw">nrow</span>(D),geneindex])</a>
+<a class="sourceLine" id="cb1038-6" data-line-number="6">f3 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>D[,<span class="dv">1</span>]<span class="op">/</span><span class="dv">48</span>, <span class="dt">y=</span>D[,geneindex])</a>
+<a class="sourceLine" id="cb1038-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb1038-8" data-line-number="8">MLs &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dt">nrow=</span><span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb1038-9" data-line-number="9">MLs[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">calcMLn</span>(f1,lmap,varmap,<span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb1038-10" data-line-number="10">MLs[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">calcMLn</span>(f2,lmap,varmap,<span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb1038-11" data-line-number="11">MLs[<span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">calcMLn</span>(f3,lmap,varmap,<span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb1038-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb1038-13" data-line-number="13">BF &lt;-<span class="st"> </span>(MLs[<span class="dv">1</span>]<span class="op">+</span>MLs[<span class="dv">2</span>]) <span class="op">-</span>MLs[<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb1038-14" data-line-number="14">BF</a></code></pre></div>
 <pre><code>## [1] 2749.534</code></pre>
 <p>So from the Bayes’ Factor there’s some slight evidence for model 1 (differential expression) over model 2 (non-differential expression).</p>
 
@@ -585,7 +615,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -604,6 +633,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -624,6 +654,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -637,7 +671,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

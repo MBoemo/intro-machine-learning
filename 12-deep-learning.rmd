@@ -72,7 +72,7 @@ Next we can construct a vector of length $5257$ containing the classification fo
 
 ```{r}
 library(reticulate)
-reticulate::use_python('/usr/bin/python3')
+reticulate::use_python('/rds/user/mb915/hpc-work/tensorflow-env/bin/python3')
 library(kerasR)
 labels <- rbind(matrix(0, length(files1), 1), matrix(1, length(files2), 1))
 allY <- to_categorical(labels, num_classes = 2)

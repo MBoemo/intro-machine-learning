@@ -26,6 +26,10 @@ Methods of clustering can be broadly divided into two types:
 ##   +.gg   ggplot2
 ```
 
+```
+## Warning: `qplot()` was deprecated in ggplot2 3.4.0.
+```
+
 <div class="figure" style="text-align: center">
 <img src="03-clustering_files/figure-html/clusterTypes-1.png" alt="Example clusters. **A**, *blobs*; **B**, *aggregation*; **C**, *noisy moons*; **D**, *different density*; **E**, *anisotropic distributions*; **F**, *no structure*." width="80%" />
 <p class="caption">(\#fig:clusterTypes)Example clusters. **A**, *blobs*; **B**, *aggregation*; **C**, *noisy moons*; **D**, *different density*; **E**, *anisotropic distributions*; **F**, *no structure*.</p>
@@ -258,6 +262,17 @@ We load the dbscan package in the usual way:
 library(dbscan)
 ```
 
+```
+## 
+## Attaching package: 'dbscan'
+```
+
+```
+## The following object is masked from 'package:stats':
+## 
+##     as.dendrogram
+```
+
 ### Choosing parameters
 The algorithm only needs parameteres **eps** and **minPts**.
 
@@ -320,7 +335,7 @@ library(dendextend)
 ```
 ## 
 ## ---------------------
-## Welcome to dendextend version 1.15.2
+## Welcome to dendextend version 1.16.0
 ## Type citation('dendextend') for how to cite the package.
 ## 
 ## Type browseVignettes(package = 'dendextend') for the package vignette.
@@ -573,6 +588,24 @@ plot_clusters(noisy_moons, res, 2)
 ```r
 diff_density <- as.data.frame(read.csv("data/example_clusters/different_density.csv", header=F))
 res <- lapply(k, function(i){kmeans(diff_density[,1:2], i, nstart=50)})
+```
+
+```
+## Warning: did not converge in 10 iterations
+
+## Warning: did not converge in 10 iterations
+
+## Warning: did not converge in 10 iterations
+
+## Warning: did not converge in 10 iterations
+
+## Warning: did not converge in 10 iterations
+
+## Warning: did not converge in 10 iterations
+
+## Warning: did not converge in 10 iterations
+
+## Warning: did not converge in 10 iterations
 ```
 Failure to converge, so increase number of iterations.
 
@@ -1290,7 +1323,7 @@ getDoParWorkers()
 ```
 
 ```
-## [1] 8
+## [1] 76
 ```
 
 Instead of using the **lapply** function to vectorize our code, we will instead use the parallel equivalent, **foreach**. Like **lapply**, **foreach** returns a list by default. For this example we have set a seed, rather than generate a random number, for the sake of reproducibility. Ordinarily we would omit ```set.seed(42)``` and ```.options.multicore=list(set.seed=FALSE)```.

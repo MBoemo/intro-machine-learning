@@ -96,14 +96,6 @@ Load required libraries
 
 ```r
 library(caret)
-```
-
-```
-## Warning in system("timedatectl", intern = TRUE): running command 'timedatectl'
-## had status 1
-```
-
-```r
 library(RColorBrewer)
 library(ggplot2)
 library(pROC)
@@ -531,7 +523,7 @@ svmTune$finalModel
 ```r
 library(datasets)
 data(iris) ##loads the dataset, which can be accessed under the variable name iris
-?iris ##opens the documentation for the dataset
+## ?iris opens the documentation for the dataset
 summary(iris) ##presents the 5 figure summary of the dataset
 ```
 
@@ -1026,6 +1018,10 @@ qplot(concRatioTest, test_pred) +
   xlab("observed") +
   ylab("predicted") +
   theme_bw()
+```
+
+```
+## Warning: `qplot()` was deprecated in ggplot2 3.4.0.
 ```
 
 <div class="figure" style="text-align: center">

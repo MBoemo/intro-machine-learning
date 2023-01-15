@@ -80,11 +80,11 @@ library(caret)
 ```
 
 ```
-## Loading required package: lattice
+## Loading required package: ggplot2
 ```
 
 ```
-## Loading required package: ggplot2
+## Loading required package: lattice
 ```
 
 ```r
@@ -232,11 +232,11 @@ library("arm")
 
 ```
 ## 
-## arm (Version 1.11-1, built: 2020-4-27)
+## arm (Version 1.13-1, built: 2022-8-25)
 ```
 
 ```
-## Working directory is /home/ubuntu/Course_Materials/intro-machine-learning
+## Working directory is /rds/user/mb915/hpc-work/development/updatePractical/intro-machine-learning
 ```
 
 ```r

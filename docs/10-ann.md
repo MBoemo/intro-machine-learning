@@ -10,14 +10,14 @@
 
 <div class="figure" style="text-align: center">
 <img src="images/neuronal_computation.png" alt="Neuronal computation" width="65%" />
-<p class="caption">Neuronal computation</p>
+<p class="caption">(\#fig:neuronalComputation)Neuronal computation</p>
 </div>
 Computational representation of a neuron (Figure \@ref(fig:perceptron)) aims to mimmick the biological input-and-activation architecture of a neuron (Figure \@ref(fig:neuronalComputation)). A single unit of a computational neuron is also called a **perceptron  or ptrons**. Ptrons have a nonlinear activation function (e.g a logistic function) which determines their output value based upon the values of their inputs.
 
 
 <div class="figure" style="text-align: center">
 <img src="images/Perceptron.png" alt="Perceptron" width="65%" />
-<p class="caption">Perceptron</p>
+<p class="caption">(\#fig:perceptron)Perceptron</p>
 </div>
 
 **Architecture of ANNs**
@@ -41,7 +41,7 @@ This method of computing $h_{\theta}$(x) is called *Forward Propagation*.
 
 <div class="figure" style="text-align: center">
 <img src="images/NN3.png" alt="Neural Network Modeling" width="85%" />
-<p class="caption">Neural Network Modeling</p>
+<p class="caption">(\#fig:neuralNetworkModeling)Neural Network Modeling</p>
 </div>
 
 *where*
@@ -90,7 +90,7 @@ h_\Theta(x) &= a^{(3)} = g(z^{(3)})
 Consider the supervised learning problems below (Figure \@ref(fig:supervisedLearningProbs)). The first two are straight forward cases. 
 <div class="figure" style="text-align: center">
 <img src="images/NN4.PNG" alt="Why ANN" width="85%" />
-<p class="caption">Why ANN</p>
+<p class="caption">(\#fig:supervisedLearningProbs)Why ANN</p>
 </div>
 
 
@@ -112,7 +112,7 @@ Figure \@ref(fig:simpleLogicalANDANN) shows an example of a simple logical AND p
 
 <div class="figure" style="text-align: center">
 <img src="images/NN5.png" alt="Simple Logical AND ANN" width="85%" />
-<p class="caption">Simple Logical AND ANN</p>
+<p class="caption">(\#fig:simpleLogicalANDANN)Simple Logical AND ANN</p>
 </div>
 
 **Cost function and back propagation**
@@ -148,9 +148,8 @@ It is termed back propogation because of the fact that we compute the error from
 
 *Example model*
 
-This example uses the Boston data from the MASS package which contains a number of predictors of median property values in suburbs of Boston, MA, USA. The code used is based on Alice, (2015)
+This example uses the Abalone dataset which includes measurements of the shell, weight, and rings for 4177 gastropod molluscs.
 
-The Boston dataset is a collection of data about housing values in the suburbs of Boston. Our goal is to predict the median value of owner-occupied homes (medv) using all the other continuous variables available.
 
 
 ```r
@@ -180,6 +179,10 @@ library(caret) # useful tools for machine learning
 ```
 
 ```
+## Loading required package: ggplot2
+```
+
+```
 ## Loading required package: lattice
 ```
 
@@ -200,23 +203,19 @@ library(caret) # useful tools for machine learning
 ##     melanoma
 ```
 
-```
-## Loading required package: ggplot2
-```
-
 ```r
 library(corrplot)
 ```
 
 ```
-## corrplot 0.84 loaded
+## corrplot 0.92 loaded
 ```
 
 
 
 ```r
 set.seed(500)
-install.packages("AppliedPredictiveModeling")
+
 library(AppliedPredictiveModeling)
 data(abalone)
 data <- abalone
@@ -230,11 +229,10 @@ apply(data,2,function(x) sum(is.na(x)))
 ```
 
 ```
-## LongestShell      Diameter        Height   WholeWeight ShuckedWeight 
-##            0             0             0             0             0 
+##  LongestShell      Diameter        Height   WholeWeight ShuckedWeight 
+##             0             0             0             0             0 
 ## VisceraWeight   ShellWeight         Rings 
-##            0             0             0 
-
+##             0             0             0
 ```
 
 We randomly splitt the data into a train and a test set and then we fit a linear regression model and test it on the test set. 
@@ -268,7 +266,7 @@ summary(lm.fit)
 ## ShellWeight   -0.0223557  0.0113701  -1.966 0.049365 *  
 ## Rings         -0.0000322  0.0001545  -0.208 0.834893    
 ## ---
-## Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for gaussian family taken to be 0.0003633564)
 ## 
@@ -356,7 +354,7 @@ print(paste(MSE.lm,MSE.nn))
 ```
 
 ```
-## [1] "0.00032463611652619 0.000279525632864209"
+## [1] "0.000333653875323276 0.000294032683283158"
 ```
 
 
@@ -455,16 +453,10 @@ pbar$init(k)
 ```
 
 ```
-## 
-  |                                                                            
-  |                                                                      |   0%
+##   |                                                                              |                                                                      |   0%
 ```
 
 ```r
-library(plyr) 
-pbar <- create_progress_bar('text')
-pbar$init(k)
-
 for(i in 1:k){
     index <- sample(1:nrow(data),round(0.9*nrow(data)))
     train.cv <- scaled[index,]
@@ -484,27 +476,7 @@ for(i in 1:k){
 ```
 
 ```
-## 
-  |                                                                            
-  |=======                                                               |  10%
-  |                                                                            
-  |==============                                                        |  20%
-  |                                                                            
-  |=====================                                                 |  30%
-  |                                                                            
-  |============================                                          |  40%
-  |                                                                            
-  |===================================                                   |  50%
-  |                                                                            
-  |==========================================                            |  60%
-  |                                                                            
-  |=================================================                     |  70%
-  |                                                                            
-  |========================================================              |  80%
-  |                                                                            
-  |===============================================================       |  90%
-  |                                                                            
-  |======================================================================| 100%
+##   |                                                                              |=======                                                               |  10%  |                                                                              |==============                                                        |  20%  |                                                                              |=====================                                                 |  30%  |                                                                              |============================                                          |  40%  |                                                                              |===================================                                   |  50%  |                                                                              |==========================================                            |  60%  |                                                                              |=================================================                     |  70%  |                                                                              |========================================================              |  80%  |                                                                              |===============================================================       |  90%  |                                                                              |======================================================================| 100%
 ```
 
 We calculate the average MSE and plot the results as a boxplot. 
@@ -515,7 +487,7 @@ mean(cv.error)
 ```
 
 ```
-## [1] 0.0003025321
+## [1] 0.0002750232
 ```
 
 

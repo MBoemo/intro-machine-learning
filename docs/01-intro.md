@@ -87,11 +87,6 @@ library(caret)
 ## Loading required package: lattice
 ```
 
-```
-## Warning in system("timedatectl", intern = TRUE): running command 'timedatectl'
-## had status 1
-```
-
 ### Preprocessing with the Iris dataset
 
 From the iris manual page:
@@ -103,7 +98,7 @@ The famous (Fisher’s or Anderson’s) Iris data set, first presented by Fisher
 ```r
 library(datasets)
 data(iris) ##loads the dataset, which can be accessed under the variable name iris
-?iris ##opens the documentation for the dataset
+## ?iris opens the documentation for the dataset
 summary(iris) ##presents the 5 figure summary of the dataset
 ```
 
@@ -685,7 +680,7 @@ This data frame contains house and sale price data for 932 homes in Sacramento C
 
 ```r
 data("Sacramento") ##loads the dataset, which can be accessed under the variable name Sacramento
-?Sacramento
+## ?Sacramento describes the dataset
 str(Sacramento)
 ```
 

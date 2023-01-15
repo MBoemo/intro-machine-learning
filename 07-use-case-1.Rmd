@@ -86,7 +86,7 @@ summary(as.factor(stage))
 ### Model comparison
 Explore how CARET's **resamples** function can help you compare models:
 ```{r}
-?resamples
+## ?resamples
 ```
 
 

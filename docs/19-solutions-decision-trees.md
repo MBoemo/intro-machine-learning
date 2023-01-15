@@ -106,23 +106,14 @@ titanic3 <- "https://goo.gl/At238b" %>%
 ```
 
 ```
-## Parsed with column specification:
-## cols(
-##   pclass = col_character(),
-##   survived = col_double(),
-##   name = col_character(),
-##   sex = col_character(),
-##   age = col_double(),
-##   sibsp = col_double(),
-##   parch = col_double(),
-##   ticket = col_character(),
-##   fare = col_double(),
-##   cabin = col_character(),
-##   embarked = col_character(),
-##   boat = col_character(),
-##   body = col_double(),
-##   home.dest = col_character()
-## )
+## Rows: 1309 Columns: 14
+## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## Delimiter: ","
+## chr (8): pclass, name, sex, ticket, cabin, embarked, boat, home.dest
+## dbl (6): survived, age, sibsp, parch, fare, body
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 ```r

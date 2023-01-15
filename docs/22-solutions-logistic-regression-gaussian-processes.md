@@ -29,11 +29,11 @@ library(caret)
 ```
 
 ```
-## Loading required package: lattice
+## Loading required package: ggplot2
 ```
 
 ```
-## Loading required package: ggplot2
+## Loading required package: lattice
 ```
 
 ```r
