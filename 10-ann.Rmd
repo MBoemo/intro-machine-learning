@@ -143,9 +143,8 @@ It is termed back propogation because of the fact that we compute the error from
 
 *Example model*
 
-This example uses the Boston data from the MASS package which contains a number of predictors of median property values in suburbs of Boston, MA, USA. The code used is based on Alice, (2015)
+This example uses the Abalone dataset which includes measurements of the shell, weight, and rings for 4177 gastropod molluscs.
 
-The Boston dataset is a collection of data about housing values in the suburbs of Boston. Our goal is to predict the median value of owner-occupied homes (medv) using all the other continuous variables available.
 
 ```{r}
 library(neuralnet)
@@ -163,8 +162,12 @@ library(corrplot)
 
 ```{r}
 set.seed(500)
-library(MASS)
-data <- Boston
+
+install.packages("AppliedPredictiveModeling")
+library(AppliedPredictiveModeling)
+data <- abalone
+data = subset(data,select=-Type)
+
 ```
 Checking whether there are any missing data.
 
@@ -178,10 +181,10 @@ We randomly splitt the data into a train and a test set and then we fit a linear
 index <- sample(1:nrow(data),round(0.75*nrow(data)))
 train <- data[index,]
 test <- data[-index,]
-lm.fit <- glm(medv~., data=train)
+lm.fit <- glm(LongestShell~., data=train)
 summary(lm.fit)
 pr.lm <- predict(lm.fit,test)
-MSE.lm <- sum((pr.lm - test$medv)^2)/nrow(test)
+MSE.lm <- sum((pr.lm - test$LongestShell)^2)/nrow(test)
 
 ```
 The sample(x,size) function simply outputs a vector of the specified size of randomly selected samples from the vector x. By default the sampling is without replacement: index is essentially a random vector of indeces.
@@ -211,7 +214,7 @@ Scale returns a matrix that needs to be coerced into a data.frame.
 ```{r}
 library(neuralnet)
 n <- names(train_)
-f <- as.formula(paste("medv ~", paste(n[!n %in% "medv"], collapse = " + ")))
+f <- as.formula(paste("LongestShell ~", paste(n[!n %in% "LongestShell"], collapse = " + ")))
 nn <- neuralnet(f,data=train_,hidden=c(5,3),linear.output=T)
 
 ```
@@ -237,10 +240,10 @@ Now we can try to predict the values for the test set and calculate the MSE. Rem
 
 
 ```{r}
-pr.nn <- compute(nn,test_[,1:13])
+pr.nn <- compute(nn,test_[,1:8])
 
-pr.nn_ <- pr.nn$net.result*(max(data$medv)-min(data$medv))+min(data$medv)
-test.r <- (test_$medv)*(max(data$medv)-min(data$medv))+min(data$medv)
+pr.nn_ <- pr.nn$net.result*(max(data$LongestShell)-min(data$LongestShell))+min(data$LongestShell)
+test.r <- (test_$LongestShell)*(max(data$LongestShell)-min(data$LongestShell))+min(data$LongestShell)
 
 MSE.nn <- sum((test.r - pr.nn_)^2)/nrow(test_)
 ```
@@ -254,18 +257,18 @@ print(paste(MSE.lm,MSE.nn))
 ```{r}
 par(mfrow=c(1,2))
 
-plot(test$medv,pr.nn_,col='red',main='Real vs predicted NN',pch=18,cex=0.7)
+plot(test$LongestShell,pr.nn_,col='red',main='Real vs predicted NN',pch=18,cex=0.7)
 abline(0,1,lwd=2)
 legend('bottomright',legend='NN',pch=18,col='red', bty='n')
 
-plot(test$medv,pr.lm,col='blue',main='Real vs predicted lm',pch=18, cex=0.7)
+plot(test$LongestShell,pr.lm,col='blue',main='Real vs predicted lm',pch=18, cex=0.7)
 abline(0,1,lwd=2)
 legend('bottomright',legend='LM',pch=18,col='blue', bty='n', cex=.95)
 
 ```
 
 
-The net is doing a better work than the linear model at predicting medv. Once again, be cautious because this result depends on the train-test split performed above. Below, after the visual plot, we are going to perform a fast cross validation in order to be more confident about the results.
+The net is doing a slightly better job than the linear model at predicting LongestShell. Once again, be cautious because this result depends on the train-test split performed above. Below, after the visual plot, we are going to perform a fast cross validation in order to be more confident about the results.
 
 A first visual approach to the performance of the network and the linear model on the test set is plotted. 
 
@@ -274,8 +277,8 @@ By visually inspecting the plot we can see that the predictions made by the neur
 A perhaps more useful visual comparison is plotted. 
 
 ```{r}
-plot(test$medv,pr.nn_,col='red',main='Real vs predicted NN',pch=18,cex=0.7)
-points(test$medv,pr.lm,col='blue',pch=18,cex=0.7)
+plot(test$LongestShell,pr.nn_,col='red',main='Real vs predicted NN',pch=18,cex=0.7)
+points(test$LongestShell,pr.lm,col='blue',pch=18,cex=0.7)
 abline(0,1,lwd=2)
 legend('bottomright',legend=c('NN','LM'),pch=18,col=c('red','blue'))
 ```
@@ -298,7 +301,7 @@ Here is the 10 fold cross validated MSE for the linear model
 ```{r}
 library(boot)
 set.seed(200)
-lm.fit <- glm(medv~.,data=data)
+lm.fit <- glm(LongestShell~.,data=data)
 cv.glm(data,lm.fit,K=10)$delta[1]
 
 ```
@@ -328,10 +331,10 @@ for(i in 1:k){
     
     nn <- neuralnet(f,data=train.cv,hidden=c(5,2),linear.output=T)
     
-    pr.nn <- compute(nn,test.cv[,1:13])
-    pr.nn <- pr.nn$net.result*(max(data$medv)-min(data$medv))+min(data$medv)
+    pr.nn <- compute(nn,test.cv[,1:8])
+    pr.nn <- pr.nn$net.result*(max(data$LongestShell)-min(data$LongestShell))+min(data$LongestShell)
     
-    test.cv.r <- (test.cv$medv)*(max(data$medv)-min(data$medv))+min(data$medv)
+    test.cv.r <- (test.cv$LongestShell)*(max(data$LongestShell)-min(data$LongestShell))+min(data$LongestShell)
     
     cv.error[i] <- sum((test.cv.r - pr.nn)^2)/nrow(test.cv)
     
@@ -351,7 +354,7 @@ boxplot(cv.error,xlab='MSE CV',col='cyan',
         main='CV error (MSE) for NN',horizontal=TRUE)
 ```
 
-The average MSE for the neural network (10.33) is lower than the one of the linear model although there seems to be a certain degree of variation in the MSEs of the cross validation. This may depend on the splitting of the data or the random initialization of the weights in the net. By running the simulation different times with different seeds you can get a more precise point estimate for the average MSE.
+The average MSE for the neural network is a bit different from that of the linear model although there seems to be a certain degree of variation in the MSEs of the cross validation. This may depend on the splitting of the data or the random initialization of the weights in the net. By running the simulation different times with different seeds you can get a more precise point estimate for the average MSE.
 
 *Acknowledgement: the above example is from* https://www.r-bloggers.com/fitting-a-neural-network-in-r-neuralnet-package/
 ## Exercises

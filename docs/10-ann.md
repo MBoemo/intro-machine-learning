@@ -216,8 +216,11 @@ library(corrplot)
 
 ```r
 set.seed(500)
-library(MASS)
-data <- Boston
+install.packages("AppliedPredictiveModeling")
+library(AppliedPredictiveModeling)
+data(abalone)
+data <- abalone
+data = subset(data,select=-Type)
 ```
 Checking whether there are any missing data.
 
@@ -227,10 +230,11 @@ apply(data,2,function(x) sum(is.na(x)))
 ```
 
 ```
-##    crim      zn   indus    chas     nox      rm     age     dis     rad     tax 
-##       0       0       0       0       0       0       0       0       0       0 
-## ptratio   black   lstat    medv 
-##       0       0       0       0
+## LongestShell      Diameter        Height   WholeWeight ShuckedWeight 
+##            0             0             0             0             0 
+## VisceraWeight   ShellWeight         Rings 
+##            0             0             0 
+
 ```
 
 We randomly splitt the data into a train and a test set and then we fit a linear regression model and test it on the test set. 
@@ -240,50 +244,44 @@ We randomly splitt the data into a train and a test set and then we fit a linear
 index <- sample(1:nrow(data),round(0.75*nrow(data)))
 train <- data[index,]
 test <- data[-index,]
-lm.fit <- glm(medv~., data=train)
+lm.fit <- glm(LongestShell~., data=train)
 summary(lm.fit)
 ```
 
 ```
 ## 
 ## Call:
-## glm(formula = medv ~ ., data = train)
+## glm(formula = LongestShell ~ ., data = train)
 ## 
 ## Deviance Residuals: 
-##      Min        1Q    Median        3Q       Max  
-## -15.2113   -2.5587   -0.6552    1.8275   29.7110  
+##       Min         1Q     Median         3Q        Max  
+## -0.295287  -0.010752   0.000096   0.010620   0.124572  
 ## 
 ## Coefficients:
-##               Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  31.111702   5.459811   5.698 2.49e-08 ***
-## crim         -0.111372   0.033256  -3.349 0.000895 ***
-## zn            0.042633   0.014307   2.980 0.003077 ** 
-## indus         0.001483   0.067455   0.022 0.982473    
-## chas          1.756844   0.981087   1.791 0.074166 .  
-## nox         -18.184847   4.471572  -4.067 5.84e-05 ***
-## rm            4.760341   0.480472   9.908  < 2e-16 ***
-## age          -0.013439   0.014101  -0.953 0.341190    
-## dis          -1.553748   0.218929  -7.097 6.65e-12 ***
-## rad           0.288181   0.072017   4.002 7.62e-05 ***
-## tax          -0.013739   0.004060  -3.384 0.000791 ***
-## ptratio      -0.947549   0.140120  -6.762 5.38e-11 ***
-## black         0.009502   0.002901   3.276 0.001154 ** 
-## lstat        -0.388902   0.059733  -6.511 2.47e-10 ***
+##                 Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)    0.0551504  0.0025234  21.855  < 2e-16 ***
+## Diameter       1.0885125  0.0104820 103.846  < 2e-16 ***
+## Height         0.0801306  0.0231941   3.455 0.000558 ***
+## WholeWeight   -0.0055897  0.0072959  -0.766 0.443652    
+## ShuckedWeight  0.0377706  0.0085590   4.413 1.05e-05 ***
+## VisceraWeight  0.0580772  0.0130341   4.456 8.65e-06 ***
+## ShellWeight   -0.0223557  0.0113701  -1.966 0.049365 *  
+## Rings         -0.0000322  0.0001545  -0.208 0.834893    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ## 
-## (Dispersion parameter for gaussian family taken to be 20.23806)
+## (Dispersion parameter for gaussian family taken to be 0.0003633564)
 ## 
-##     Null deviance: 32463.5  on 379  degrees of freedom
-## Residual deviance:  7407.1  on 366  degrees of freedom
-## AIC: 2237
+##     Null deviance: 45.9430  on 3132  degrees of freedom
+## Residual deviance:  1.1355  on 3125  degrees of freedom
+## AIC: -15913
 ## 
 ## Number of Fisher Scoring iterations: 2
 ```
 
 ```r
 pr.lm <- predict(lm.fit,test)
-MSE.lm <- sum((pr.lm - test$medv)^2)/nrow(test)
+MSE.lm <- sum((pr.lm - test$LongestShell)^2)/nrow(test)
 ```
 The sample(x,size) function simply outputs a vector of the specified size of randomly selected samples from the vector x. By default the sampling is without replacement: index is essentially a random vector of indeces.
 
@@ -315,7 +313,7 @@ Scale returns a matrix that needs to be coerced into a data.frame.
 ```r
 library(neuralnet)
 n <- names(train_)
-f <- as.formula(paste("medv ~", paste(n[!n %in% "medv"], collapse = " + ")))
+f <- as.formula(paste("LongestShell ~", paste(n[!n %in% "LongestShell"], collapse = " + ")))
 nn <- neuralnet(f,data=train_,hidden=c(5,3),linear.output=T)
 ```
 
@@ -342,10 +340,10 @@ Now we can try to predict the values for the test set and calculate the MSE. Rem
 
 
 ```r
-pr.nn <- compute(nn,test_[,1:13])
+pr.nn <- compute(nn,test_[,1:8])
 
-pr.nn_ <- pr.nn$net.result*(max(data$medv)-min(data$medv))+min(data$medv)
-test.r <- (test_$medv)*(max(data$medv)-min(data$medv))+min(data$medv)
+pr.nn_ <- pr.nn$net.result*(max(data$LongestShell)-min(data$LongestShell))+min(data$LongestShell)
+test.r <- (test_$LongestShell)*(max(data$LongestShell)-min(data$LongestShell))+min(data$LongestShell)
 
 MSE.nn <- sum((test.r - pr.nn_)^2)/nrow(test_)
 ```
@@ -358,18 +356,18 @@ print(paste(MSE.lm,MSE.nn))
 ```
 
 ```
-## [1] "31.2630222372615 16.4595537665717"
+## [1] "0.00032463611652619 0.000279525632864209"
 ```
 
 
 ```r
 par(mfrow=c(1,2))
 
-plot(test$medv,pr.nn_,col='red',main='Real vs predicted NN',pch=18,cex=0.7)
+plot(test$LongestShell,pr.nn_,col='red',main='Real vs predicted NN',pch=18,cex=0.7)
 abline(0,1,lwd=2)
 legend('bottomright',legend='NN',pch=18,col='red', bty='n')
 
-plot(test$medv,pr.lm,col='blue',main='Real vs predicted lm',pch=18, cex=0.7)
+plot(test$LongestShell,pr.lm,col='blue',main='Real vs predicted lm',pch=18, cex=0.7)
 abline(0,1,lwd=2)
 legend('bottomright',legend='LM',pch=18,col='blue', bty='n', cex=.95)
 ```
@@ -377,7 +375,7 @@ legend('bottomright',legend='LM',pch=18,col='blue', bty='n', cex=.95)
 <img src="10-ann_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 
-The net is doing a better work than the linear model at predicting medv. Once again, be cautious because this result depends on the train-test split performed above. Below, after the visual plot, we are going to perform a fast cross validation in order to be more confident about the results.
+The net is doing a slightly better job than the linear model at predicting LongestShell. Once again, be cautious because this result depends on the train-test split performed above. Below, after the visual plot, we are going to perform a fast cross validation in order to be more confident about the results.
 
 A first visual approach to the performance of the network and the linear model on the test set is plotted. 
 
@@ -387,8 +385,8 @@ A perhaps more useful visual comparison is plotted.
 
 
 ```r
-plot(test$medv,pr.nn_,col='red',main='Real vs predicted NN',pch=18,cex=0.7)
-points(test$medv,pr.lm,col='blue',pch=18,cex=0.7)
+plot(test$LongestShell,pr.nn_,col='red',main='Real vs predicted NN',pch=18,cex=0.7)
+points(test$LongestShell,pr.lm,col='blue',pch=18,cex=0.7)
 abline(0,1,lwd=2)
 legend('bottomright',legend=c('NN','LM'),pch=18,col=c('red','blue'))
 ```
@@ -414,12 +412,12 @@ Here is the 10 fold cross validated MSE for the linear model
 ```r
 library(boot)
 set.seed(200)
-lm.fit <- glm(medv~.,data=data)
+lm.fit <- glm(LongestShell~.,data=data)
 cv.glm(data,lm.fit,K=10)$delta[1]
 ```
 
 ```
-## [1] 23.17094
+## [1] 0.0003554985
 ```
 
 
@@ -457,10 +455,16 @@ pbar$init(k)
 ```
 
 ```
-##   |                                                                              |                                                                      |   0%
+## 
+  |                                                                            
+  |                                                                      |   0%
 ```
 
 ```r
+library(plyr) 
+pbar <- create_progress_bar('text')
+pbar$init(k)
+
 for(i in 1:k){
     index <- sample(1:nrow(data),round(0.9*nrow(data)))
     train.cv <- scaled[index,]
@@ -468,10 +472,10 @@ for(i in 1:k){
     
     nn <- neuralnet(f,data=train.cv,hidden=c(5,2),linear.output=T)
     
-    pr.nn <- compute(nn,test.cv[,1:13])
-    pr.nn <- pr.nn$net.result*(max(data$medv)-min(data$medv))+min(data$medv)
+    pr.nn <- compute(nn,test.cv[,1:8])
+    pr.nn <- pr.nn$net.result*(max(data$LongestShell)-min(data$LongestShell))+min(data$LongestShell)
     
-    test.cv.r <- (test.cv$medv)*(max(data$medv)-min(data$medv))+min(data$medv)
+    test.cv.r <- (test.cv$LongestShell)*(max(data$LongestShell)-min(data$LongestShell))+min(data$LongestShell)
     
     cv.error[i] <- sum((test.cv.r - pr.nn)^2)/nrow(test.cv)
     
@@ -480,7 +484,27 @@ for(i in 1:k){
 ```
 
 ```
-##   |                                                                              |=======                                                               |  10%  |                                                                              |==============                                                        |  20%  |                                                                              |=====================                                                 |  30%  |                                                                              |============================                                          |  40%  |                                                                              |===================================                                   |  50%  |                                                                              |==========================================                            |  60%  |                                                                              |=================================================                     |  70%  |                                                                              |========================================================              |  80%  |                                                                              |===============================================================       |  90%  |                                                                              |======================================================================| 100%
+## 
+  |                                                                            
+  |=======                                                               |  10%
+  |                                                                            
+  |==============                                                        |  20%
+  |                                                                            
+  |=====================                                                 |  30%
+  |                                                                            
+  |============================                                          |  40%
+  |                                                                            
+  |===================================                                   |  50%
+  |                                                                            
+  |==========================================                            |  60%
+  |                                                                            
+  |=================================================                     |  70%
+  |                                                                            
+  |========================================================              |  80%
+  |                                                                            
+  |===============================================================       |  90%
+  |                                                                            
+  |======================================================================| 100%
 ```
 
 We calculate the average MSE and plot the results as a boxplot. 
@@ -491,7 +515,7 @@ mean(cv.error)
 ```
 
 ```
-## [1] 7.641292
+## [1] 0.0003025321
 ```
 
 
@@ -503,7 +527,7 @@ boxplot(cv.error,xlab='MSE CV',col='cyan',
 
 <img src="10-ann_files/figure-html/unnamed-chunk-17-1.png" width="672" />
 
-The average MSE for the neural network (10.33) is lower than the one of the linear model although there seems to be a certain degree of variation in the MSEs of the cross validation. This may depend on the splitting of the data or the random initialization of the weights in the net. By running the simulation different times with different seeds you can get a more precise point estimate for the average MSE.
+The average MSE for the neural network is a bit different from that of the linear model although there seems to be a certain degree of variation in the MSEs of the cross validation. This may depend on the splitting of the data or the random initialization of the weights in the net. By running the simulation different times with different seeds you can get a more precise point estimate for the average MSE.
 
 *Acknowledgement: the above example is from* https://www.r-bloggers.com/fitting-a-neural-network-in-r-neuralnet-package/
 ## Exercises
