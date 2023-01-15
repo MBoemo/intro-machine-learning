@@ -589,6 +589,14 @@ plot_clusters(noisy_moons, res, 2)
 diff_density <- as.data.frame(read.csv("data/example_clusters/different_density.csv", header=F))
 res <- lapply(k, function(i){kmeans(diff_density[,1:2], i, nstart=50)})
 ```
+
+```
+## Warning: did not converge in 10 iterations
+
+## Warning: did not converge in 10 iterations
+
+## Warning: did not converge in 10 iterations
+```
 Failure to converge, so increase number of iterations.
 
 ```r
@@ -1493,10 +1501,71 @@ The package [EBImage](https://bioconductor.org/packages/EBImage/) provides a sui
 
 
 
+```r
+library(EBImage)
+```
+
+```
+## 
+## Attaching package: 'EBImage'
+```
+
+```
+## The following object is masked from 'package:dendextend':
+## 
+##     rotate
+```
+
+```r
+library(methods)
+img <- readImage("data/histology/Emphysema_H_and_E.jpg")
+```
+
+```img``` is an object of the [EBImage](https://bioconductor.org/packages/EBImage/) class Image; it is essentially a multidimensional array containing the pixel intensities. To see the dimensions of the array, run:
+
+```r
+dim(img)
+```
+
+```
+## [1] 528 393   3
+```
+
+In the case of this colour image, the array is 3-dimensional with 528 x 393 x 3 elements. These dimensions correspond to the image width (in pixels), image height and number of colour channels, respectively. The colour channels are red, green and blue (RGB). 
+
+Before we can cluster the pixels on colour, we need to convert the 3D array into a 2D data.frame (or matrix). Specifically, we require a data.frame (or matrix) where rows represent pixels and there is a column for the intensity of each of the three colour channels. We also need columns for the x and y coordinates of each pixel.
+
+
+```r
+imgDim <- dim(img)
+imgDF <- data.frame(
+  x = rep(1:imgDim[1], imgDim[2]),
+  y = rep(imgDim[2]:1, each=imgDim[1]),
+  r = as.vector(img[,,1]),
+  g = as.vector(img[,,2]),
+  b = as.vector(img[,,3])
+)
+```
+
+If the data in ```imgDF``` are correct, we should be able to display the image using ggplot:
+
+```r
+ggplot(data = imgDF, aes(x = x, y = y)) + 
+  geom_point(colour = rgb(imgDF[c("r", "g", "b")])) +
+  xlab("x") +
+  ylab("y") +
+  theme_minimal()
+```
+
+<div class="figure" style="text-align: center">
+<img src="03-clustering_files/figure-html/recreatedLungHistology-1.png" alt="Image of lung tissue recreated from reshaped data." width="80%" />
+<p class="caption">(\#fig:recreatedLungHistology)Image of lung tissue recreated from reshaped data.</p>
+</div>
+
+This should be all the information you need to perform this exercise.
 
 
 
-
-
+**Solutions to exercises can be found in 16-solutions-clustering.**
 
 
